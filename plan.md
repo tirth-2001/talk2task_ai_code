@@ -6,13 +6,13 @@
 
 **Talk2Task AI** is an agentic platform that transforms unstructured meeting inputs (summaries, transcripts, chats, emails, notes) into **structured actions**, such as:
 
-* Tasks with owners
-* Risks
-* Decisions
-* MoM
-* Slack reminders
-* Calendar events
-* Jira tickets
+- Tasks with owners
+- Risks
+- Decisions
+- MoM
+- Slack reminders
+- Calendar events
+- Jira tickets
 
 It also features an **Automation Studio** for creating custom workflows that run autonomously based on triggers and conditions.
 
@@ -24,55 +24,55 @@ It also features an **Automation Studio** for creating custom workflows that run
 
 System ingests:
 
-* Meeting summaries (Copilot, Gemini, Otter, Teams, Meet)
-* Transcripts
-* Chat messages (Slack, Teams)
-* Emails
-* Manual notes
-* Calendar metadata
+- Meeting summaries (Copilot, Gemini, Otter, Teams, Meet)
+- Transcripts
+- Chat messages (Slack, Teams)
+- Emails
+- Manual notes
+- Calendar metadata
 
 ### **B. AI Interpretation**
 
 Pipeline extracts:
 
-* Tasks
-* Decisions
-* Owners
-* Due dates
-* Risks + risk type
-* Keywords + context
+- Tasks
+- Decisions
+- Owners
+- Due dates
+- Risks + risk type
+- Keywords + context
 
 ### **C. Workflow Automation**
 
 Automation Studio allows:
 
-* Node-based flow creation
-* Drag-and-drop input → AI → condition → action pipeline
-* Conditional branching (IF task contains risk → send alert)
-* Multi-step workflows
-* Execution toggles, test mode, save mode, edit mode
+- Node-based flow creation
+- Drag-and-drop input → AI → condition → action pipeline
+- Conditional branching (IF task contains risk → send alert)
+- Multi-step workflows
+- Execution toggles, test mode, save mode, edit mode
 
 ### **D. Agentic Actions**
 
 AI performs output actions:
 
-* Send Slack messages
-* Create Jira tickets
-* Schedule follow-up meetings
-* Send emails
-* Trigger reminders
-* Escalate risks
+- Send Slack messages
+- Create Jira tickets
+- Schedule follow-up meetings
+- Send emails
+- Trigger reminders
+- Escalate risks
 
 ### **E. Centralized Dashboard**
 
 Shows:
 
-* Total tasks
-* Risks
-* Meetings processed
-* Deadlines
-* Charts (status, risk distribution)
-* Recent meetings
+- Total tasks
+- Risks
+- Meetings processed
+- Deadlines
+- Charts (status, risk distribution)
+- Recent meetings
 
 ---
 
@@ -113,46 +113,45 @@ Message Queue: Redis (for workflows)
 
 ### **1. Input Layer (Connectors)**
 
-* Slack
-* Teams
-* Google Calendar
-* Outlook Calendar
-* Email
-* Manual uploads
+- Slack
+- Teams
+- Google Calendar
+- Outlook Calendar
+- Email
+- Manual uploads
 
 These connect via:
 
-* Webhooks
-* REST APIs
-* OAuth
+- Webhooks
+- REST APIs
+- OAuth
 
 ### **2. Ingestion Layer**
 
-* Normalizes input into JSON
-* Extracts metadata (title, attendees, time)
-* Cleans formatting
+- Normalizes input into JSON
+- Extracts metadata (title, attendees, time)
+- Cleans formatting
 
 ### **3. AI Core**
 
-* Prompt template: “Extract tasks, owners, dates, decisions, risks…”
-* LLM performs:
-
-  * NER
-  * Intent parsing
-  * Temporal reasoning
-  * Responsibility extraction (who owns what)
-  * Risk classification
-  * Decision boundary detection
+- Prompt template: “Extract tasks, owners, dates, decisions, risks…”
+- LLM performs:
+  - NER
+  - Intent parsing
+  - Temporal reasoning
+  - Responsibility extraction (who owns what)
+  - Risk classification
+  - Decision boundary detection
 
 ### **4. Extraction Engine**
 
 Post processing ensures:
 
-* Validation
-* Consistent structure
-* Duplicate merging
-* Date normalization
-* Owner resolving (Jon vs John Doe)
+- Validation
+- Consistent structure
+- Duplicate merging
+- Date normalization
+- Owner resolving (Jon vs John Doe)
 
 ### **5. Workflow Orchestration Engine**
 
@@ -164,37 +163,37 @@ Trigger → AI Step → Condition → Action → Next Action
 
 Supports:
 
-* Branching
-* Looping
-* Wait conditions
-* API actions
+- Branching
+- Looping
+- Wait conditions
+- API actions
 
 ### **6. MCP Action Layer**
 
 MCP (Model Context Protocol) enables the agent to act safely:
 
-* MCP Tool: Slack
-* MCP Tool: Jira
-* MCP Tool: Email
-* MCP Tool: Calendar
-* MCP Tool: Task DB
+- MCP Tool: Slack
+- MCP Tool: Jira
+- MCP Tool: Email
+- MCP Tool: Calendar
+- MCP Tool: Task DB
 
 MCP ensures:
 
-* safe sandboxed execution
-* explicit permissions
-* consistent interfaces
+- safe sandboxed execution
+- explicit permissions
+- consistent interfaces
 
 ### **7. Data Layer**
 
 Stores:
 
-* Meetings
-* Tasks
-* Actions performed
-* Workflow definitions
-* Execution logs
-* Users & settings
+- Meetings
+- Tasks
+- Actions performed
+- Workflow definitions
+- Execution logs
+- Users & settings
 
 ---
 
@@ -246,34 +245,34 @@ Stores:
 
 ### **A. Node Types**
 
-* Trigger node
-* Input node
-* AI extraction node
-* Condition node
-* Slack action node
-* Jira action node
-* Email action node
-* Calendar action node
+- Trigger node
+- Input node
+- AI extraction node
+- Condition node
+- Slack action node
+- Jira action node
+- Email action node
+- Calendar action node
 
 ### **B. Editor Features**
 
-* Drag & drop
-* Connect nodes with arrows
-* Save workflow
-* Test workflow
-* Enable/disable toggle
-* Execution logs
+- Drag & drop
+- Connect nodes with arrows
+- Save workflow
+- Test workflow
+- Enable/disable toggle
+- Execution logs
 
 ### **C. Execution Runtime**
 
 Workflow runner should:
 
-* execute nodes sequentially
-* evaluate condition branches
-* call MCP action tools
-* return statuses
-* retry failures
-* log each step
+- execute nodes sequentially
+- evaluate condition branches
+- call MCP action tools
+- return statuses
+- retry failures
+- log each step
 
 ---
 
@@ -281,34 +280,34 @@ Workflow runner should:
 
 ### **Meeting / Input Handling**
 
-* POST `/ingest`
-* GET `/meeting/:id`
+- POST `/ingest`
+- GET `/meeting/:id`
 
 ### **AI Processing**
 
-* POST `/process`
+- POST `/process`
 
 ### **Task Management**
 
-* GET `/tasks`
-* PATCH `/tasks/:id`
+- GET `/tasks`
+- PATCH `/tasks/:id`
 
 ### **MoM**
 
-* GET `/mom/:meetingId`
+- GET `/mom/:meetingId`
 
 ### **Automation Workflow**
 
-* POST `/workflow`
-* GET `/workflow/:id`
-* POST `/workflow/:id/run`
+- POST `/workflow`
+- GET `/workflow/:id`
+- POST `/workflow/:id/run`
 
 ### **Integrations**
 
-* Slack: MCP tool → message.post
-* Jira: MCP tool → ticket.create
-* Email: MCP tool → send.mail
-* Calendar: MCP tool → create.event
+- Slack: MCP tool → message.post
+- Jira: MCP tool → ticket.create
+- Email: MCP tool → send.mail
+- Calendar: MCP tool → create.event
 
 ---
 
@@ -316,14 +315,14 @@ Workflow runner should:
 
 ### The AI agent should:
 
-* Always extract structured JSON
-* Always produce consistent field formats
-* Detect missing owners and label “Unassigned”
-* Infer due dates when possible, otherwise null
-* Summarize risks under defined risk categories
-* Validate task clarity (e.g., “Follow up with client” is OK; “Check this” is not)
-* Never hallucinate facts — only use provided input
-* Avoid over-automation unless configured in workflow
+- Always extract structured JSON
+- Always produce consistent field formats
+- Detect missing owners and label “Unassigned”
+- Infer due dates when possible, otherwise null
+- Summarize risks under defined risk categories
+- Validate task clarity (e.g., “Follow up with client” is OK; “Check this” is not)
+- Never hallucinate facts — only use provided input
+- Avoid over-automation unless configured in workflow
 
 ---
 
@@ -344,25 +343,25 @@ Workflow runner should:
 
 ### **Phase 1 (MVP)**
 
-* Input ingestion
-* AI extraction
-* Task view
-* MoM
-* Slack reminders
-* Dashboard
+- Input ingestion
+- AI extraction
+- Task view
+- MoM
+- Slack reminders
+- Dashboard
 
 ### **Phase 2**
 
-* Workflow studio
-* Conditions + branching
-* Jira + Email integrations
+- Workflow studio
+- Conditions + branching
+- Jira + Email integrations
 
 ### **Phase 3**
 
-* Multi-agent orchestration
-* User-level permissions
-* Analytics + insights
-* Marketplace for ready-made workflows
+- Multi-agent orchestration
+- User-level permissions
+- Analytics + insights
+- Marketplace for ready-made workflows
 
 ---
 

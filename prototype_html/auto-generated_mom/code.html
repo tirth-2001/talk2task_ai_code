@@ -1,245 +1,384 @@
-<!DOCTYPE html>
-<html lang="en"><head>
-<meta charset="utf-8"/>
-<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-<title>Talk2Task AI - Meeting Minutes</title>
-<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;900&amp;display=swap" rel="stylesheet"/>
-<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"/>
-<style>
-        .material-symbols-outlined {
-            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
-        }
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>Talk2Task AI - Meeting Minutes</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;900&amp;display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200"
+      rel="stylesheet"
+    />
+    <style>
+      .material-symbols-outlined {
+        font-variation-settings:
+          'FILL' 0,
+          'wght' 400,
+          'GRAD' 0,
+          'opsz' 24;
+      }
     </style>
-<script>
-        tailwind.config = {
-            darkMode: "class",
-            theme: {
-                extend: {
-                    colors: {
-                        "primary": "#5D0EC0", // Updated violet accent color
-                        "background-light": "#f7f6f8",
-                        "background-dark": "#191022",
-                    },
-                    fontFamily: {
-                        "display": ["Inter", "sans-serif"]
-                    },
-                    borderRadius: {
-                        "DEFAULT": "0.25rem",
-                        "lg": "0.5rem",
-                        "xl": "0.75rem",
-                        "full": "9999px"
-                    },
-                },
+    <script>
+      tailwind.config = {
+        darkMode: 'class',
+        theme: {
+          extend: {
+            colors: {
+              primary: '#5D0EC0', // Updated violet accent color
+              'background-light': '#f7f6f8',
+              'background-dark': '#191022',
             },
-        }
+            fontFamily: {
+              display: ['Inter', 'sans-serif'],
+            },
+            borderRadius: {
+              DEFAULT: '0.25rem',
+              lg: '0.5rem',
+              xl: '0.75rem',
+              full: '9999px',
+            },
+          },
+        },
+      }
     </script>
-</head>
-<body class="font-display">
-<div class="relative flex h-auto min-h-screen w-full flex-col bg-background-light group/design-root overflow-x-hidden">
-<div class="flex h-full grow">
-<aside class="flex flex-col w-64 border-r border-gray-200 bg-white">
-<div class="flex h-full min-h-[700px] flex-col justify-between p-4">
-<div class="flex flex-col gap-4">
-<div class="flex items-center gap-3 px-3 py-2">
-<div class="size-8 text-primary">
-<svg fill="none" viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
-<path clip-rule="evenodd" d="M24 4H6V17.3333V30.6667H24V44H42V30.6667V17.3333H24V4Z" fill="currentColor" fill-rule="evenodd"></path>
-</svg>
-</div>
-<h1 class="text-[#141118] text-lg font-bold leading-tight tracking-[-0.015em]">Talk2Task AI</h1>
-</div>
-<div class="flex flex-col gap-2 pt-4">
-<div class="flex items-center gap-3 px-3 py-2">
-<span class="material-symbols-outlined text-gray-800" style="font-size: 24px;">home</span>
-<p class="text-[#141118] text-sm font-medium leading-normal">Dashboard</p>
-</div>
-<div class="flex items-center gap-3 px-3 py-2 rounded-lg bg-primary/10">
-<span class="material-symbols-outlined text-primary" style="font-size: 24px; font-variation-settings: 'FILL' 1;">history</span>
-<p class="text-primary text-sm font-medium leading-normal">Recent Meetings</p>
-</div>
-<div class="flex items-center gap-3 px-3 py-2">
-<span class="material-symbols-outlined text-gray-800" style="font-size: 24px;">task_alt</span>
-<p class="text-[#141118] text-sm font-medium leading-normal">Action Items</p>
-</div>
-<div class="flex items-center gap-3 px-3 py-2">
-<span class="material-symbols-outlined text-gray-800" style="font-size: 24px;">bar_chart</span>
-<p class="text-[#141118] text-sm font-medium leading-normal">Analytics</p>
-</div>
-<div class="flex items-center gap-3 px-3 py-2">
-<span class="material-symbols-outlined text-gray-800" style="font-size: 24px;">notes</span>
-<p class="text-[#141118] text-sm font-medium leading-normal">Templates</p>
-</div>
-</div>
-</div>
-<div class="flex flex-col gap-4">
-<button class="flex min-w-[84px] max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-lg h-10 px-4 bg-primary text-white text-sm font-bold leading-normal tracking-[0.015em] gap-2">
-<span class="material-symbols-outlined text-white" style="font-size: 20px;">add</span>
-<span class="truncate">New Meeting</span>
-</button>
-<div class="flex flex-col gap-1 border-t border-gray-200 pt-2">
-<div class="flex items-center gap-3 px-3 py-2">
-<span class="material-symbols-outlined text-gray-800" style="font-size: 24px;">help</span>
-<p class="text-[#141118] text-sm font-medium leading-normal">Help &amp; Support</p>
-</div>
-<div class="flex items-center gap-3 px-3 py-2">
-<span class="material-symbols-outlined text-gray-800" style="font-size: 24px;">settings</span>
-<p class="text-[#141118] text-sm font-medium leading-normal">Settings</p>
-</div>
-<div class="flex items-center gap-3 px-3 py-2 mt-2">
-<div class="bg-center bg-no-repeat aspect-square bg-cover rounded-full size-8" data-alt="User avatar image" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuAxTxuh9t0Qulw3NdRlTXfKm5sHf-t-ykfbZNfUabJUuU1FuDjnpblscUxvTjNrODZ1ArrAgbVLTnHqcmKCS5oXfaqLeYkeXcq4yEAA5ynhFs1sqjatsPoby-p_6q9ouRXPZCCE4Z93ZBQ7fHvwgpitPnjBk9YXfah9EpzqCi6a5hACZfWFCCar764YKbwRnSKqFKdpvAB5qoRvwrggnWHoR5FagGElzb-zOQYWC5DdcPbDXgegvJgPiwk6fIddoY1d4gROfWlgkJY");'></div>
-<div class="flex flex-col">
-<h1 class="text-[#141118] text-sm font-medium leading-tight">Alex Rivera</h1>
-<p class="text-gray-500 text-xs font-normal leading-tight">Workspace Admin</p>
-</div>
-</div>
-</div>
-</div>
-</div>
-</aside>
-<main class="flex-1 overflow-y-auto">
-<div class="p-8 max-w-7xl mx-auto w-full">
-<header class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-6">
-<div class="flex items-center gap-3">
-<h1 class="text-gray-900 text-2xl font-bold tracking-tight">AI-Generated Minutes of Meeting</h1>
-<span class="inline-flex items-center justify-center rounded-md bg-primary/10 px-2 py-0.5 text-xs font-semibold text-primary">Auto-Generated</span>
-</div>
-<div class="flex items-center gap-3">
-<button class="flex min-w-[84px] cursor-pointer items-center justify-center overflow-hidden rounded-lg h-9 px-4 bg-white text-gray-700 border border-gray-300 text-sm font-semibold leading-normal tracking-[-0.01em] gap-2 hover:bg-gray-50">
-<span class="material-symbols-outlined" style="font-size: 18px;">download</span>
-<span class="truncate">Download PDF</span>
-</button>
-<button class="flex min-w-[84px] cursor-pointer items-center justify-center overflow-hidden rounded-lg h-9 px-4 bg-primary text-white text-sm font-semibold leading-normal tracking-[-0.01em] gap-2 hover:bg-primary/90">
-<svg class="h-4 w-4" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M5.042 15.165a2.528 2.528 0 0 1-2.52 2.523A2.528 2.528 0 0 1 0 15.165a2.527 2.527 0 0 1 2.522-2.52h2.52v2.52zM6.313 15.165a2.527 2.527 0 0 1 2.521-2.52 2.527 2.527 0 0 1 2.521 2.52v6.313A2.527 2.527 0 0 1 8.834 24a2.528 2.528 0 0 1-2.521-2.522v-6.313zM8.834 5.042a2.528 2.528 0 0 1-2.521-2.52A2.528 2.528 0 0 1 8.834 0a2.528 2.528 0 0 1 2.521 2.522v2.52H8.834zM8.834 6.313a2.528 2.528 0 0 1 2.521 2.521 2.528 2.528 0 0 1-2.521 2.521H2.522A2.528 2.528 0 0 1 0 8.834a2.528 2.528 0 0 1 2.522-2.521h6.312zM18.956 8.834a2.528 2.528 0 0 1 2.522-2.521A2.528 2.528 0 0 1 24 8.834a2.528 2.528 0 0 1-2.522 2.521h-2.522V8.834zM17.688 8.834a2.528 2.528 0 0 1-2.523 2.521 2.527 2.527 0 0 1-2.52-2.521V2.522A2.527 2.527 0 0 1 15.165 0a2.528 2.528 0 0 1 2.523 2.522v6.312zM15.165 18.956a2.528 2.528 0 0 1 2.523 2.522A2.528 2.528 0 0 1 15.165 24a2.528 2.528 0 0 1-2.52-2.522v-2.522h2.52zM15.165 17.688a2.528 2.528 0 0 1-2.52-2.523 2.528 2.528 0 0 1 2.52-2.52h6.313A2.528 2.528 0 0 1 24 15.165a2.528 2.528 0 0 1-2.522 2.523h-6.313z"></path></svg>
-<span class="truncate">Send to Slack</span>
-</button>
-</div>
-</header>
-<div class="mb-6 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between rounded-lg border border-gray-200/80 bg-white/50 p-4">
-<div class="flex flex-col gap-1">
-<p class="text-sm font-medium text-gray-800">Meeting Title:</p>
-<p class="text-sm text-gray-600">Q3 Quarterly Business Review</p>
-</div>
-<div class="flex flex-col gap-1">
-<p class="text-sm font-medium text-gray-800">Date:</p>
-<p class="text-sm text-gray-600">October 25, 2024</p>
-</div>
-<div class="flex flex-col gap-1">
-<p class="text-sm font-medium text-gray-800">Time:</p>
-<p class="text-sm text-gray-600">10:00 AM - 11:00 AM PST</p>
-</div>
-</div>
-<div class="flex flex-col gap-6">
-<div class="bg-white rounded-xl shadow-sm border border-gray-200/80 p-6">
-<h2 class="text-gray-900 text-lg font-semibold leading-tight">Meeting Summary</h2>
-<hr class="my-4 border-gray-200/80"/>
-<p class="text-gray-600 text-sm leading-relaxed">The Q3 2024 Quarterly Business Review focused on evaluating sales performance, marketing initiatives, and the upcoming Q4 product roadmap. Key outcomes included a 15% revenue increase driven by new campaigns, approval of a $250,000 Q4 marketing budget, and the formation of a task force to address performance issues in Product Line B. The team aligned on prioritizing the development of AI-powered analytics for the next software release.</p>
-</div>
-<div class="bg-white rounded-xl shadow-sm border border-gray-200/80 p-6">
-<h2 class="text-gray-900 text-lg font-semibold leading-tight">Discussion Points</h2>
-<hr class="my-4 border-gray-200/80"/>
-<ul class="space-y-4 text-gray-700 text-sm list-disc pl-5">
-<li><span class="font-semibold text-gray-800">Review of Q3 Sales Performance:</span> Sarah presented figures showing a 15% revenue increase from Q2, driven by a new marketing campaign and APAC expansion.
-                                <ul class="list-[circle] pl-6 mt-2 space-y-2 text-gray-600">
-<li>Discussed underperformance of Product Line B and brainstormed corrective actions.</li>
-<li>Acknowledged top-performing sales team members for their contributions.</li>
-</ul>
-</li>
-<li><span class="font-semibold text-gray-800">Marketing Initiatives Update:</span> Mark reported that the "Innovate Tomorrow" campaign achieved over 5 million impressions and a 25% increase in lead generation.</li>
-<li><span class="font-semibold text-gray-800">Product Roadmap for Q4:</span> Jessica outlined key features for the next release, including AI-powered analytics and a new mobile UI, noting positive feedback from beta testers.</li>
-</ul>
-</div>
-<div class="bg-white rounded-xl shadow-sm border border-gray-200/80 p-6">
-<h2 class="text-gray-900 text-lg font-semibold leading-tight">Key Decisions</h2>
-<hr class="my-4 border-gray-200/80"/>
-<ul class="space-y-3 text-gray-700 text-sm">
-<li class="flex items-start gap-3">
-<span class="material-symbols-outlined text-green-600 mt-0.5" style="font-variation-settings: 'FILL' 1;">check_circle</span>
-<span>Approved the proposed Q4 marketing budget of $250,000, with a focus on digital channels.</span>
-</li>
-<li class="flex items-start gap-3">
-<span class="material-symbols-outlined text-green-600 mt-0.5" style="font-variation-settings: 'FILL' 1;">check_circle</span>
-<span>Proceed with the Q4 product roadmap as presented, prioritizing the AI analytics feature.</span>
-</li>
-<li class="flex items-start gap-3">
-<span class="material-symbols-outlined text-green-600 mt-0.5" style="font-variation-settings: 'FILL' 1;">check_circle</span>
-<span>Form a task force, led by Alex, to investigate and resolve performance issues with Product Line B.</span>
-</li>
-</ul>
-</div>
-<div class="bg-white rounded-xl shadow-sm border border-gray-200/80 p-6">
-<h2 class="text-gray-900 text-lg font-semibold leading-tight">Action Items</h2>
-<hr class="my-4 border-gray-200/80"/>
-<div class="overflow-x-auto">
-<table class="w-full text-sm text-left">
-<thead class="text-xs text-gray-500 uppercase bg-gray-50">
-<tr>
-<th class="px-6 py-3" scope="col">Task</th>
-<th class="px-6 py-3" scope="col">Owner</th>
-<th class="px-6 py-3" scope="col">Due Date</th>
-</tr>
-</thead>
-<tbody>
-<tr class="bg-white border-b hover:bg-gray-50">
-<td class="px-6 py-4 font-medium text-gray-800">Draft a detailed plan for the Product Line B task force.</td>
-<td class="px-6 py-4">
-<div class="flex items-center gap-2">
-<div class="bg-center bg-no-repeat aspect-square bg-cover rounded-full size-6" data-alt="User avatar image for Alex" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuAFORucjRR_oo-CXNWStjyVVJ4xp_QUe1m5tF7PcpLbrbOzxw1M_t17bs6vs7XTNzgu6dO6h2hsHuX3Mg-ZwfBYjfo64TD31JEbIRnfbqnw0jmNxYthOcVbyYeBa2T0ROPs1zQD4SSMxRfGFT9wWnZmoiRWLYYQKptSIxdIw7qEVJ1Fp3jKTdGUaClFp5KDzI1yVxf_B5A2FSk_veHIxbdXfddu7dpesPw0A9thBzKMkTNrs7wOVu6YeDasvOpTIAgGCu9RbyMhGUU");'></div>
-<span>Alex Rivera</span>
-</div>
-</td>
-<td class="px-6 py-4 text-gray-600">Nov 1, 2024</td>
-</tr>
-<tr class="bg-white border-b hover:bg-gray-50">
-<td class="px-6 py-4 font-medium text-gray-800">Allocate Q4 marketing budget in the financial system.</td>
-<td class="px-6 py-4">
-<div class="flex items-center gap-2">
-<div class="bg-center bg-no-repeat aspect-square bg-cover rounded-full size-6" data-alt="User avatar image for Sarah" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuBaYNrsvornSmN69P6Yg13KM4agMF7MdHvn__xxj2EsqnrYRNLkerHCx4hYZNn5ks7UUvX-frbhHZtstzOxhsToihTlhGGyXv4J8njONN4QEKiJefJTRhBhl0YFKXnlEJ1RiHRJRaVh2N1CKifRF76Ja0oEoTksVsvrUzEpA8FmHJbOZOe9b71iITtI1X9JJbWqlIkKlol4c4K1agGymg1namiEjzx6tCQ8p1esRhi7orfUE2Eigzn7ttSv3iz3cModJxsFknN-hBI");'></div>
-<span>Sarah Johnson</span>
-</div>
-</td>
-<td class="px-6 py-4 text-gray-600">Oct 28, 2024</td>
-</tr>
-<tr class="bg-white hover:bg-gray-50">
-<td class="px-6 py-4 font-medium text-gray-800">Finalize the user stories for the AI analytics feature.</td>
-<td class="px-6 py-4">
-<div class="flex items-center gap-2">
-<div class="bg-center bg-no-repeat aspect-square bg-cover rounded-full size-6" data-alt="User avatar image for Jessica" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuAaK232_bhHzpJKiaggoaaYQQKfbGBLaN1cGEvgyGOb0Z9IjWIl3h0KqgzlS-Xuwtpd0mvvZP7gEFRbXhM_3immH77jt4JFQMxzMF9tkC1WVSH6mkhgUPy3st6-BsivRTaM0VVlftuaBF_fxUuXRLjSpV5RIrtYm1K72jx2Sl4iakNdNkNkvJTcEFIWq62rHmACetcL_Oud6BYOUd5iO4axXDpbXyNbU-90riIoHdQXGFQF90HyHyrggT-g6wW9kXAejgkhsovELa0");'></div>
-<span>Jessica Rodriguez</span>
-</div>
-</td>
-<td class="px-6 py-4 text-gray-600">Nov 8, 2024</td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
-<div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
-<div class="lg:col-span-1 bg-white rounded-xl shadow-sm border border-gray-200/80 p-6">
-<div class="flex items-center gap-3 mb-4">
-<div class="flex-shrink-0">
-<div class="w-8 h-8 rounded-full bg-yellow-100 flex items-center justify-center">
-<span class="material-symbols-outlined text-yellow-600" style="font-size: 20px; font-variation-settings: 'FILL' 1;">warning</span>
-</div>
-</div>
-<h2 class="text-gray-900 text-lg font-semibold leading-tight">Risks / Dependencies</h2>
-</div>
-<p class="text-sm text-gray-600">The timely delivery of the AI analytics feature is dependent on the successful integration of the new data provider API by November 15th.</p>
-</div>
-<div class="lg:col-span-2 bg-white rounded-xl shadow-sm border border-gray-200/80 p-6">
-<h2 class="text-gray-900 text-lg font-semibold leading-tight">Attendees</h2>
-<hr class="my-4 border-gray-200/80"/>
-<div class="flex items-center -space-x-2">
-<div class="bg-center bg-no-repeat aspect-square bg-cover rounded-full size-10 ring-2 ring-white" data-alt="User avatar" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuBC2hp684rL2C2r6R_WoXsNg5lcsjtzOONetbqIBxbQaSAErh6gXUWSQ7mxz-LrT_C-5s19zFhPIUaZhq1AGJfxpYDZW5fIcLtPuf93rbBu7w2ENgpQvYo7R5Li6lGrSmevOdE8eF95mLG9c99sMmW6Gr9p4EIJS7WxHaB_8voJPGYhJxrxuADHnDVD3T_LUOpXymU4TPYS3KzUXiGEG_miuvGB94BfnfTbxgqdQmLUQYUJfxJuuN6Z8jtihlOjv6K_A9fkSMH4_58");' title="Sarah Johnson"></div>
-<div class="bg-center bg-no-repeat aspect-square bg-cover rounded-full size-10 ring-2 ring-white" data-alt="User avatar" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuAyvxuOh5gFvXgEVNNIwvMouCwQ9E4t5PYIclH025ma0AlW129EFh388xlIjr1ceS6PSjOBATzgUNnTodTO_wcp8d9uekF2vm5_r01aYGkmUE0aFO0bCSGi0S-tx5kjpKBIGmwov9RNF-ygbbh4G48jQJ8s05RT_U9gXy0Ik_M_jlHeq49foiNiyUTh3F3N0zwDEHqiK3OOmDc-jJRn1PzXa1O7A7R6-CDvVR60mDrGNMrlJj5f5D5BMLcxdFXezEXQZFCCEc8QYyo");' title="Mark Chen"></div>
-<div class="bg-center bg-no-repeat aspect-square bg-cover rounded-full size-10 ring-2 ring-white" data-alt="User avatar" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuAZ6JEuOJLrpleOIfBlss57PKfc7yj21-nqR2ZwBom9MkG2wa6zUNwaAKMJl1ZObIzPoXRGI5zerRq_uvvgtieyJ0b1OdCy_BIb_i0GxL1E_8PYqwwx3q0miHPgJ6dKst79FJNNRU3Uh-2EGmI4KIhikEzu9uAbqPPe7uWtai2iI6BpK1MmVG5YGCeOtzLA8C67DkpitzfXhLXkXR-Klo3Rv6Evlev7yU_UMNNcQy9CGXeV6w_OC1m23tbJ46oxEl0jl6XGbPwYf8Q");' title="Jessica Rodriguez"></div>
-<div class="bg-center bg-no-repeat aspect-square bg-cover rounded-full size-10 ring-2 ring-white" data-alt="User avatar" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuD0XfpuRN5NL9TZfEMXjcyU-RzHXc4FlmKJVMoaD1PYICIkq0jANb6vuxkBYoVl5sXtPvg7P0wVmxm_NDQMjFEXdpckDScLMWeSFLHOPzaAYVWPyT6RJaK9TAhFnyWiE3g4lhNkJCxprJ1eiqQiQPwOgjxXu5vzcNCs5A9chaSsV0nIEUYw-eVrSrWgJ21g4sk01ZEk9bzxcNuIFYWuEUtNeKZrxEffQ59ITJ9w05mh6WWcUBS65TjLAppaomeA-yupnqy9KGezllI");' title="Alex Rivera"></div>
-</div>
-</div>
-</div>
-</div>
-</div>
-</main>
-</div>
-</div>
-</body></html>
+  </head>
+  <body class="font-display">
+    <div
+      class="relative flex h-auto min-h-screen w-full flex-col bg-background-light group/design-root overflow-x-hidden"
+    >
+      <div class="flex h-full grow">
+        <aside class="flex flex-col w-64 border-r border-gray-200 bg-white">
+          <div class="flex h-full min-h-[700px] flex-col justify-between p-4">
+            <div class="flex flex-col gap-4">
+              <div class="flex items-center gap-3 px-3 py-2">
+                <div class="size-8 text-primary">
+                  <svg fill="none" viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
+                    <path
+                      clip-rule="evenodd"
+                      d="M24 4H6V17.3333V30.6667H24V44H42V30.6667V17.3333H24V4Z"
+                      fill="currentColor"
+                      fill-rule="evenodd"
+                    ></path>
+                  </svg>
+                </div>
+                <h1 class="text-[#141118] text-lg font-bold leading-tight tracking-[-0.015em]">Talk2Task AI</h1>
+              </div>
+              <div class="flex flex-col gap-2 pt-4">
+                <div class="flex items-center gap-3 px-3 py-2">
+                  <span class="material-symbols-outlined text-gray-800" style="font-size: 24px">home</span>
+                  <p class="text-[#141118] text-sm font-medium leading-normal">Dashboard</p>
+                </div>
+                <div class="flex items-center gap-3 px-3 py-2 rounded-lg bg-primary/10">
+                  <span
+                    class="material-symbols-outlined text-primary"
+                    style="font-size: 24px; font-variation-settings: 'FILL' 1"
+                    >history</span
+                  >
+                  <p class="text-primary text-sm font-medium leading-normal">Recent Meetings</p>
+                </div>
+                <div class="flex items-center gap-3 px-3 py-2">
+                  <span class="material-symbols-outlined text-gray-800" style="font-size: 24px">task_alt</span>
+                  <p class="text-[#141118] text-sm font-medium leading-normal">Action Items</p>
+                </div>
+                <div class="flex items-center gap-3 px-3 py-2">
+                  <span class="material-symbols-outlined text-gray-800" style="font-size: 24px">bar_chart</span>
+                  <p class="text-[#141118] text-sm font-medium leading-normal">Analytics</p>
+                </div>
+                <div class="flex items-center gap-3 px-3 py-2">
+                  <span class="material-symbols-outlined text-gray-800" style="font-size: 24px">notes</span>
+                  <p class="text-[#141118] text-sm font-medium leading-normal">Templates</p>
+                </div>
+              </div>
+            </div>
+            <div class="flex flex-col gap-4">
+              <button
+                class="flex min-w-[84px] max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-lg h-10 px-4 bg-primary text-white text-sm font-bold leading-normal tracking-[0.015em] gap-2"
+              >
+                <span class="material-symbols-outlined text-white" style="font-size: 20px">add</span>
+                <span class="truncate">New Meeting</span>
+              </button>
+              <div class="flex flex-col gap-1 border-t border-gray-200 pt-2">
+                <div class="flex items-center gap-3 px-3 py-2">
+                  <span class="material-symbols-outlined text-gray-800" style="font-size: 24px">help</span>
+                  <p class="text-[#141118] text-sm font-medium leading-normal">Help &amp; Support</p>
+                </div>
+                <div class="flex items-center gap-3 px-3 py-2">
+                  <span class="material-symbols-outlined text-gray-800" style="font-size: 24px">settings</span>
+                  <p class="text-[#141118] text-sm font-medium leading-normal">Settings</p>
+                </div>
+                <div class="flex items-center gap-3 px-3 py-2 mt-2">
+                  <div
+                    class="bg-center bg-no-repeat aspect-square bg-cover rounded-full size-8"
+                    data-alt="User avatar image"
+                    style="
+                      background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuAxTxuh9t0Qulw3NdRlTXfKm5sHf-t-ykfbZNfUabJUuU1FuDjnpblscUxvTjNrODZ1ArrAgbVLTnHqcmKCS5oXfaqLeYkeXcq4yEAA5ynhFs1sqjatsPoby-p_6q9ouRXPZCCE4Z93ZBQ7fHvwgpitPnjBk9YXfah9EpzqCi6a5hACZfWFCCar764YKbwRnSKqFKdpvAB5qoRvwrggnWHoR5FagGElzb-zOQYWC5DdcPbDXgegvJgPiwk6fIddoY1d4gROfWlgkJY');
+                    "
+                  ></div>
+                  <div class="flex flex-col">
+                    <h1 class="text-[#141118] text-sm font-medium leading-tight">Alex Rivera</h1>
+                    <p class="text-gray-500 text-xs font-normal leading-tight">Workspace Admin</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </aside>
+        <main class="flex-1 overflow-y-auto">
+          <div class="p-8 max-w-7xl mx-auto w-full">
+            <header class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-6">
+              <div class="flex items-center gap-3">
+                <h1 class="text-gray-900 text-2xl font-bold tracking-tight">AI-Generated Minutes of Meeting</h1>
+                <span
+                  class="inline-flex items-center justify-center rounded-md bg-primary/10 px-2 py-0.5 text-xs font-semibold text-primary"
+                  >Auto-Generated</span
+                >
+              </div>
+              <div class="flex items-center gap-3">
+                <button
+                  class="flex min-w-[84px] cursor-pointer items-center justify-center overflow-hidden rounded-lg h-9 px-4 bg-white text-gray-700 border border-gray-300 text-sm font-semibold leading-normal tracking-[-0.01em] gap-2 hover:bg-gray-50"
+                >
+                  <span class="material-symbols-outlined" style="font-size: 18px">download</span>
+                  <span class="truncate">Download PDF</span>
+                </button>
+                <button
+                  class="flex min-w-[84px] cursor-pointer items-center justify-center overflow-hidden rounded-lg h-9 px-4 bg-primary text-white text-sm font-semibold leading-normal tracking-[-0.01em] gap-2 hover:bg-primary/90"
+                >
+                  <svg class="h-4 w-4" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path
+                      d="M5.042 15.165a2.528 2.528 0 0 1-2.52 2.523A2.528 2.528 0 0 1 0 15.165a2.527 2.527 0 0 1 2.522-2.52h2.52v2.52zM6.313 15.165a2.527 2.527 0 0 1 2.521-2.52 2.527 2.527 0 0 1 2.521 2.52v6.313A2.527 2.527 0 0 1 8.834 24a2.528 2.528 0 0 1-2.521-2.522v-6.313zM8.834 5.042a2.528 2.528 0 0 1-2.521-2.52A2.528 2.528 0 0 1 8.834 0a2.528 2.528 0 0 1 2.521 2.522v2.52H8.834zM8.834 6.313a2.528 2.528 0 0 1 2.521 2.521 2.528 2.528 0 0 1-2.521 2.521H2.522A2.528 2.528 0 0 1 0 8.834a2.528 2.528 0 0 1 2.522-2.521h6.312zM18.956 8.834a2.528 2.528 0 0 1 2.522-2.521A2.528 2.528 0 0 1 24 8.834a2.528 2.528 0 0 1-2.522 2.521h-2.522V8.834zM17.688 8.834a2.528 2.528 0 0 1-2.523 2.521 2.527 2.527 0 0 1-2.52-2.521V2.522A2.527 2.527 0 0 1 15.165 0a2.528 2.528 0 0 1 2.523 2.522v6.312zM15.165 18.956a2.528 2.528 0 0 1 2.523 2.522A2.528 2.528 0 0 1 15.165 24a2.528 2.528 0 0 1-2.52-2.522v-2.522h2.52zM15.165 17.688a2.528 2.528 0 0 1-2.52-2.523 2.528 2.528 0 0 1 2.52-2.52h6.313A2.528 2.528 0 0 1 24 15.165a2.528 2.528 0 0 1-2.522 2.523h-6.313z"
+                    ></path>
+                  </svg>
+                  <span class="truncate">Send to Slack</span>
+                </button>
+              </div>
+            </header>
+            <div
+              class="mb-6 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between rounded-lg border border-gray-200/80 bg-white/50 p-4"
+            >
+              <div class="flex flex-col gap-1">
+                <p class="text-sm font-medium text-gray-800">Meeting Title:</p>
+                <p class="text-sm text-gray-600">Q3 Quarterly Business Review</p>
+              </div>
+              <div class="flex flex-col gap-1">
+                <p class="text-sm font-medium text-gray-800">Date:</p>
+                <p class="text-sm text-gray-600">October 25, 2024</p>
+              </div>
+              <div class="flex flex-col gap-1">
+                <p class="text-sm font-medium text-gray-800">Time:</p>
+                <p class="text-sm text-gray-600">10:00 AM - 11:00 AM PST</p>
+              </div>
+            </div>
+            <div class="flex flex-col gap-6">
+              <div class="bg-white rounded-xl shadow-sm border border-gray-200/80 p-6">
+                <h2 class="text-gray-900 text-lg font-semibold leading-tight">Meeting Summary</h2>
+                <hr class="my-4 border-gray-200/80" />
+                <p class="text-gray-600 text-sm leading-relaxed">
+                  The Q3 2024 Quarterly Business Review focused on evaluating sales performance, marketing initiatives,
+                  and the upcoming Q4 product roadmap. Key outcomes included a 15% revenue increase driven by new
+                  campaigns, approval of a $250,000 Q4 marketing budget, and the formation of a task force to address
+                  performance issues in Product Line B. The team aligned on prioritizing the development of AI-powered
+                  analytics for the next software release.
+                </p>
+              </div>
+              <div class="bg-white rounded-xl shadow-sm border border-gray-200/80 p-6">
+                <h2 class="text-gray-900 text-lg font-semibold leading-tight">Discussion Points</h2>
+                <hr class="my-4 border-gray-200/80" />
+                <ul class="space-y-4 text-gray-700 text-sm list-disc pl-5">
+                  <li>
+                    <span class="font-semibold text-gray-800">Review of Q3 Sales Performance:</span> Sarah presented
+                    figures showing a 15% revenue increase from Q2, driven by a new marketing campaign and APAC
+                    expansion.
+                    <ul class="list-[circle] pl-6 mt-2 space-y-2 text-gray-600">
+                      <li>Discussed underperformance of Product Line B and brainstormed corrective actions.</li>
+                      <li>Acknowledged top-performing sales team members for their contributions.</li>
+                    </ul>
+                  </li>
+                  <li>
+                    <span class="font-semibold text-gray-800">Marketing Initiatives Update:</span> Mark reported that
+                    the "Innovate Tomorrow" campaign achieved over 5 million impressions and a 25% increase in lead
+                    generation.
+                  </li>
+                  <li>
+                    <span class="font-semibold text-gray-800">Product Roadmap for Q4:</span> Jessica outlined key
+                    features for the next release, including AI-powered analytics and a new mobile UI, noting positive
+                    feedback from beta testers.
+                  </li>
+                </ul>
+              </div>
+              <div class="bg-white rounded-xl shadow-sm border border-gray-200/80 p-6">
+                <h2 class="text-gray-900 text-lg font-semibold leading-tight">Key Decisions</h2>
+                <hr class="my-4 border-gray-200/80" />
+                <ul class="space-y-3 text-gray-700 text-sm">
+                  <li class="flex items-start gap-3">
+                    <span
+                      class="material-symbols-outlined text-green-600 mt-0.5"
+                      style="font-variation-settings: 'FILL' 1"
+                      >check_circle</span
+                    >
+                    <span
+                      >Approved the proposed Q4 marketing budget of $250,000, with a focus on digital channels.</span
+                    >
+                  </li>
+                  <li class="flex items-start gap-3">
+                    <span
+                      class="material-symbols-outlined text-green-600 mt-0.5"
+                      style="font-variation-settings: 'FILL' 1"
+                      >check_circle</span
+                    >
+                    <span
+                      >Proceed with the Q4 product roadmap as presented, prioritizing the AI analytics feature.</span
+                    >
+                  </li>
+                  <li class="flex items-start gap-3">
+                    <span
+                      class="material-symbols-outlined text-green-600 mt-0.5"
+                      style="font-variation-settings: 'FILL' 1"
+                      >check_circle</span
+                    >
+                    <span
+                      >Form a task force, led by Alex, to investigate and resolve performance issues with Product Line
+                      B.</span
+                    >
+                  </li>
+                </ul>
+              </div>
+              <div class="bg-white rounded-xl shadow-sm border border-gray-200/80 p-6">
+                <h2 class="text-gray-900 text-lg font-semibold leading-tight">Action Items</h2>
+                <hr class="my-4 border-gray-200/80" />
+                <div class="overflow-x-auto">
+                  <table class="w-full text-sm text-left">
+                    <thead class="text-xs text-gray-500 uppercase bg-gray-50">
+                      <tr>
+                        <th class="px-6 py-3" scope="col">Task</th>
+                        <th class="px-6 py-3" scope="col">Owner</th>
+                        <th class="px-6 py-3" scope="col">Due Date</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr class="bg-white border-b hover:bg-gray-50">
+                        <td class="px-6 py-4 font-medium text-gray-800">
+                          Draft a detailed plan for the Product Line B task force.
+                        </td>
+                        <td class="px-6 py-4">
+                          <div class="flex items-center gap-2">
+                            <div
+                              class="bg-center bg-no-repeat aspect-square bg-cover rounded-full size-6"
+                              data-alt="User avatar image for Alex"
+                              style="
+                                background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuAFORucjRR_oo-CXNWStjyVVJ4xp_QUe1m5tF7PcpLbrbOzxw1M_t17bs6vs7XTNzgu6dO6h2hsHuX3Mg-ZwfBYjfo64TD31JEbIRnfbqnw0jmNxYthOcVbyYeBa2T0ROPs1zQD4SSMxRfGFT9wWnZmoiRWLYYQKptSIxdIw7qEVJ1Fp3jKTdGUaClFp5KDzI1yVxf_B5A2FSk_veHIxbdXfddu7dpesPw0A9thBzKMkTNrs7wOVu6YeDasvOpTIAgGCu9RbyMhGUU');
+                              "
+                            ></div>
+                            <span>Alex Rivera</span>
+                          </div>
+                        </td>
+                        <td class="px-6 py-4 text-gray-600">Nov 1, 2024</td>
+                      </tr>
+                      <tr class="bg-white border-b hover:bg-gray-50">
+                        <td class="px-6 py-4 font-medium text-gray-800">
+                          Allocate Q4 marketing budget in the financial system.
+                        </td>
+                        <td class="px-6 py-4">
+                          <div class="flex items-center gap-2">
+                            <div
+                              class="bg-center bg-no-repeat aspect-square bg-cover rounded-full size-6"
+                              data-alt="User avatar image for Sarah"
+                              style="
+                                background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuBaYNrsvornSmN69P6Yg13KM4agMF7MdHvn__xxj2EsqnrYRNLkerHCx4hYZNn5ks7UUvX-frbhHZtstzOxhsToihTlhGGyXv4J8njONN4QEKiJefJTRhBhl0YFKXnlEJ1RiHRJRaVh2N1CKifRF76Ja0oEoTksVsvrUzEpA8FmHJbOZOe9b71iITtI1X9JJbWqlIkKlol4c4K1agGymg1namiEjzx6tCQ8p1esRhi7orfUE2Eigzn7ttSv3iz3cModJxsFknN-hBI');
+                              "
+                            ></div>
+                            <span>Sarah Johnson</span>
+                          </div>
+                        </td>
+                        <td class="px-6 py-4 text-gray-600">Oct 28, 2024</td>
+                      </tr>
+                      <tr class="bg-white hover:bg-gray-50">
+                        <td class="px-6 py-4 font-medium text-gray-800">
+                          Finalize the user stories for the AI analytics feature.
+                        </td>
+                        <td class="px-6 py-4">
+                          <div class="flex items-center gap-2">
+                            <div
+                              class="bg-center bg-no-repeat aspect-square bg-cover rounded-full size-6"
+                              data-alt="User avatar image for Jessica"
+                              style="
+                                background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuAaK232_bhHzpJKiaggoaaYQQKfbGBLaN1cGEvgyGOb0Z9IjWIl3h0KqgzlS-Xuwtpd0mvvZP7gEFRbXhM_3immH77jt4JFQMxzMF9tkC1WVSH6mkhgUPy3st6-BsivRTaM0VVlftuaBF_fxUuXRLjSpV5RIrtYm1K72jx2Sl4iakNdNkNkvJTcEFIWq62rHmACetcL_Oud6BYOUd5iO4axXDpbXyNbU-90riIoHdQXGFQF90HyHyrggT-g6wW9kXAejgkhsovELa0');
+                              "
+                            ></div>
+                            <span>Jessica Rodriguez</span>
+                          </div>
+                        </td>
+                        <td class="px-6 py-4 text-gray-600">Nov 8, 2024</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+              <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+                <div class="lg:col-span-1 bg-white rounded-xl shadow-sm border border-gray-200/80 p-6">
+                  <div class="flex items-center gap-3 mb-4">
+                    <div class="flex-shrink-0">
+                      <div class="w-8 h-8 rounded-full bg-yellow-100 flex items-center justify-center">
+                        <span
+                          class="material-symbols-outlined text-yellow-600"
+                          style="font-size: 20px; font-variation-settings: 'FILL' 1"
+                          >warning</span
+                        >
+                      </div>
+                    </div>
+                    <h2 class="text-gray-900 text-lg font-semibold leading-tight">Risks / Dependencies</h2>
+                  </div>
+                  <p class="text-sm text-gray-600">
+                    The timely delivery of the AI analytics feature is dependent on the successful integration of the
+                    new data provider API by November 15th.
+                  </p>
+                </div>
+                <div class="lg:col-span-2 bg-white rounded-xl shadow-sm border border-gray-200/80 p-6">
+                  <h2 class="text-gray-900 text-lg font-semibold leading-tight">Attendees</h2>
+                  <hr class="my-4 border-gray-200/80" />
+                  <div class="flex items-center -space-x-2">
+                    <div
+                      class="bg-center bg-no-repeat aspect-square bg-cover rounded-full size-10 ring-2 ring-white"
+                      data-alt="User avatar"
+                      style="
+                        background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuBC2hp684rL2C2r6R_WoXsNg5lcsjtzOONetbqIBxbQaSAErh6gXUWSQ7mxz-LrT_C-5s19zFhPIUaZhq1AGJfxpYDZW5fIcLtPuf93rbBu7w2ENgpQvYo7R5Li6lGrSmevOdE8eF95mLG9c99sMmW6Gr9p4EIJS7WxHaB_8voJPGYhJxrxuADHnDVD3T_LUOpXymU4TPYS3KzUXiGEG_miuvGB94BfnfTbxgqdQmLUQYUJfxJuuN6Z8jtihlOjv6K_A9fkSMH4_58');
+                      "
+                      title="Sarah Johnson"
+                    ></div>
+                    <div
+                      class="bg-center bg-no-repeat aspect-square bg-cover rounded-full size-10 ring-2 ring-white"
+                      data-alt="User avatar"
+                      style="
+                        background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuAyvxuOh5gFvXgEVNNIwvMouCwQ9E4t5PYIclH025ma0AlW129EFh388xlIjr1ceS6PSjOBATzgUNnTodTO_wcp8d9uekF2vm5_r01aYGkmUE0aFO0bCSGi0S-tx5kjpKBIGmwov9RNF-ygbbh4G48jQJ8s05RT_U9gXy0Ik_M_jlHeq49foiNiyUTh3F3N0zwDEHqiK3OOmDc-jJRn1PzXa1O7A7R6-CDvVR60mDrGNMrlJj5f5D5BMLcxdFXezEXQZFCCEc8QYyo');
+                      "
+                      title="Mark Chen"
+                    ></div>
+                    <div
+                      class="bg-center bg-no-repeat aspect-square bg-cover rounded-full size-10 ring-2 ring-white"
+                      data-alt="User avatar"
+                      style="
+                        background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuAZ6JEuOJLrpleOIfBlss57PKfc7yj21-nqR2ZwBom9MkG2wa6zUNwaAKMJl1ZObIzPoXRGI5zerRq_uvvgtieyJ0b1OdCy_BIb_i0GxL1E_8PYqwwx3q0miHPgJ6dKst79FJNNRU3Uh-2EGmI4KIhikEzu9uAbqPPe7uWtai2iI6BpK1MmVG5YGCeOtzLA8C67DkpitzfXhLXkXR-Klo3Rv6Evlev7yU_UMNNcQy9CGXeV6w_OC1m23tbJ46oxEl0jl6XGbPwYf8Q');
+                      "
+                      title="Jessica Rodriguez"
+                    ></div>
+                    <div
+                      class="bg-center bg-no-repeat aspect-square bg-cover rounded-full size-10 ring-2 ring-white"
+                      data-alt="User avatar"
+                      style="
+                        background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuD0XfpuRN5NL9TZfEMXjcyU-RzHXc4FlmKJVMoaD1PYICIkq0jANb6vuxkBYoVl5sXtPvg7P0wVmxm_NDQMjFEXdpckDScLMWeSFLHOPzaAYVWPyT6RJaK9TAhFnyWiE3g4lhNkJCxprJ1eiqQiQPwOgjxXu5vzcNCs5A9chaSsV0nIEUYw-eVrSrWgJ21g4sk01ZEk9bzxcNuIFYWuEUtNeKZrxEffQ59ITJ9w05mh6WWcUBS65TjLAppaomeA-yupnqy9KGezllI');
+                      "
+                      title="Alex Rivera"
+                    ></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </main>
+      </div>
+    </div>
+  </body>
+</html>

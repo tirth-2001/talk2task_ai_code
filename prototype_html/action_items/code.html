@@ -1,212 +1,386 @@
-<!DOCTYPE html>
-<html class="light" lang="en"><head>
-<meta charset="utf-8"/>
-<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-<title>Talk2Task AI - Action Items</title>
-<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;900&amp;display=swap" rel="stylesheet"/>
-<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
-<script id="tailwind-config">
+<!doctype html>
+<html class="light" lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>Talk2Task AI - Action Items</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;900&amp;display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+      rel="stylesheet"
+    />
+    <script id="tailwind-config">
       tailwind.config = {
-        darkMode: "class",
+        darkMode: 'class',
         theme: {
           extend: {
             colors: {
-              "primary": "#5D0EC0",
-              "background-light": "#f7f6f8",
-              "background-dark": "#191022",
+              primary: '#5D0EC0',
+              'background-light': '#f7f6f8',
+              'background-dark': '#191022',
             },
             fontFamily: {
-              "display": ["Inter", "sans-serif"]
+              display: ['Inter', 'sans-serif'],
             },
-            borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+            borderRadius: { DEFAULT: '0.25rem', lg: '0.5rem', xl: '0.75rem', full: '9999px' },
           },
         },
       }
     </script>
-<style>
+    <style>
       .material-symbols-outlined {
-        font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        font-variation-settings:
+          'FILL' 0,
+          'wght' 400,
+          'GRAD' 0,
+          'opsz' 24;
       }
       .material-symbols-outlined.fill {
-        font-variation-settings: 'FILL' 1, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        font-variation-settings:
+          'FILL' 1,
+          'wght' 400,
+          'GRAD' 0,
+          'opsz' 24;
       }
     </style>
-</head>
-<body class="font-display bg-background-light dark:bg-background-dark text-gray-800 dark:text-gray-200">
-<div class="flex h-screen w-full">
-<aside class="flex w-64 flex-col border-r border-gray-200 dark:border-gray-800 bg-white dark:bg-background-dark p-4">
-<div class="flex flex-col gap-4">
-<div class="flex items-center gap-3">
-<div class="bg-center bg-no-repeat aspect-square bg-cover rounded-full size-10" data-alt="Talk2Task AI Logo abstract purple and white" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuAWFbcE10CyCZCB4wFzsnABBdg9-IGOk_Q8YARVFy33GRzUZIsmRUSVsqCd5mLx7gV6yfH2SvfcTmf_DJeoiXeUCMoTlqQFp1ZezSWgkU2t_csw_ThTpvsH3ClHJPhvhavNZtI5LobEG466sXIgvkutlEQSk0To8w_z-PTrzETGw6hqGKANzMcllx1I__UjixG3GUHFKGguXAEjOps-bG6XyqNze9zf-sm17ueG3B07xrAblCY7DFqpoBTT-l1gzdMnoU3cj0QydiY");'></div>
-<h1 class="text-gray-900 dark:text-white text-base font-medium leading-normal">Talk2Task AI</h1>
-</div>
-<nav class="flex flex-col gap-2 mt-4">
-<a class="flex items-center gap-3 px-3 py-2 rounded-lg text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800" href="#">
-<span class="material-symbols-outlined text-gray-700 dark:text-gray-300">dashboard</span>
-<p class="text-sm font-medium leading-normal">Dashboard</p>
-</a>
-<a class="flex items-center gap-3 px-3 py-2 rounded-lg bg-primary/10 dark:bg-primary/20 text-primary dark:text-primary" href="#">
-<span class="material-symbols-outlined fill text-primary">check_circle</span>
-<p class="text-sm font-medium leading-normal">Action Items</p>
-</a>
-<a class="flex items-center gap-3 px-3 py-2 rounded-lg text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800" href="#">
-<span class="material-symbols-outlined text-gray-700 dark:text-gray-300">assessment</span>
-<p class="text-sm font-medium leading-normal">Reports</p>
-</a>
-<a class="flex items-center gap-3 px-3 py-2 rounded-lg text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800" href="#">
-<span class="material-symbols-outlined text-gray-700 dark:text-gray-300">settings</span>
-<p class="text-sm font-medium leading-normal">Settings</p>
-</a>
-</nav>
-</div>
-</aside>
-<div class="flex flex-1 flex-col overflow-hidden">
-<header class="flex h-16 flex-shrink-0 items-center justify-between border-b border-solid border-gray-200 dark:border-gray-800 bg-white dark:bg-background-dark px-10 py-3">
-<label class="flex flex-col min-w-40 !h-10 max-w-64">
-<div class="flex w-full flex-1 items-stretch rounded-lg h-full">
-<div class="text-gray-500 dark:text-gray-400 flex border-none bg-gray-100 dark:bg-white/10 items-center justify-center pl-4 rounded-l-lg border-r-0">
-<span class="material-symbols-outlined">search</span>
-</div>
-<input class="form-input flex w-full min-w-0 flex-1 resize-none overflow-hidden rounded-lg text-gray-900 dark:text-white focus:outline-0 focus:ring-0 border-none bg-gray-100 dark:bg-white/10 focus:border-none h-full placeholder:text-gray-500 dark:placeholder:text-gray-400 px-4 rounded-l-none border-l-0 pl-2 text-base font-normal leading-normal" placeholder="Search" value=""/>
-</div>
-</label>
-<div class="flex flex-1 justify-end items-center gap-4">
-<div class="flex gap-2">
-<button class="flex max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-lg h-10 w-10 bg-transparent text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800">
-<span class="material-symbols-outlined text-lg">notifications</span>
-</button>
-<button class="flex max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-lg h-10 w-10 bg-transparent text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800">
-<span class="material-symbols-outlined text-lg">help</span>
-</button>
-</div>
-<div class="bg-center bg-no-repeat aspect-square bg-cover rounded-full size-10" data-alt="User avatar" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuBNvZMbAaGSmKByT5aETDUoRpoJBQscvNngmU3G2_RgNcffOhl8lwNqvs7Sx9ZdvxaiClqhAhU7msmUYAaV7yn6kqEBfNFDRH_5EGA5SMs1mEaLUHj3jPthStwnxVc1Y9QguPpCTM-q8LRVLhpPRryyL1oHSY8t4qm77ePn-ngGVvyJNywLWBXkVi02pq9GYiYdOyuMex8NzDO82UJ2lmrClwkPkBloaKTQUJnLaIiwU_Y7nt3vGKCT-CSsfmQcOOnXfLvgvW_Zd8Q");'></div>
-</div>
-</header>
-<main class="flex-1 overflow-y-auto p-8">
-<div class="flex flex-col gap-6">
-<div class="flex flex-wrap justify-between items-center gap-4">
-<div class="flex flex-col gap-1">
-<p class="text-gray-900 dark:text-white text-3xl font-black leading-tight tracking-tight">Action Items</p>
-<p class="text-gray-500 dark:text-gray-400 text-base font-normal leading-normal">AI-generated tasks from your meeting summary.</p>
-</div>
-<div class="flex items-center gap-3">
-<button class="flex min-w-[84px] max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-lg h-10 px-4 bg-transparent text-gray-700 dark:text-gray-200 text-sm font-medium leading-normal tracking-wide gap-2 border border-gray-300 dark:border-gray-700 hover:bg-gray-100 dark:hover:bg-white/10">
-<span class="truncate">Send Slack Reminders</span>
-</button>
-<button class="flex min-w-[84px] max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-lg h-10 px-4 bg-primary text-white text-sm font-medium leading-normal tracking-wide gap-2 hover:bg-primary/90">
-<span class="truncate">Export to Jira</span>
-</button>
-</div>
-</div>
-<div class="@container">
-<div class="overflow-hidden rounded-lg border border-gray-200 dark:border-gray-800 bg-white dark:bg-background-dark">
-<table class="w-full">
-<thead class="bg-gray-50 dark:bg-white/5 border-b border-gray-200 dark:border-gray-800">
-<tr>
-<th class="px-4 py-3 text-left w-auto text-gray-600 dark:text-gray-300 text-sm font-medium leading-normal">Task Summary</th>
-<th class="px-4 py-3 text-left w-48 text-gray-600 dark:text-gray-300 text-sm font-medium leading-normal">Owner</th>
-<th class="px-4 py-3 text-left w-40 text-gray-600 dark:text-gray-300 text-sm font-medium leading-normal">Due Date</th>
-<th class="px-4 py-3 text-left w-32 text-gray-600 dark:text-gray-300 text-sm font-medium leading-normal">Priority</th>
-<th class="px-4 py-3 text-left w-40 text-gray-600 dark:text-gray-300 text-sm font-medium leading-normal">Status</th>
-</tr>
-</thead>
-<tbody class="divide-y divide-gray-200 dark:divide-gray-800">
-<tr class="hover:bg-gray-50 dark:hover:bg-white/5 group">
-<td class="h-16 px-4 py-2 w-auto text-gray-800 dark:text-gray-200 text-sm font-medium leading-normal">Draft Q4 marketing report</td>
-<td class="h-16 px-4 py-2 w-48 text-sm font-normal leading-normal">
-<div class="flex items-center gap-2">
-<div class="bg-center bg-no-repeat aspect-square bg-cover rounded-full w-8" data-alt="Avatar for John Doe" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuDx-lDl-Rs14E3qrZAYHLSjKnMBY3yPTPj52-obm6KoPSQG1xYP_IR0kVE4Lw1DNKlHJvPR6h1kkmyQhF0BBDCzdfUlQk33Phkf6XCNpCF5dj2Xoa2TqlQR-77ffLMlRI6foawjT5ZOCTHbdA6Bx6lMwODqQWTVpwOVe6Hy1aeXV71f9xUWEnyuRoooO0JHwsxZIcL9VWy41SZt_qWHdn1EQn15bNRsz2JVfXsZHS3PnQWR2a7l1C-Qp8zsLDCGtdIpf_6eW8aFEF8");'></div>
-<span class="text-gray-800 dark:text-gray-200">John Doe</span>
-</div>
-</td>
-<td class="h-16 px-4 py-2 w-40 text-gray-600 dark:text-gray-400 text-sm font-normal leading-normal">Oct 26, 2023</td>
-<td class="h-16 px-4 py-2 w-32 text-sm font-normal leading-normal">
-<div class="inline-flex items-center gap-1.5 rounded-full px-2 py-0.5 text-xs font-medium text-red-700 bg-red-100 dark:text-red-300 dark:bg-red-900/40">
-<span class="material-symbols-outlined text-sm" style="font-variation-settings: 'FILL' 1;">flag</span>
-<span>High</span>
-</div>
-</td>
-<td class="h-16 px-4 py-2 w-40 text-sm font-normal leading-normal">
-<div class="inline-flex items-center gap-1.5 rounded-full px-2 py-0.5 text-xs font-medium text-blue-700 bg-blue-100 dark:text-blue-300 dark:bg-blue-900/40">
-<span class="material-symbols-outlined text-sm" style="font-variation-settings: 'FILL' 1;">clock_loader_10</span>
-<span>In Progress</span>
-</div>
-</td>
-</tr>
-<tr class="hover:bg-gray-50 dark:hover:bg-white/5 group">
-<td class="h-16 px-4 py-2 w-auto text-gray-800 dark:text-gray-200 text-sm font-medium leading-normal">Schedule follow-up meeting with the design team</td>
-<td class="h-16 px-4 py-2 w-48 text-sm font-normal leading-normal">
-<div class="flex items-center gap-2">
-<div class="bg-center bg-no-repeat aspect-square bg-cover rounded-full w-8" data-alt="Avatar for Sarah Smith" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuCXZn5hhRGRID30MI8H01aCUOH9sE4x7RvZQwm3sl9y-ZhGdN35058ylUnrupOk1Ucu0UfN8QPsLGw-dzuMpO_SXjiX5UujYkUIaRXylQ8hzsYgvsyJVe164VSvsHOOgvLfFN_6qLY1Akb3_9hkiB6s2DO_pt3llYt0coeopkzxfAuTgJ07GsSGspZP2egfJDlprJigGz0jfm_EfL5XS1mRFmFJSh2S2WDK3l4l41zrSSoRtBcZuwxhAaxnZAMOe0mkhb6QFXgS92w");'></div>
-<span class="text-gray-800 dark:text-gray-200">Sarah Smith</span>
-</div>
-</td>
-<td class="h-16 px-4 py-2 w-40 text-gray-600 dark:text-gray-400 text-sm font-normal leading-normal">Nov 02, 2023</td>
-<td class="h-16 px-4 py-2 w-32 text-sm font-normal leading-normal">
-<div class="inline-flex items-center gap-1.5 rounded-full px-2 py-0.5 text-xs font-medium text-orange-700 bg-orange-100 dark:text-orange-300 dark:bg-orange-900/40">
-<span class="material-symbols-outlined text-sm" style="font-variation-settings: 'FILL' 1;">flag</span>
-<span>Medium</span>
-</div>
-</td>
-<td class="h-16 px-4 py-2 w-40 text-sm font-normal leading-normal">
-<div class="inline-flex items-center gap-1.5 rounded-full px-2 py-0.5 text-xs font-medium text-gray-700 bg-gray-100 dark:text-gray-300 dark:bg-gray-700/40">
-<span class="material-symbols-outlined text-sm" style="font-variation-settings: 'FILL' 1;">radio_button_unchecked</span>
-<span>To Do</span>
-</div>
-</td>
-</tr>
-<tr class="hover:bg-gray-50 dark:hover:bg-white/5 group">
-<td class="h-16 px-4 py-2 w-auto text-gray-800 dark:text-gray-200 text-sm font-medium leading-normal">Finalize the budget allocation for the new project</td>
-<td class="h-16 px-4 py-2 w-48 text-sm font-normal leading-normal">
-<div class="flex items-center gap-2">
-<div class="bg-center bg-no-repeat aspect-square bg-cover rounded-full w-8" data-alt="Avatar for Mark Johnson" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuAplHYeeqObAMBxeNmEA6dVM6xWkEFEkZ6WhKtnmgk6h0-yfV9BFNTvMGvqpjYvtzAcp8S-CLE43aTeXHJ8ADSnRmVaI0_3FeLL_2ZElKMmYoDYvqNt6LK9sChFgIu3gDBLrdbz5I3vRGFnxxAl_L4JRG2N-KVE4o3ed9Jpu27fwZgdN-3YTceTVNuIHfQUQ32D59nflN7RftQ5MDkQrprI3qvOBOth7sckIT4v78ZcJzBRqF7NKe3UHIh5_AJaTMy0atXzzHmP9f4");'></div>
-<span class="text-gray-800 dark:text-gray-200">Mark Johnson</span>
-</div>
-</td>
-<td class="h-16 px-4 py-2 w-40 text-gray-600 dark:text-gray-400 text-sm font-normal leading-normal">Oct 24, 2023</td>
-<td class="h-16 px-4 py-2 w-32 text-sm font-normal leading-normal">
-<div class="inline-flex items-center gap-1.5 rounded-full px-2 py-0.5 text-xs font-medium text-red-700 bg-red-100 dark:text-red-300 dark:bg-red-900/40">
-<span class="material-symbols-outlined text-sm" style="font-variation-settings: 'FILL' 1;">flag</span>
-<span>High</span>
-</div>
-</td>
-<td class="h-16 px-4 py-2 w-40 text-sm font-normal leading-normal">
-<div class="inline-flex items-center gap-1.5 rounded-full px-2 py-0.5 text-xs font-medium text-green-700 bg-green-100 dark:text-green-300 dark:bg-green-900/40">
-<span class="material-symbols-outlined text-sm" style="font-variation-settings: 'FILL' 1;">check_circle</span>
-<span>Done</span>
-</div>
-</td>
-</tr>
-<tr class="hover:bg-gray-50 dark:hover:bg-white/5 group">
-<td class="h-16 px-4 py-2 w-auto text-gray-800 dark:text-gray-200 text-sm font-medium leading-normal">Review and approve the latest press release</td>
-<td class="h-16 px-4 py-2 w-48 text-sm font-normal leading-normal">
-<div class="flex items-center gap-2">
-<div class="bg-center bg-no-repeat aspect-square bg-cover rounded-full w-8" data-alt="Avatar for Emily Chen" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuBf_ZKgvlMuLM1ohcsti0stPOszqaEiD07FwarrtmQx-6NGu8duM5QRrV82GHNKrE8QMnqZbRVg7aJUK6Baw8YXKTFVp1uJ6tjDMkWirTR4culiwR4nD1n2EMpC2mNo_i3OxrPHuLL3VZXzO_j3NVecQ1lta9xUF7RMjS5NZ0Gu6nvK-7BRb-HhxLwD2VJE4Qd6tnG8N2KFs3WhJuhcyjn-hrovR62PawanJ6vY2-VmsI83JIPbeOMWHbYCvfk0s40Q0oX56uLNiiI");'></div>
-<span class="text-gray-800 dark:text-gray-200">Emily Chen</span>
-</div>
-</td>
-<td class="h-16 px-4 py-2 w-40 text-gray-600 dark:text-gray-400 text-sm font-normal leading-normal">Oct 28, 2023</td>
-<td class="h-16 px-4 py-2 w-32 text-sm font-normal leading-normal">
-<div class="inline-flex items-center gap-1.5 rounded-full px-2 py-0.5 text-xs font-medium text-yellow-700 bg-yellow-100 dark:text-yellow-300 dark:bg-yellow-900/40">
-<span class="material-symbols-outlined text-sm" style="font-variation-settings: 'FILL' 1;">flag</span>
-<span>Low</span>
-</div>
-</td>
-<td class="h-16 px-4 py-2 w-40 text-sm font-normal leading-normal">
-<div class="inline-flex items-center gap-1.5 rounded-full px-2 py-0.5 text-xs font-medium text-gray-700 bg-gray-100 dark:text-gray-300 dark:bg-gray-700/40">
-<span class="material-symbols-outlined text-sm" style="font-variation-settings: 'FILL' 1;">radio_button_unchecked</span>
-<span>To Do</span>
-</div>
-</td>
-</tr>
-</tbody>
-</table>
-</div>
-<p class="mt-4 text-xs text-gray-500 dark:text-gray-400">These tasks were generated automatically from your meeting summary.</p>
-</div>
-</div>
-</main>
-</div>
-</div>
-</body></html>
+  </head>
+  <body class="font-display bg-background-light dark:bg-background-dark text-gray-800 dark:text-gray-200">
+    <div class="flex h-screen w-full">
+      <aside
+        class="flex w-64 flex-col border-r border-gray-200 dark:border-gray-800 bg-white dark:bg-background-dark p-4"
+      >
+        <div class="flex flex-col gap-4">
+          <div class="flex items-center gap-3">
+            <div
+              class="bg-center bg-no-repeat aspect-square bg-cover rounded-full size-10"
+              data-alt="Talk2Task AI Logo abstract purple and white"
+              style="
+                background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuAWFbcE10CyCZCB4wFzsnABBdg9-IGOk_Q8YARVFy33GRzUZIsmRUSVsqCd5mLx7gV6yfH2SvfcTmf_DJeoiXeUCMoTlqQFp1ZezSWgkU2t_csw_ThTpvsH3ClHJPhvhavNZtI5LobEG466sXIgvkutlEQSk0To8w_z-PTrzETGw6hqGKANzMcllx1I__UjixG3GUHFKGguXAEjOps-bG6XyqNze9zf-sm17ueG3B07xrAblCY7DFqpoBTT-l1gzdMnoU3cj0QydiY');
+              "
+            ></div>
+            <h1 class="text-gray-900 dark:text-white text-base font-medium leading-normal">Talk2Task AI</h1>
+          </div>
+          <nav class="flex flex-col gap-2 mt-4">
+            <a
+              class="flex items-center gap-3 px-3 py-2 rounded-lg text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800"
+              href="#"
+            >
+              <span class="material-symbols-outlined text-gray-700 dark:text-gray-300">dashboard</span>
+              <p class="text-sm font-medium leading-normal">Dashboard</p>
+            </a>
+            <a
+              class="flex items-center gap-3 px-3 py-2 rounded-lg bg-primary/10 dark:bg-primary/20 text-primary dark:text-primary"
+              href="#"
+            >
+              <span class="material-symbols-outlined fill text-primary">check_circle</span>
+              <p class="text-sm font-medium leading-normal">Action Items</p>
+            </a>
+            <a
+              class="flex items-center gap-3 px-3 py-2 rounded-lg text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800"
+              href="#"
+            >
+              <span class="material-symbols-outlined text-gray-700 dark:text-gray-300">assessment</span>
+              <p class="text-sm font-medium leading-normal">Reports</p>
+            </a>
+            <a
+              class="flex items-center gap-3 px-3 py-2 rounded-lg text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800"
+              href="#"
+            >
+              <span class="material-symbols-outlined text-gray-700 dark:text-gray-300">settings</span>
+              <p class="text-sm font-medium leading-normal">Settings</p>
+            </a>
+          </nav>
+        </div>
+      </aside>
+      <div class="flex flex-1 flex-col overflow-hidden">
+        <header
+          class="flex h-16 flex-shrink-0 items-center justify-between border-b border-solid border-gray-200 dark:border-gray-800 bg-white dark:bg-background-dark px-10 py-3"
+        >
+          <label class="flex flex-col min-w-40 !h-10 max-w-64">
+            <div class="flex w-full flex-1 items-stretch rounded-lg h-full">
+              <div
+                class="text-gray-500 dark:text-gray-400 flex border-none bg-gray-100 dark:bg-white/10 items-center justify-center pl-4 rounded-l-lg border-r-0"
+              >
+                <span class="material-symbols-outlined">search</span>
+              </div>
+              <input
+                class="form-input flex w-full min-w-0 flex-1 resize-none overflow-hidden rounded-lg text-gray-900 dark:text-white focus:outline-0 focus:ring-0 border-none bg-gray-100 dark:bg-white/10 focus:border-none h-full placeholder:text-gray-500 dark:placeholder:text-gray-400 px-4 rounded-l-none border-l-0 pl-2 text-base font-normal leading-normal"
+                placeholder="Search"
+                value=""
+              />
+            </div>
+          </label>
+          <div class="flex flex-1 justify-end items-center gap-4">
+            <div class="flex gap-2">
+              <button
+                class="flex max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-lg h-10 w-10 bg-transparent text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800"
+              >
+                <span class="material-symbols-outlined text-lg">notifications</span>
+              </button>
+              <button
+                class="flex max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-lg h-10 w-10 bg-transparent text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800"
+              >
+                <span class="material-symbols-outlined text-lg">help</span>
+              </button>
+            </div>
+            <div
+              class="bg-center bg-no-repeat aspect-square bg-cover rounded-full size-10"
+              data-alt="User avatar"
+              style="
+                background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuBNvZMbAaGSmKByT5aETDUoRpoJBQscvNngmU3G2_RgNcffOhl8lwNqvs7Sx9ZdvxaiClqhAhU7msmUYAaV7yn6kqEBfNFDRH_5EGA5SMs1mEaLUHj3jPthStwnxVc1Y9QguPpCTM-q8LRVLhpPRryyL1oHSY8t4qm77ePn-ngGVvyJNywLWBXkVi02pq9GYiYdOyuMex8NzDO82UJ2lmrClwkPkBloaKTQUJnLaIiwU_Y7nt3vGKCT-CSsfmQcOOnXfLvgvW_Zd8Q');
+              "
+            ></div>
+          </div>
+        </header>
+        <main class="flex-1 overflow-y-auto p-8">
+          <div class="flex flex-col gap-6">
+            <div class="flex flex-wrap justify-between items-center gap-4">
+              <div class="flex flex-col gap-1">
+                <p class="text-gray-900 dark:text-white text-3xl font-black leading-tight tracking-tight">
+                  Action Items
+                </p>
+                <p class="text-gray-500 dark:text-gray-400 text-base font-normal leading-normal">
+                  AI-generated tasks from your meeting summary.
+                </p>
+              </div>
+              <div class="flex items-center gap-3">
+                <button
+                  class="flex min-w-[84px] max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-lg h-10 px-4 bg-transparent text-gray-700 dark:text-gray-200 text-sm font-medium leading-normal tracking-wide gap-2 border border-gray-300 dark:border-gray-700 hover:bg-gray-100 dark:hover:bg-white/10"
+                >
+                  <span class="truncate">Send Slack Reminders</span>
+                </button>
+                <button
+                  class="flex min-w-[84px] max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-lg h-10 px-4 bg-primary text-white text-sm font-medium leading-normal tracking-wide gap-2 hover:bg-primary/90"
+                >
+                  <span class="truncate">Export to Jira</span>
+                </button>
+              </div>
+            </div>
+            <div class="@container">
+              <div
+                class="overflow-hidden rounded-lg border border-gray-200 dark:border-gray-800 bg-white dark:bg-background-dark"
+              >
+                <table class="w-full">
+                  <thead class="bg-gray-50 dark:bg-white/5 border-b border-gray-200 dark:border-gray-800">
+                    <tr>
+                      <th
+                        class="px-4 py-3 text-left w-auto text-gray-600 dark:text-gray-300 text-sm font-medium leading-normal"
+                      >
+                        Task Summary
+                      </th>
+                      <th
+                        class="px-4 py-3 text-left w-48 text-gray-600 dark:text-gray-300 text-sm font-medium leading-normal"
+                      >
+                        Owner
+                      </th>
+                      <th
+                        class="px-4 py-3 text-left w-40 text-gray-600 dark:text-gray-300 text-sm font-medium leading-normal"
+                      >
+                        Due Date
+                      </th>
+                      <th
+                        class="px-4 py-3 text-left w-32 text-gray-600 dark:text-gray-300 text-sm font-medium leading-normal"
+                      >
+                        Priority
+                      </th>
+                      <th
+                        class="px-4 py-3 text-left w-40 text-gray-600 dark:text-gray-300 text-sm font-medium leading-normal"
+                      >
+                        Status
+                      </th>
+                    </tr>
+                  </thead>
+                  <tbody class="divide-y divide-gray-200 dark:divide-gray-800">
+                    <tr class="hover:bg-gray-50 dark:hover:bg-white/5 group">
+                      <td
+                        class="h-16 px-4 py-2 w-auto text-gray-800 dark:text-gray-200 text-sm font-medium leading-normal"
+                      >
+                        Draft Q4 marketing report
+                      </td>
+                      <td class="h-16 px-4 py-2 w-48 text-sm font-normal leading-normal">
+                        <div class="flex items-center gap-2">
+                          <div
+                            class="bg-center bg-no-repeat aspect-square bg-cover rounded-full w-8"
+                            data-alt="Avatar for John Doe"
+                            style="
+                              background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuDx-lDl-Rs14E3qrZAYHLSjKnMBY3yPTPj52-obm6KoPSQG1xYP_IR0kVE4Lw1DNKlHJvPR6h1kkmyQhF0BBDCzdfUlQk33Phkf6XCNpCF5dj2Xoa2TqlQR-77ffLMlRI6foawjT5ZOCTHbdA6Bx6lMwODqQWTVpwOVe6Hy1aeXV71f9xUWEnyuRoooO0JHwsxZIcL9VWy41SZt_qWHdn1EQn15bNRsz2JVfXsZHS3PnQWR2a7l1C-Qp8zsLDCGtdIpf_6eW8aFEF8');
+                            "
+                          ></div>
+                          <span class="text-gray-800 dark:text-gray-200">John Doe</span>
+                        </div>
+                      </td>
+                      <td
+                        class="h-16 px-4 py-2 w-40 text-gray-600 dark:text-gray-400 text-sm font-normal leading-normal"
+                      >
+                        Oct 26, 2023
+                      </td>
+                      <td class="h-16 px-4 py-2 w-32 text-sm font-normal leading-normal">
+                        <div
+                          class="inline-flex items-center gap-1.5 rounded-full px-2 py-0.5 text-xs font-medium text-red-700 bg-red-100 dark:text-red-300 dark:bg-red-900/40"
+                        >
+                          <span class="material-symbols-outlined text-sm" style="font-variation-settings: 'FILL' 1"
+                            >flag</span
+                          >
+                          <span>High</span>
+                        </div>
+                      </td>
+                      <td class="h-16 px-4 py-2 w-40 text-sm font-normal leading-normal">
+                        <div
+                          class="inline-flex items-center gap-1.5 rounded-full px-2 py-0.5 text-xs font-medium text-blue-700 bg-blue-100 dark:text-blue-300 dark:bg-blue-900/40"
+                        >
+                          <span class="material-symbols-outlined text-sm" style="font-variation-settings: 'FILL' 1"
+                            >clock_loader_10</span
+                          >
+                          <span>In Progress</span>
+                        </div>
+                      </td>
+                    </tr>
+                    <tr class="hover:bg-gray-50 dark:hover:bg-white/5 group">
+                      <td
+                        class="h-16 px-4 py-2 w-auto text-gray-800 dark:text-gray-200 text-sm font-medium leading-normal"
+                      >
+                        Schedule follow-up meeting with the design team
+                      </td>
+                      <td class="h-16 px-4 py-2 w-48 text-sm font-normal leading-normal">
+                        <div class="flex items-center gap-2">
+                          <div
+                            class="bg-center bg-no-repeat aspect-square bg-cover rounded-full w-8"
+                            data-alt="Avatar for Sarah Smith"
+                            style="
+                              background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuCXZn5hhRGRID30MI8H01aCUOH9sE4x7RvZQwm3sl9y-ZhGdN35058ylUnrupOk1Ucu0UfN8QPsLGw-dzuMpO_SXjiX5UujYkUIaRXylQ8hzsYgvsyJVe164VSvsHOOgvLfFN_6qLY1Akb3_9hkiB6s2DO_pt3llYt0coeopkzxfAuTgJ07GsSGspZP2egfJDlprJigGz0jfm_EfL5XS1mRFmFJSh2S2WDK3l4l41zrSSoRtBcZuwxhAaxnZAMOe0mkhb6QFXgS92w');
+                            "
+                          ></div>
+                          <span class="text-gray-800 dark:text-gray-200">Sarah Smith</span>
+                        </div>
+                      </td>
+                      <td
+                        class="h-16 px-4 py-2 w-40 text-gray-600 dark:text-gray-400 text-sm font-normal leading-normal"
+                      >
+                        Nov 02, 2023
+                      </td>
+                      <td class="h-16 px-4 py-2 w-32 text-sm font-normal leading-normal">
+                        <div
+                          class="inline-flex items-center gap-1.5 rounded-full px-2 py-0.5 text-xs font-medium text-orange-700 bg-orange-100 dark:text-orange-300 dark:bg-orange-900/40"
+                        >
+                          <span class="material-symbols-outlined text-sm" style="font-variation-settings: 'FILL' 1"
+                            >flag</span
+                          >
+                          <span>Medium</span>
+                        </div>
+                      </td>
+                      <td class="h-16 px-4 py-2 w-40 text-sm font-normal leading-normal">
+                        <div
+                          class="inline-flex items-center gap-1.5 rounded-full px-2 py-0.5 text-xs font-medium text-gray-700 bg-gray-100 dark:text-gray-300 dark:bg-gray-700/40"
+                        >
+                          <span class="material-symbols-outlined text-sm" style="font-variation-settings: 'FILL' 1"
+                            >radio_button_unchecked</span
+                          >
+                          <span>To Do</span>
+                        </div>
+                      </td>
+                    </tr>
+                    <tr class="hover:bg-gray-50 dark:hover:bg-white/5 group">
+                      <td
+                        class="h-16 px-4 py-2 w-auto text-gray-800 dark:text-gray-200 text-sm font-medium leading-normal"
+                      >
+                        Finalize the budget allocation for the new project
+                      </td>
+                      <td class="h-16 px-4 py-2 w-48 text-sm font-normal leading-normal">
+                        <div class="flex items-center gap-2">
+                          <div
+                            class="bg-center bg-no-repeat aspect-square bg-cover rounded-full w-8"
+                            data-alt="Avatar for Mark Johnson"
+                            style="
+                              background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuAplHYeeqObAMBxeNmEA6dVM6xWkEFEkZ6WhKtnmgk6h0-yfV9BFNTvMGvqpjYvtzAcp8S-CLE43aTeXHJ8ADSnRmVaI0_3FeLL_2ZElKMmYoDYvqNt6LK9sChFgIu3gDBLrdbz5I3vRGFnxxAl_L4JRG2N-KVE4o3ed9Jpu27fwZgdN-3YTceTVNuIHfQUQ32D59nflN7RftQ5MDkQrprI3qvOBOth7sckIT4v78ZcJzBRqF7NKe3UHIh5_AJaTMy0atXzzHmP9f4');
+                            "
+                          ></div>
+                          <span class="text-gray-800 dark:text-gray-200">Mark Johnson</span>
+                        </div>
+                      </td>
+                      <td
+                        class="h-16 px-4 py-2 w-40 text-gray-600 dark:text-gray-400 text-sm font-normal leading-normal"
+                      >
+                        Oct 24, 2023
+                      </td>
+                      <td class="h-16 px-4 py-2 w-32 text-sm font-normal leading-normal">
+                        <div
+                          class="inline-flex items-center gap-1.5 rounded-full px-2 py-0.5 text-xs font-medium text-red-700 bg-red-100 dark:text-red-300 dark:bg-red-900/40"
+                        >
+                          <span class="material-symbols-outlined text-sm" style="font-variation-settings: 'FILL' 1"
+                            >flag</span
+                          >
+                          <span>High</span>
+                        </div>
+                      </td>
+                      <td class="h-16 px-4 py-2 w-40 text-sm font-normal leading-normal">
+                        <div
+                          class="inline-flex items-center gap-1.5 rounded-full px-2 py-0.5 text-xs font-medium text-green-700 bg-green-100 dark:text-green-300 dark:bg-green-900/40"
+                        >
+                          <span class="material-symbols-outlined text-sm" style="font-variation-settings: 'FILL' 1"
+                            >check_circle</span
+                          >
+                          <span>Done</span>
+                        </div>
+                      </td>
+                    </tr>
+                    <tr class="hover:bg-gray-50 dark:hover:bg-white/5 group">
+                      <td
+                        class="h-16 px-4 py-2 w-auto text-gray-800 dark:text-gray-200 text-sm font-medium leading-normal"
+                      >
+                        Review and approve the latest press release
+                      </td>
+                      <td class="h-16 px-4 py-2 w-48 text-sm font-normal leading-normal">
+                        <div class="flex items-center gap-2">
+                          <div
+                            class="bg-center bg-no-repeat aspect-square bg-cover rounded-full w-8"
+                            data-alt="Avatar for Emily Chen"
+                            style="
+                              background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuBf_ZKgvlMuLM1ohcsti0stPOszqaEiD07FwarrtmQx-6NGu8duM5QRrV82GHNKrE8QMnqZbRVg7aJUK6Baw8YXKTFVp1uJ6tjDMkWirTR4culiwR4nD1n2EMpC2mNo_i3OxrPHuLL3VZXzO_j3NVecQ1lta9xUF7RMjS5NZ0Gu6nvK-7BRb-HhxLwD2VJE4Qd6tnG8N2KFs3WhJuhcyjn-hrovR62PawanJ6vY2-VmsI83JIPbeOMWHbYCvfk0s40Q0oX56uLNiiI');
+                            "
+                          ></div>
+                          <span class="text-gray-800 dark:text-gray-200">Emily Chen</span>
+                        </div>
+                      </td>
+                      <td
+                        class="h-16 px-4 py-2 w-40 text-gray-600 dark:text-gray-400 text-sm font-normal leading-normal"
+                      >
+                        Oct 28, 2023
+                      </td>
+                      <td class="h-16 px-4 py-2 w-32 text-sm font-normal leading-normal">
+                        <div
+                          class="inline-flex items-center gap-1.5 rounded-full px-2 py-0.5 text-xs font-medium text-yellow-700 bg-yellow-100 dark:text-yellow-300 dark:bg-yellow-900/40"
+                        >
+                          <span class="material-symbols-outlined text-sm" style="font-variation-settings: 'FILL' 1"
+                            >flag</span
+                          >
+                          <span>Low</span>
+                        </div>
+                      </td>
+                      <td class="h-16 px-4 py-2 w-40 text-sm font-normal leading-normal">
+                        <div
+                          class="inline-flex items-center gap-1.5 rounded-full px-2 py-0.5 text-xs font-medium text-gray-700 bg-gray-100 dark:text-gray-300 dark:bg-gray-700/40"
+                        >
+                          <span class="material-symbols-outlined text-sm" style="font-variation-settings: 'FILL' 1"
+                            >radio_button_unchecked</span
+                          >
+                          <span>To Do</span>
+                        </div>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+              <p class="mt-4 text-xs text-gray-500 dark:text-gray-400">
+                These tasks were generated automatically from your meeting summary.
+              </p>
+            </div>
+          </div>
+        </main>
+      </div>
+    </div>
+  </body>
+</html>

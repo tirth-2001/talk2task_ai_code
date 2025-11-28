@@ -1,149 +1,223 @@
-<!DOCTYPE html>
-<html class="light" lang="en"><head>
-<meta charset="utf-8"/>
-<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-<title>Talk2Task AI Processing</title>
-<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
-<link href="https://fonts.googleapis.com" rel="preconnect"/>
-<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;900&amp;display=swap" rel="stylesheet"/>
-<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
-<script id="tailwind-config">
-    tailwind.config = {
-        darkMode: "class",
+<!doctype html>
+<html class="light" lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>Talk2Task AI Processing</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link href="https://fonts.googleapis.com" rel="preconnect" />
+    <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;900&amp;display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+      rel="stylesheet"
+    />
+    <script id="tailwind-config">
+      tailwind.config = {
+        darkMode: 'class',
         theme: {
-            extend: {
-                colors: {
-                    "primary": "#5D0EC0",
-                    "background-light": "#f7f6f8",
-                    "background-dark": "#191022",
-                },
-                fontFamily: {
-                    "display": ["Inter", "sans-serif"]
-                },
-                borderRadius: {
-                    "DEFAULT": "0.25rem",
-                    "lg": "0.5rem",
-                    "xl": "0.75rem",
-                    "full": "9999px"
-                },
+          extend: {
+            colors: {
+              primary: '#5D0EC0',
+              'background-light': '#f7f6f8',
+              'background-dark': '#191022',
             },
+            fontFamily: {
+              display: ['Inter', 'sans-serif'],
+            },
+            borderRadius: {
+              DEFAULT: '0.25rem',
+              lg: '0.5rem',
+              xl: '0.75rem',
+              full: '9999px',
+            },
+          },
         },
-    }
+      }
     </script>
-<style>
-    .material-symbols-outlined {
-        font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
-    }
+    <style>
+      .material-symbols-outlined {
+        font-variation-settings:
+          'FILL' 0,
+          'wght' 400,
+          'GRAD' 0,
+          'opsz' 24;
+      }
     </style>
-</head>
-<body class="font-display bg-background-light dark:bg-background-dark text-[#172B4D] dark:text-white/90">
-<div class="relative flex h-auto min-h-screen w-full flex-col group/design-root overflow-x-hidden">
-<header class="flex items-center justify-between whitespace-nowrap border-b border-solid border-gray-200 dark:border-white/10 px-6 sm:px-10 py-3 bg-white dark:bg-background-dark fixed top-0 left-0 right-0 z-10">
-<div class="flex items-center gap-4 text-[#141118] dark:text-white">
-<div class="size-6 text-primary">
-<svg fill="none" viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
-<path clip-rule="evenodd" d="M24 4H6V17.3333V30.6667H24V44H42V30.6667V17.3333H24V4Z" fill="currentColor" fill-rule="evenodd"></path>
-</svg>
-</div>
-<h2 class="text-lg font-bold leading-tight tracking-[-0.015em]">Talk2Task AI</h2>
-</div>
-<div class="flex flex-1 justify-end gap-4 sm:gap-6 items-center">
-<button class="flex min-w-[84px] max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-lg h-10 px-4 bg-primary text-white text-sm font-bold leading-normal tracking-[0.015em] shadow-sm hover:opacity-90 transition-opacity">
-<span class="truncate">Process Another</span>
-</button>
-<div class="bg-center bg-no-repeat aspect-square bg-cover rounded-full size-10 border-2 border-white dark:border-gray-600 shadow-sm" data-alt="User profile picture, an abstract gradient." style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuCixTFN0-hOVLBzuBw_a_7l9XeYTaEWXY1-_NJ13R1Po0g6VfRdqlzy1bMYVRGqvy4VGLWwOzwFHKAbnMUxKUb67HhrwXOe0EgAw-dCG1EFz9fnRE48lLan5n5bx-vRw0qQPf53VPEOSy3R0ZdfjrjypCU6SGcoyfWOq95Ay-I6KCeO6iJsEGsMoSk_r3OORIMCdVvEtVdIwwM302u2vmYic_N5A0uTcHX12e7wzt3FSdDpd_xPIgfxy3CcxJ8rQe9FwKV3437gnYY");'></div>
-</div>
-</header>
-<main class="flex-grow pt-20">
-<div class="grid grid-cols-1 lg:grid-cols-2 gap-8 p-4 sm:p-6 md:p-8 max-w-7xl mx-auto">
-<div class="flex flex-col gap-8 justify-center items-center py-10 lg:py-0">
-<div class="w-full max-w-md">
-<h1 class="text-[#141118] dark:text-white tracking-tight text-3xl md:text-4xl font-bold leading-tight text-center">AI is processing your request</h1>
-<p class="text-gray-500 dark:text-gray-400 text-base font-normal leading-normal text-center mt-3 mb-10">This should only take a moment. Tasks will appear on the right as they are extracted.</p>
-<div class="relative pl-8">
-<div class="absolute left-4 top-2 bottom-2 w-0.5 bg-gray-200 dark:bg-gray-700"></div>
-<div class="relative flex items-center gap-4 mb-8">
-<div class="flex items-center justify-center size-8 rounded-full bg-primary text-white z-10">
-<span class="material-symbols-outlined text-xl !fill-1">check</span>
-</div>
-<span class="font-medium text-gray-800 dark:text-gray-200">Understanding context</span>
-</div>
-<div class="relative flex items-center gap-4 mb-8">
-<div class="flex items-center justify-center size-8 rounded-full bg-primary text-white z-10">
-<span class="material-symbols-outlined text-xl !fill-1">check</span>
-</div>
-<span class="font-medium text-gray-800 dark:text-gray-200">Extracting tasks</span>
-</div>
-<div class="relative flex items-center gap-4 mb-8">
-<div class="relative flex items-center justify-center size-8 rounded-full bg-primary text-white z-10">
-<span class="absolute inline-flex h-full w-full animate-ping rounded-full bg-primary opacity-75"></span>
-<div class="size-3 rounded-full bg-white"></div>
-</div>
-<span class="font-bold text-primary dark:text-primary/90">Identifying owners</span>
-</div>
-<div class="relative flex items-center gap-4 mb-8">
-<div class="flex items-center justify-center size-8 rounded-full bg-gray-200 dark:bg-gray-700 text-gray-500 dark:text-gray-400 z-10"></div>
-<span class="font-medium text-gray-500 dark:text-gray-400">Detecting risks</span>
-</div>
-<div class="relative flex items-center gap-4">
-<div class="flex items-center justify-center size-8 rounded-full bg-gray-200 dark:bg-gray-700 text-gray-500 dark:text-gray-400 z-10"></div>
-<span class="font-medium text-gray-500 dark:text-gray-400">Generating MoM</span>
-</div>
-</div>
-</div>
-</div>
-<div class="flex flex-col gap-6">
-<div class="flex flex-col gap-4 p-6 rounded-xl bg-white dark:bg-gray-800/50 border border-gray-200 dark:border-gray-700 min-h-[400px] lg:min-h-[calc(100vh-220px)]">
-<h2 class="text-[#141118] dark:text-white tracking-light text-2xl font-bold leading-tight">Extracted Tasks</h2>
-<div class="flex flex-col gap-4 overflow-y-auto pr-2 -mr-2">
-<div class="flex flex-col gap-3 p-4 rounded-lg bg-white dark:bg-gray-900/50 border border-gray-200 dark:border-gray-700 shadow-sm">
-<p class="text-base text-[#141118] dark:text-white">Coordinate with the design team to finalize the new onboarding mockups.</p>
-<div class="flex items-center gap-6 text-sm text-gray-600 dark:text-gray-300">
-<div class="flex items-center gap-2">
-<img alt="Alex's avatar" class="size-6 rounded-full" src="https://lh3.googleusercontent.com/aida-public/AB6AXuD-DbNourxYyY4SHc1mHpX2ToGqcf23dK3yPahbO8OgtW-y6DDcNvO-SmnNajAeFDUEib4a3-wNPEGcLNWvzjQqnim127Rttt4Lfg9mOGTabYTwx1myGxVtlVz4lvCXNh1dCJg6kzHq50_0yNlZXZFXEiVdWLXnnmS0TrxHXLw1W2q0_3z3rIwy0bX9fANRiekHHX1NXgpZoMPlDOYqETIOqG3nPC5aeI3e7InygKEDAaJ3IBJXglbDH3v4pSBD6sPvz0BcZXHDpp8"/>
-<span class="font-medium">Alex</span>
-</div>
-<div class="flex items-center gap-2">
-<span class="material-symbols-outlined text-lg text-gray-500 dark:text-gray-400">calendar_today</span>
-<span class="font-medium">Oct 28</span>
-</div>
-</div>
-</div>
-<div class="flex flex-col gap-3 p-4 rounded-lg bg-white dark:bg-gray-900/50 border border-gray-200 dark:border-gray-700 shadow-sm">
-<p class="text-base text-[#141118] dark:text-white">Prepare the slide deck for the Q4 stakeholder meeting and share for feedback.</p>
-<div class="flex items-center gap-6 text-sm text-gray-600 dark:text-gray-300">
-<div class="flex items-center gap-2">
-<img alt="Maria's avatar" class="size-6 rounded-full" src="https://lh3.googleusercontent.com/aida-public/AB6AXuANQlLRuMMdxLechHlsbJpa5YH93EbtjfIc-LrKSnwrjO_6AjP4iQ6A34pVwFZ-55z96ju5uYuUDjuPGVkVTRWnSl5GGyLK_hriEnbZi14NNIuWVv6IqM43RBiGi7m266LROXiIvb9lJebaQckjRIxyJcQtF-VZMumouaxa_eAHPjbVxz5PYY2OoAgMoDxMpbO4PiviQI6qzZQz01QCD4RN7AOLau3KL9lDJoUdjVy-GgsD067R6_5nJalbddyaVwprYD1q5j7cNTM"/>
-<span class="font-medium">Maria</span>
-</div>
-<div class="flex items-center gap-2">
-<span class="material-symbols-outlined text-lg text-gray-500 dark:text-gray-400">calendar_today</span>
-<span class="font-medium">Nov 03</span>
-</div>
-</div>
-</div>
-<div class="flex flex-col gap-3 p-4 rounded-lg bg-white dark:bg-gray-900/50 border border-gray-200 dark:border-gray-700 shadow-sm">
-<p class="text-base text-[#141118] dark:text-white">Schedule a follow-up call with the engineering lead to discuss API integration points.</p>
-<div class="flex items-center gap-6 text-sm text-gray-600 dark:text-gray-300">
-<div class="flex items-center gap-2">
-<img alt="Sam's avatar" class="size-6 rounded-full" src="https://lh3.googleusercontent.com/aida-public/AB6AXuA_WW9k-kjYtj76apge7vm3JejMdZiju0LIlSURs93Ucail7VJ6Kd8txQnI3vIX7hXboo2ZLA76PLcE5IYkii9453kSxPLRG4GzBjXOybH4T-6LmU8VL4Q49PEjWVY0hLxnvp_PmbwrX0-smUAUPwuzTDngjSJseArPHjzbr6GSxBF-v3h9uOyaKh2aZ1ISJAusXqJJGYRJs9CDrU6u03PzfxztPJB4czgSUxpqTLQJmM5B5amoZRXylLj3GnHi5IFPbkP2pq-m86k"/>
-<span class="font-medium">Sam</span>
-</div>
-<div class="flex items-center gap-2">
-<span class="material-symbols-outlined text-lg text-gray-500 dark:text-gray-400">calendar_today</span>
-<span class="font-medium">This Week</span>
-</div>
-</div>
-</div>
-</div>
-<button class="flex min-w-[84px] w-full max-w-full cursor-pointer items-center justify-center overflow-hidden rounded-lg h-11 px-4 bg-primary text-white gap-2 text-base font-bold leading-normal tracking-[0.015em] shadow-sm hover:opacity-90 transition-opacity mt-auto">
-<span class="truncate">View Extracted Tasks</span>
-</button>
-</div>
-</div>
-</div>
-</main>
-</div>
-
-</body></html>
+  </head>
+  <body class="font-display bg-background-light dark:bg-background-dark text-[#172B4D] dark:text-white/90">
+    <div class="relative flex h-auto min-h-screen w-full flex-col group/design-root overflow-x-hidden">
+      <header
+        class="flex items-center justify-between whitespace-nowrap border-b border-solid border-gray-200 dark:border-white/10 px-6 sm:px-10 py-3 bg-white dark:bg-background-dark fixed top-0 left-0 right-0 z-10"
+      >
+        <div class="flex items-center gap-4 text-[#141118] dark:text-white">
+          <div class="size-6 text-primary">
+            <svg fill="none" viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
+              <path
+                clip-rule="evenodd"
+                d="M24 4H6V17.3333V30.6667H24V44H42V30.6667V17.3333H24V4Z"
+                fill="currentColor"
+                fill-rule="evenodd"
+              ></path>
+            </svg>
+          </div>
+          <h2 class="text-lg font-bold leading-tight tracking-[-0.015em]">Talk2Task AI</h2>
+        </div>
+        <div class="flex flex-1 justify-end gap-4 sm:gap-6 items-center">
+          <button
+            class="flex min-w-[84px] max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-lg h-10 px-4 bg-primary text-white text-sm font-bold leading-normal tracking-[0.015em] shadow-sm hover:opacity-90 transition-opacity"
+          >
+            <span class="truncate">Process Another</span>
+          </button>
+          <div
+            class="bg-center bg-no-repeat aspect-square bg-cover rounded-full size-10 border-2 border-white dark:border-gray-600 shadow-sm"
+            data-alt="User profile picture, an abstract gradient."
+            style="
+              background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuCixTFN0-hOVLBzuBw_a_7l9XeYTaEWXY1-_NJ13R1Po0g6VfRdqlzy1bMYVRGqvy4VGLWwOzwFHKAbnMUxKUb67HhrwXOe0EgAw-dCG1EFz9fnRE48lLan5n5bx-vRw0qQPf53VPEOSy3R0ZdfjrjypCU6SGcoyfWOq95Ay-I6KCeO6iJsEGsMoSk_r3OORIMCdVvEtVdIwwM302u2vmYic_N5A0uTcHX12e7wzt3FSdDpd_xPIgfxy3CcxJ8rQe9FwKV3437gnYY');
+            "
+          ></div>
+        </div>
+      </header>
+      <main class="flex-grow pt-20">
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 p-4 sm:p-6 md:p-8 max-w-7xl mx-auto">
+          <div class="flex flex-col gap-8 justify-center items-center py-10 lg:py-0">
+            <div class="w-full max-w-md">
+              <h1
+                class="text-[#141118] dark:text-white tracking-tight text-3xl md:text-4xl font-bold leading-tight text-center"
+              >
+                AI is processing your request
+              </h1>
+              <p class="text-gray-500 dark:text-gray-400 text-base font-normal leading-normal text-center mt-3 mb-10">
+                This should only take a moment. Tasks will appear on the right as they are extracted.
+              </p>
+              <div class="relative pl-8">
+                <div class="absolute left-4 top-2 bottom-2 w-0.5 bg-gray-200 dark:bg-gray-700"></div>
+                <div class="relative flex items-center gap-4 mb-8">
+                  <div class="flex items-center justify-center size-8 rounded-full bg-primary text-white z-10">
+                    <span class="material-symbols-outlined text-xl !fill-1">check</span>
+                  </div>
+                  <span class="font-medium text-gray-800 dark:text-gray-200">Understanding context</span>
+                </div>
+                <div class="relative flex items-center gap-4 mb-8">
+                  <div class="flex items-center justify-center size-8 rounded-full bg-primary text-white z-10">
+                    <span class="material-symbols-outlined text-xl !fill-1">check</span>
+                  </div>
+                  <span class="font-medium text-gray-800 dark:text-gray-200">Extracting tasks</span>
+                </div>
+                <div class="relative flex items-center gap-4 mb-8">
+                  <div class="relative flex items-center justify-center size-8 rounded-full bg-primary text-white z-10">
+                    <span
+                      class="absolute inline-flex h-full w-full animate-ping rounded-full bg-primary opacity-75"
+                    ></span>
+                    <div class="size-3 rounded-full bg-white"></div>
+                  </div>
+                  <span class="font-bold text-primary dark:text-primary/90">Identifying owners</span>
+                </div>
+                <div class="relative flex items-center gap-4 mb-8">
+                  <div
+                    class="flex items-center justify-center size-8 rounded-full bg-gray-200 dark:bg-gray-700 text-gray-500 dark:text-gray-400 z-10"
+                  ></div>
+                  <span class="font-medium text-gray-500 dark:text-gray-400">Detecting risks</span>
+                </div>
+                <div class="relative flex items-center gap-4">
+                  <div
+                    class="flex items-center justify-center size-8 rounded-full bg-gray-200 dark:bg-gray-700 text-gray-500 dark:text-gray-400 z-10"
+                  ></div>
+                  <span class="font-medium text-gray-500 dark:text-gray-400">Generating MoM</span>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="flex flex-col gap-6">
+            <div
+              class="flex flex-col gap-4 p-6 rounded-xl bg-white dark:bg-gray-800/50 border border-gray-200 dark:border-gray-700 min-h-[400px] lg:min-h-[calc(100vh-220px)]"
+            >
+              <h2 class="text-[#141118] dark:text-white tracking-light text-2xl font-bold leading-tight">
+                Extracted Tasks
+              </h2>
+              <div class="flex flex-col gap-4 overflow-y-auto pr-2 -mr-2">
+                <div
+                  class="flex flex-col gap-3 p-4 rounded-lg bg-white dark:bg-gray-900/50 border border-gray-200 dark:border-gray-700 shadow-sm"
+                >
+                  <p class="text-base text-[#141118] dark:text-white">
+                    Coordinate with the design team to finalize the new onboarding mockups.
+                  </p>
+                  <div class="flex items-center gap-6 text-sm text-gray-600 dark:text-gray-300">
+                    <div class="flex items-center gap-2">
+                      <img
+                        alt="Alex's avatar"
+                        class="size-6 rounded-full"
+                        src="https://lh3.googleusercontent.com/aida-public/AB6AXuD-DbNourxYyY4SHc1mHpX2ToGqcf23dK3yPahbO8OgtW-y6DDcNvO-SmnNajAeFDUEib4a3-wNPEGcLNWvzjQqnim127Rttt4Lfg9mOGTabYTwx1myGxVtlVz4lvCXNh1dCJg6kzHq50_0yNlZXZFXEiVdWLXnnmS0TrxHXLw1W2q0_3z3rIwy0bX9fANRiekHHX1NXgpZoMPlDOYqETIOqG3nPC5aeI3e7InygKEDAaJ3IBJXglbDH3v4pSBD6sPvz0BcZXHDpp8"
+                      />
+                      <span class="font-medium">Alex</span>
+                    </div>
+                    <div class="flex items-center gap-2">
+                      <span class="material-symbols-outlined text-lg text-gray-500 dark:text-gray-400"
+                        >calendar_today</span
+                      >
+                      <span class="font-medium">Oct 28</span>
+                    </div>
+                  </div>
+                </div>
+                <div
+                  class="flex flex-col gap-3 p-4 rounded-lg bg-white dark:bg-gray-900/50 border border-gray-200 dark:border-gray-700 shadow-sm"
+                >
+                  <p class="text-base text-[#141118] dark:text-white">
+                    Prepare the slide deck for the Q4 stakeholder meeting and share for feedback.
+                  </p>
+                  <div class="flex items-center gap-6 text-sm text-gray-600 dark:text-gray-300">
+                    <div class="flex items-center gap-2">
+                      <img
+                        alt="Maria's avatar"
+                        class="size-6 rounded-full"
+                        src="https://lh3.googleusercontent.com/aida-public/AB6AXuANQlLRuMMdxLechHlsbJpa5YH93EbtjfIc-LrKSnwrjO_6AjP4iQ6A34pVwFZ-55z96ju5uYuUDjuPGVkVTRWnSl5GGyLK_hriEnbZi14NNIuWVv6IqM43RBiGi7m266LROXiIvb9lJebaQckjRIxyJcQtF-VZMumouaxa_eAHPjbVxz5PYY2OoAgMoDxMpbO4PiviQI6qzZQz01QCD4RN7AOLau3KL9lDJoUdjVy-GgsD067R6_5nJalbddyaVwprYD1q5j7cNTM"
+                      />
+                      <span class="font-medium">Maria</span>
+                    </div>
+                    <div class="flex items-center gap-2">
+                      <span class="material-symbols-outlined text-lg text-gray-500 dark:text-gray-400"
+                        >calendar_today</span
+                      >
+                      <span class="font-medium">Nov 03</span>
+                    </div>
+                  </div>
+                </div>
+                <div
+                  class="flex flex-col gap-3 p-4 rounded-lg bg-white dark:bg-gray-900/50 border border-gray-200 dark:border-gray-700 shadow-sm"
+                >
+                  <p class="text-base text-[#141118] dark:text-white">
+                    Schedule a follow-up call with the engineering lead to discuss API integration points.
+                  </p>
+                  <div class="flex items-center gap-6 text-sm text-gray-600 dark:text-gray-300">
+                    <div class="flex items-center gap-2">
+                      <img
+                        alt="Sam's avatar"
+                        class="size-6 rounded-full"
+                        src="https://lh3.googleusercontent.com/aida-public/AB6AXuA_WW9k-kjYtj76apge7vm3JejMdZiju0LIlSURs93Ucail7VJ6Kd8txQnI3vIX7hXboo2ZLA76PLcE5IYkii9453kSxPLRG4GzBjXOybH4T-6LmU8VL4Q49PEjWVY0hLxnvp_PmbwrX0-smUAUPwuzTDngjSJseArPHjzbr6GSxBF-v3h9uOyaKh2aZ1ISJAusXqJJGYRJs9CDrU6u03PzfxztPJB4czgSUxpqTLQJmM5B5amoZRXylLj3GnHi5IFPbkP2pq-m86k"
+                      />
+                      <span class="font-medium">Sam</span>
+                    </div>
+                    <div class="flex items-center gap-2">
+                      <span class="material-symbols-outlined text-lg text-gray-500 dark:text-gray-400"
+                        >calendar_today</span
+                      >
+                      <span class="font-medium">This Week</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <button
+                class="flex min-w-[84px] w-full max-w-full cursor-pointer items-center justify-center overflow-hidden rounded-lg h-11 px-4 bg-primary text-white gap-2 text-base font-bold leading-normal tracking-[0.015em] shadow-sm hover:opacity-90 transition-opacity mt-auto"
+              >
+                <span class="truncate">View Extracted Tasks</span>
+              </button>
+            </div>
+          </div>
+        </div>
+      </main>
+    </div>
+  </body>
+</html>
