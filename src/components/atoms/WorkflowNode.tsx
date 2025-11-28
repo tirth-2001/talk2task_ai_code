@@ -10,6 +10,7 @@ interface WorkflowNodeProps {
   onConfigClick?: (e: React.MouseEvent) => void
   onDeleteClick?: (e: React.MouseEvent) => void
   isSelected?: boolean
+  error?: string
 }
 
 const WorkflowNode: React.FC<WorkflowNodeProps> = ({
@@ -21,6 +22,7 @@ const WorkflowNode: React.FC<WorkflowNodeProps> = ({
   onConfigClick,
   onDeleteClick,
   isSelected,
+  error,
 }) => {
   const [showMenu, setShowMenu] = useState(false)
   const menuRef = useRef<HTMLDivElement>(null)
@@ -45,11 +47,18 @@ const WorkflowNode: React.FC<WorkflowNodeProps> = ({
 
   return (
     <div
-      onClick={onClick}
-      className={`relative flex items-center gap-4 p-4 rounded-xl border bg-white w-full transition-all group ${
-        isSelected ? 'border-primary ring-2 ring-primary/20 shadow-lg' : 'border-gray-200 hover:border-primary/50'
-      } ${className}`}
+      className={`
+        relative flex items-center gap-3 p-4 rounded-xl border-2 bg-white transition-all w-full group
+        ${isSelected ? 'border-primary ring-2 ring-primary/20 shadow-lg z-10' : 'border-gray-200 hover:border-primary/50 hover:shadow-md'}
+        ${error ? 'border-red-500 ring-2 ring-red-500/20' : ''}
+      `}
+      onClick={onConfigClick}
     >
+      {error && (
+        <div className="absolute -top-3 right-4 bg-red-500 text-white text-xs px-2 py-0.5 rounded-full font-medium shadow-sm z-20">
+          {error}
+        </div>
+      )}
       <div className="text-gray-800 text-2xl flex-shrink-0">{icon}</div>
       <div className="flex flex-col flex-grow min-w-0">
         <h4 className="text-gray-900 font-semibold text-sm truncate">{title}</h4>

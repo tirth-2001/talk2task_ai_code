@@ -13,15 +13,10 @@ import {
 import type { DragStartEvent, DragEndEvent } from '@dnd-kit/core'
 import { CSS } from '@dnd-kit/utilities'
 import {
-  Calendar,
   FileText,
   MessageSquare,
   Mail,
   CalendarDays,
-  Send,
-  Bell,
-  ArrowDown,
-  ArrowLeft,
   CheckSquare,
   AlertTriangle,
   Smile,
@@ -30,14 +25,18 @@ import {
   Database,
   Globe,
   Zap,
+  GitFork,
+  ArrowLeft,
 } from 'lucide-react'
-import { Button, Toggle, WorkflowNode, NodeConfigPanel } from '@/components'
+import { Button, Toggle, NodeConfigPanel, WorkflowList } from '@/components'
 import { type Workflow, workflowService } from '@/services/workflowService'
+import { validationService } from '@/services/validationService'
+import { useToast } from '@/context/ToastContext'
 
 // Types
 interface SidebarItemData {
   id: string
-  type: 'trigger' | 'action' | 'ai' | 'source'
+  type: 'trigger' | 'action' | 'ai' | 'source' | 'branch'
   label: string
   icon: React.ReactNode
   description?: string
@@ -46,6 +45,10 @@ interface SidebarItemData {
 interface WorkflowItemData extends SidebarItemData {
   instanceId: string
   config?: Record<string, any>
+  branches?: {
+    true: WorkflowItemData[]
+    false: WorkflowItemData[]
+  }
 }
 
 // Draggable Sidebar Item Component
@@ -75,35 +78,18 @@ const DraggableSidebarItem: React.FC<{ item: SidebarItemData }> = ({ item }) => 
   )
 }
 
-// Droppable Canvas Component
-const DroppableCanvas: React.FC<{ children: React.ReactNode; onClick?: () => void }> = ({ children, onClick }) => {
-  const { setNodeRef, isOver } = useDroppable({
-    id: 'canvas',
-  })
-
-  return (
-    <div
-      ref={setNodeRef}
-      onClick={onClick}
-      className={`flex-grow flex justify-center pt-12 min-h-[500px] transition-colors rounded-xl ${
-        isOver ? 'bg-primary/5 border-2 border-dashed border-primary/30' : ''
-      }`}
-    >
-      {children}
-    </div>
-  )
-}
-
 const WorkflowBuilder: React.FC = () => {
   const navigate = useNavigate()
   const [searchParams, setSearchParams] = useSearchParams()
   const workflowId = searchParams.get('id')
+  const { showToast } = useToast()
 
   const [workflowName, setWorkflowName] = useState('Untitled Workflow')
   const [isEnabled, setIsEnabled] = useState(true)
   const [nodes, setNodes] = useState<WorkflowItemData[]>([])
   const [activeItem, setActiveItem] = useState<SidebarItemData | null>(null)
   const [selectedNodeId, setSelectedNodeId] = useState<string | null>(null)
+  const [validationErrors, setValidationErrors] = useState<Record<string, string>>({})
 
   // Load workflow on mount
   useEffect(() => {
@@ -113,14 +99,25 @@ const WorkflowBuilder: React.FC = () => {
         setWorkflowName(savedWorkflow.name)
         setIsEnabled(savedWorkflow.isEnabled)
         // Reconstruct icons for nodes since they are not serializable
-        const reconstructedNodes = savedWorkflow.nodes.map(node => {
-          const originalItem = [...inputSources, ...aiMagic, ...actions].find(i => i.id === node.id)
-          return {
-            ...node,
-            icon: originalItem ? originalItem.icon : <Zap size={20} /> // Fallback icon
-          }
-        })
-        setNodes(reconstructedNodes as WorkflowItemData[])
+        // Note: This needs to be recursive for branches, but for now flat reconstruction is the first step
+        // We'll need a recursive rehydrator for full support
+        const rehydrateNodes = (nodes: any[]): WorkflowItemData[] => {
+          return nodes.map(node => {
+            const originalItem = [...inputSources, ...aiMagic, ...actions, ...logic].find(i => i.id === node.id)
+            const rehydrated: WorkflowItemData = {
+              ...node,
+              icon: originalItem ? originalItem.icon : <Zap size={20} />
+            }
+            if (node.branches) {
+              rehydrated.branches = {
+                true: rehydrateNodes(node.branches.true),
+                false: rehydrateNodes(node.branches.false)
+              }
+            }
+            return rehydrated
+          })
+        }
+        setNodes(rehydrateNodes(savedWorkflow.nodes))
       }
     }
   }, [workflowId])
@@ -136,41 +133,11 @@ const WorkflowBuilder: React.FC = () => {
 
   // Building block items
   const inputSources: SidebarItemData[] = [
-    {
-      id: 'source-meeting-summary',
-      type: 'trigger',
-      label: 'Meeting Summary',
-      icon: <FileText size={20} />,
-      description: 'Triggered when a meeting summary is available',
-    },
-    {
-      id: 'source-notes',
-      type: 'trigger',
-      label: 'Notes / Transcripts',
-      icon: <MessageSquare size={20} />,
-      description: 'Triggered when new notes are added',
-    },
-    {
-      id: 'source-chat',
-      type: 'trigger',
-      label: 'Chat Messages',
-      icon: <MessageSquare size={20} />,
-      description: 'Triggered by specific chat messages',
-    },
-    {
-      id: 'source-email',
-      type: 'trigger',
-      label: 'Email',
-      icon: <Mail size={20} />,
-      description: 'Triggered by incoming emails',
-    },
-    {
-      id: 'source-calendar',
-      type: 'trigger',
-      label: 'Calendar Event',
-      icon: <CalendarDays size={20} />,
-      description: 'Triggered by calendar events',
-    },
+    { id: 'source-meeting-summary', type: 'trigger', label: 'Meeting Summary', icon: <FileText size={20} />, description: 'Triggered when a meeting summary is available' },
+    { id: 'source-notes', type: 'trigger', label: 'Notes / Transcripts', icon: <MessageSquare size={20} />, description: 'Triggered when new notes are added' },
+    { id: 'source-chat', type: 'trigger', label: 'Chat Messages', icon: <MessageSquare size={20} />, description: 'Triggered by specific chat messages' },
+    { id: 'source-email', type: 'trigger', label: 'Email', icon: <Mail size={20} />, description: 'Triggered by incoming emails' },
+    { id: 'source-calendar', type: 'trigger', label: 'Calendar Event', icon: <CalendarDays size={20} />, description: 'Triggered by calendar events' },
   ]
 
   const actions: SidebarItemData[] = [
@@ -189,40 +156,145 @@ const WorkflowBuilder: React.FC = () => {
     { id: 'ai-custom', type: 'ai', label: 'Custom AI Prompt', icon: <Brain size={20} />, description: 'Run custom prompt' },
   ]
 
+  const logic: SidebarItemData[] = [
+    { id: 'logic-branch', type: 'branch', label: 'Condition (If/Else)', icon: <GitFork size={20} />, description: 'Branch workflow based on conditions' },
+  ]
+
   const handleDragStart = (event: DragStartEvent) => {
     const { active } = event
     
     // Find the item in inputSources, actions, or aiMagic
-    const item = [...inputSources, ...actions, ...aiMagic].find(i => i.id === active.id)
+    const item = [...inputSources, ...actions, ...aiMagic, ...logic].find(i => i.id === active.id)
     if (item) {
       setActiveItem(item)
+    }
+  }
+
+  // Helper to clean up errors that are resolved
+  const validateAndCleanErrors = (currentNodes: WorkflowItemData[]) => {
+    // If no errors exist, we don't need to do anything (we don't want to show NEW errors while editing)
+    if (Object.keys(validationErrors).length === 0) return
+
+    const newErrors = validationService.validateWorkflow(currentNodes as any)
+    const nextErrors: Record<string, string> = {}
+    
+    // Only keep errors that still exist in the new validation result
+    // This ensures we clear fixed errors but don't annoy users with new errors while they are typing/dragging
+    Object.keys(validationErrors).forEach(nodeId => {
+      if (newErrors[nodeId]) {
+        nextErrors[nodeId] = newErrors[nodeId]
+      }
+    })
+    
+    // Only update if the error count changed or messages changed
+    if (JSON.stringify(nextErrors) !== JSON.stringify(validationErrors)) {
+      setValidationErrors(nextErrors)
     }
   }
 
   const handleDragEnd = (event: DragEndEvent) => {
     const { active, over } = event
 
-    if (over && over.id === 'canvas') {
-      const item = [...inputSources, ...actions, ...aiMagic].find(i => i.id === active.id)
+    if (over) {
+      const item = [...inputSources, ...actions, ...aiMagic, ...logic].find(i => i.id === active.id)
+      
       if (item) {
         const newNode: WorkflowItemData = {
           ...item,
           instanceId: `${item.id}-${crypto.randomUUID()}`, // Unique ID
+          branches: item.type === 'branch' ? { true: [], false: [] } : undefined
         }
-        setNodes((prev) => [...prev, newNode])
-        // Removed setSelectedNodeId(newNode.instanceId) to prevent auto-open
+
+        // Recursive function to add node to the correct list
+        const addNodeToList = (currentNodes: WorkflowItemData[], targetListId: string): WorkflowItemData[] => {
+          // If this is the root list
+          if (targetListId === 'canvas') { // Changed from 'root' to 'canvas' to match DroppableCanvas ID
+            return [...currentNodes, newNode]
+          }
+
+          return currentNodes.map(node => {
+            if (node.branches) {
+              // Check if target is one of this node's branches
+              if (targetListId === `${node.instanceId}-true`) {
+                return {
+                  ...node,
+                  branches: {
+                    ...node.branches,
+                    true: [...node.branches.true, newNode]
+                  }
+                }
+              }
+              if (targetListId === `${node.instanceId}-false`) {
+                return {
+                  ...node,
+                  branches: {
+                    ...node.branches,
+                    false: [...node.branches.false, newNode]
+                  }
+                }
+              }
+              
+              // Recurse deeper
+              return {
+                ...node,
+                branches: {
+                  true: addNodeToList(node.branches.true, targetListId),
+                  false: addNodeToList(node.branches.false, targetListId)
+                }
+              }
+            }
+            return node
+          })
+        }
+
+        const targetId = over.id as string
+        let nextNodes: WorkflowItemData[] = []
+        
+        if (targetId === 'canvas') {
+          nextNodes = [...nodes, newNode]
+        } else {
+          nextNodes = addNodeToList(nodes, targetId)
+        }
+        
+        setNodes(nextNodes)
+        validateAndCleanErrors(nextNodes)
       }
     }
 
     setActiveItem(null)
   }
 
+  // Recursive delete
+  const deleteNodeRecursive = (currentNodes: WorkflowItemData[], targetId: string): WorkflowItemData[] => {
+    return currentNodes.filter(node => node.instanceId !== targetId).map(node => {
+      if (node.branches) {
+        return {
+          ...node,
+          branches: {
+            true: deleteNodeRecursive(node.branches.true, targetId),
+            false: deleteNodeRecursive(node.branches.false, targetId)
+          }
+        }
+      }
+      return node
+    })
+  }
+
   const handleDeleteNode = (instanceId: string, e: React.MouseEvent) => {
     e.stopPropagation()
-    setNodes((prev) => prev.filter((node) => node.instanceId !== instanceId))
+    const nextNodes = deleteNodeRecursive(nodes, instanceId)
+    setNodes(nextNodes)
+    
     if (selectedNodeId === instanceId) {
       setSelectedNodeId(null)
     }
+    
+    // We still want to remove the specific error for the deleted node immediately
+    // But we also want to check if this deletion fixed/caused other errors (handled by validateAndCleanErrors)
+    // However, validateAndCleanErrors only keeps existing errors.
+    // So if we delete a node, its error key is still in validationErrors, but won't be in newErrors (node gone).
+    // So validateAndCleanErrors will remove it. Perfect.
+    validateAndCleanErrors(nextNodes)
   }
 
   const handleConfigClick = (instanceId: string, e: React.MouseEvent) => {
@@ -234,44 +306,91 @@ const WorkflowBuilder: React.FC = () => {
     setSelectedNodeId(null)
   }
 
-  const handleUpdateNode = (nodeId: string, data: any) => {
-    setNodes((prev) =>
-      prev.map((node) => {
-        if (node.instanceId === nodeId) {
-          return { ...node, ...data }
+  // Recursive update
+  const updateNodeRecursive = (currentNodes: WorkflowItemData[], targetId: string, data: any): WorkflowItemData[] => {
+    return currentNodes.map(node => {
+      if (node.instanceId === targetId) {
+        return { ...node, ...data }
+      }
+      if (node.branches) {
+        return {
+          ...node,
+          branches: {
+            true: updateNodeRecursive(node.branches.true, targetId, data),
+            false: updateNodeRecursive(node.branches.false, targetId, data)
+          }
         }
-        return node
-      })
-    )
+      }
+      return node
+    })
+  }
+
+  const handleUpdateNode = (nodeId: string, data: any) => {
+    const nextNodes = updateNodeRecursive(nodes, nodeId, data)
+    setNodes(nextNodes)
+    validateAndCleanErrors(nextNodes)
   }
 
   const handleSave = () => {
+    // Validate
+    const errors = validationService.validateWorkflow(nodes as any)
+    if (Object.keys(errors).length > 0) {
+      setValidationErrors(errors)
+      showToast(`Cannot save: ${Object.keys(errors).length} errors found. Please check the red nodes.`, 'error')
+      return
+    }
+
     const id = workflowId || crypto.randomUUID()
     
-    // Create serializable nodes (remove icon component)
-    const serializableNodes = nodes.map(({ icon, ...rest }) => rest)
+    // Recursive function to strip icons
+    const stripIcons = (nodes: WorkflowItemData[]): any[] => {
+      return nodes.map(({ icon, branches, ...rest }) => {
+        const node: any = { ...rest }
+        if (branches) {
+          node.branches = {
+            true: stripIcons(branches.true),
+            false: stripIcons(branches.false)
+          }
+        }
+        return node
+      })
+    }
+
+    const serializableNodes = stripIcons(nodes)
 
     const workflow: Workflow = {
       id,
       name: workflowName,
-      nodes: serializableNodes as any, // Cast to any to bypass icon type check for storage
+      nodes: serializableNodes as any,
       isEnabled,
-      createdAt: new Date().toISOString(), // Will be overwritten by service if exists
+      createdAt: new Date().toISOString(),
       updatedAt: new Date().toISOString(),
     }
 
     workflowService.saveWorkflow(workflow)
     
-    // Update URL if it's a new workflow
     if (!workflowId) {
       setSearchParams({ id })
     }
 
-    // Optional: Show toast notification here
-    alert('Workflow saved successfully!')
+    showToast('Workflow saved successfully!', 'success')
   }
 
-  const selectedNode = nodes.find((n) => n.instanceId === selectedNodeId) || null
+  // Recursive find
+  const findNodeRecursive = (currentNodes: WorkflowItemData[], targetId: string): WorkflowItemData | null => {
+    for (const node of currentNodes) {
+      if (node.instanceId === targetId) return node
+      if (node.branches) {
+        const foundInTrue = findNodeRecursive(node.branches.true, targetId)
+        if (foundInTrue) return foundInTrue
+        const foundInFalse = findNodeRecursive(node.branches.false, targetId)
+        if (foundInFalse) return foundInFalse
+      }
+    }
+    return null
+  }
+
+  const selectedNode = selectedNodeId ? findNodeRecursive(nodes, selectedNodeId) : null
 
   return (
     <DndContext sensors={sensors} onDragStart={handleDragStart} onDragEnd={handleDragEnd}>
@@ -299,6 +418,19 @@ const WorkflowBuilder: React.FC = () => {
                 <div className="grid grid-cols-2 gap-4">
                   {inputSources.map((source) => (
                     <DraggableSidebarItem key={source.id} item={source} />
+                  ))}
+                </div>
+              </section>
+
+              {/* Logic Section */}
+              <section className="flex flex-col gap-4">
+                <h3 className="text-gray-500 text-sm font-medium uppercase tracking-wider flex items-center gap-2">
+                  <GitFork size={16} />
+                  Logic
+                </h3>
+                <div className="grid grid-cols-2 gap-4">
+                  {logic.map((item) => (
+                    <DraggableSidebarItem key={item.id} item={item} />
                   ))}
                 </div>
               </section>
@@ -356,36 +488,15 @@ const WorkflowBuilder: React.FC = () => {
           </header>
 
           {/* Scrollable Canvas */}
-          <div className="flex-1 overflow-y-auto p-8 relative">
-            <DroppableCanvas onClick={handleCanvasClick}>
-              <div className="flex flex-col items-center gap-4 w-full max-w-sm pb-32">
-                {nodes.length === 0 ? (
-                  <div className="flex flex-col items-center justify-center h-64 text-gray-400 border-2 border-dashed border-gray-200 rounded-xl w-full">
-                    <p>Drag and drop items here to build your workflow</p>
-                  </div>
-                ) : (
-                  nodes.map((node, index) => (
-                    <React.Fragment key={node.instanceId}>
-                      <div className="relative group w-full">
-                        <WorkflowNode
-                          icon={node.icon}
-                          title={node.label}
-                          description={node.description || ''}
-                          isSelected={selectedNodeId === node.instanceId}
-                          onConfigClick={(e) => handleConfigClick(node.instanceId, e)}
-                          onDeleteClick={(e) => handleDeleteNode(node.instanceId, e)}
-                        />
-                      </div>
-                      {index < nodes.length - 1 && (
-                        <div className="text-primary">
-                          <ArrowDown size={32} />
-                        </div>
-                      )}
-                    </React.Fragment>
-                  ))
-                )}
-              </div>
-            </DroppableCanvas>
+          <div className="flex-1 overflow-y-auto p-8 relative" onClick={handleCanvasClick}>
+            <WorkflowList
+              items={nodes}
+              listId="canvas"
+              selectedNodeId={selectedNodeId}
+              errors={validationErrors}
+              onConfigClick={handleConfigClick}
+              onDeleteClick={handleDeleteNode}
+            />
           </div>
           
           {/* Configuration Panel */}

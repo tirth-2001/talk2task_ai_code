@@ -9,6 +9,7 @@ export type { SectionHeaderProps } from './SectionHeader'
 
 export { default as UploadZone } from './UploadZone'
 export type { UploadZoneProps } from './UploadZone'
+export * from './BranchNode'
 
 export { default as NavItem } from './NavItem'
 export type { NavItemProps } from './NavItem'

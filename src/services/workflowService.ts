@@ -6,6 +6,10 @@ export interface WorkflowNodeData {
   description?: string
   config?: Record<string, any>
   instanceId: string
+  branches?: {
+    true: WorkflowNodeData[]
+    false: WorkflowNodeData[]
+  }
 }
 
 export interface Workflow {
