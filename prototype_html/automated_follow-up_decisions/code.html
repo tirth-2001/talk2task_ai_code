@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Talk2Task AI - Automated Follow-Up Decisions</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"/>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings:
+            'FILL' 0,
+            'wght' 400,
+            'GRAD' 0,
+            'opsz' 24
+        }
+    </style>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              "primary": "#5d0ebe",
+              "background-light": "#f7f6f8",
+              "background-dark": "#181022",
+            },
+            fontFamily: {
+              "display": ["Inter", "sans-serif"]
+            },
+            borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+          },
+        },
+      }
+    </script>
+</head>
+<body class="font-display bg-background-light dark:bg-background-dark">
+<div class="relative flex h-auto min-h-screen w-full flex-col group/design-root overflow-x-hidden">
+<div class="layout-container flex h-full grow flex-col">
+<header class="flex items-center justify-between whitespace-nowrap border-b border-solid border-b-gray-200 dark:border-b-gray-700 bg-white dark:bg-background-dark px-10 py-3 fixed w-full top-0 left-0 z-10">
+<div class="flex items-center gap-4 text-gray-900 dark:text-white">
+<div class="size-6 text-primary">
+<svg fill="none" viewbox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
+<path clip-rule="evenodd" d="M24 4H6V17.3333V30.6667H24V44H42V30.6667V17.3333H24V4Z" fill="currentColor" fill-rule="evenodd"></path>
+</svg>
+</div>
+<h2 class="text-gray-900 dark:text-white text-lg font-bold leading-tight tracking-[-0.015em]">Talk2Task AI</h2>
+</div>
+<div class="flex flex-1 justify-center gap-8">
+<div class="flex items-center gap-9">
+<a class="text-gray-900 dark:text-gray-300 text-sm font-medium leading-normal" href="#">Dashboard</a>
+<a class="text-primary dark:text-primary text-sm font-bold leading-normal border-b-2 border-primary pb-1" href="#">Meetings</a>
+<a class="text-gray-900 dark:text-gray-300 text-sm font-medium leading-normal" href="#">Tasks</a>
+<a class="text-gray-900 dark:text-gray-300 text-sm font-medium leading-normal" href="#">Automations</a>
+</div>
+</div>
+<div class="flex items-center gap-2">
+<button class="flex min-w-[84px] max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-lg h-10 px-4 bg-primary text-white text-sm font-bold leading-normal tracking-[0.015em]">
+<span class="truncate">New Meeting</span>
+</button>
+<button class="flex max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-lg h-10 bg-gray-100 dark:bg-gray-800 text-gray-800 dark:text-gray-200 gap-2 text-sm font-bold leading-normal tracking-[0.015em] min-w-0 px-2.5">
+<span class="material-symbols-outlined text-gray-800 dark:text-gray-200" style="font-size: 20px;">notifications</span>
+</button>
+<button class="flex max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-lg h-10 bg-gray-100 dark:bg-gray-800 text-gray-800 dark:text-gray-200 gap-2 text-sm font-bold leading-normal tracking-[0.015em] min-w-0 px-2.5">
+<span class="material-symbols-outlined text-gray-800 dark:text-gray-200" style="font-size: 20px;">help</span>
+</button>
+<button class="flex max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-lg h-10 bg-gray-100 dark:bg-gray-800 text-gray-800 dark:text-gray-200 gap-2 text-sm font-bold leading-normal tracking-[0.015em] min-w-0 px-2.5">
+<span class="material-symbols-outlined text-gray-800 dark:text-gray-200" style="font-size: 20px;">settings</span>
+</button>
+<div class="bg-center bg-no-repeat aspect-square bg-cover rounded-full size-10 ml-2" data-alt="User avatar image" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuD2jE1eLENx1bWnuHDkOc6RhT6Qb341WRPcA2W-coVoOJz8vPfj2XDDZGYpUPi2nIoVW4Q0_r069_kXYSo0Tu2PNCQ1tfhHmCsdP88HVVs0ng96FVOF4-cSFqc9_0VlErrZl_ozC2sA3PkubMi-qPkuGLy5Q0aVdDgjuVVXofk4CS6nJjqlccsIcOClI6yHdqORwOnY8gNhSVEf_PU1VSY2b3Boh-hLHb3WIyXDTJntt9enN4_wdF04jkTe2mug6yxRSf-jVlC3syo");'></div>
+</div>
+</header>
+<main class="flex flex-1 justify-center py-5 pt-28">
+<div class="layout-content-container flex flex-col w-full max-w-3xl flex-1 px-4">
+<div class="flex flex-col gap-6">
+<div class="flex flex-col gap-3">
+<h1 class="text-3xl font-bold text-gray-900 dark:text-white tracking-tight">Automated Follow-Up Decisions</h1>
+<p class="text-gray-600 dark:text-gray-400 text-sm font-normal leading-normal">Follow-Up Actions for: Sprint Planning Meeting – 24 Jan</p>
+</div>
+<div class="flex flex-col gap-3">
+<div class="flex items-center gap-4 bg-white dark:bg-gray-800/50 p-4 min-h-[72px] justify-between rounded-xl border border-gray-200 dark:border-gray-700 shadow-sm">
+<div class="flex items-center gap-4 w-full">
+<div class="text-gray-800 dark:text-gray-200 flex items-center justify-center rounded-lg bg-gray-100 dark:bg-gray-700 shrink-0 size-12">
+<span class="material-symbols-outlined">notifications_active</span>
+</div>
+<div class="flex flex-col justify-center flex-grow">
+<p class="text-gray-900 dark:text-white text-base font-medium leading-normal line-clamp-1">Send Reminder to Ravi</p>
+<p class="text-gray-500 dark:text-gray-400 text-sm font-normal leading-normal line-clamp-2">Notify Ravi about the pending task: 'Complete API integration update.'</p>
+</div>
+<div class="shrink-0">
+<label class="relative flex h-[31px] w-[51px] cursor-pointer items-center rounded-full border-none bg-gray-200 dark:bg-gray-700 p-0.5 has-[:checked]:justify-end has-[:checked]:bg-primary">
+<div class="h-full w-[27px] rounded-full bg-white transition-transform" style="box-shadow: rgba(0, 0, 0, 0.15) 0px 3px 8px, rgba(0, 0, 0, 0.06) 0px 3px 1px;"></div>
+<input checked="" class="invisible absolute" type="checkbox"/>
+</label>
+</div>
+</div>
+</div>
+<div class="flex items-center gap-4 bg-white dark:bg-gray-800/50 p-4 min-h-[72px] justify-between rounded-xl border border-gray-200 dark:border-gray-700 shadow-sm">
+<div class="flex items-center gap-4 w-full">
+<div class="text-gray-800 dark:text-gray-200 flex items-center justify-center rounded-lg bg-gray-100 dark:bg-gray-700 shrink-0 size-12">
+<span class="material-symbols-outlined">bug_report</span>
+</div>
+<div class="flex flex-col justify-center flex-grow">
+<p class="text-gray-900 dark:text-white text-base font-medium leading-normal line-clamp-1">Create Jira Ticket</p>
+<p class="text-gray-500 dark:text-gray-400 text-sm font-normal leading-normal line-clamp-2">Convert task 'Design onboarding flow' into a Jira story.</p>
+</div>
+<div class="shrink-0">
+<label class="relative flex h-[31px] w-[51px] cursor-pointer items-center rounded-full border-none bg-gray-200 dark:bg-gray-700 p-0.5 has-[:checked]:justify-end has-[:checked]:bg-primary">
+<div class="h-full w-[27px] rounded-full bg-white transition-transform" style="box-shadow: rgba(0, 0, 0, 0.15) 0px 3px 8px, rgba(0, 0, 0, 0.06) 0px 3px 1px;"></div>
+<input checked="" class="invisible absolute" type="checkbox"/>
+</label>
+</div>
+</div>
+</div>
+<div class="flex items-center gap-4 bg-white dark:bg-gray-800/50 p-4 min-h-[72px] justify-between rounded-xl border border-gray-200 dark:border-gray-700 shadow-sm">
+<div class="flex items-center gap-4 w-full">
+<div class="text-gray-800 dark:text-gray-200 flex items-center justify-center rounded-lg bg-gray-100 dark:bg-gray-700 shrink-0 size-12">
+<span class="material-symbols-outlined">calendar_add_on</span>
+</div>
+<div class="flex flex-col justify-center flex-grow">
+<p class="text-gray-900 dark:text-white text-base font-medium leading-normal line-clamp-1">Schedule Follow-Up Meeting</p>
+<p class="text-gray-500 dark:text-gray-400 text-sm font-normal leading-normal line-clamp-2">Propose a sync to review unresolved items: 'Backend dependency.'</p>
+</div>
+<div class="shrink-0">
+<label class="relative flex h-[31px] w-[51px] cursor-pointer items-center rounded-full border-none bg-gray-200 dark:bg-gray-700 p-0.5 has-[:checked]:justify-end has-[:checked]:bg-primary">
+<div class="h-full w-[27px] rounded-full bg-white transition-transform" style="box-shadow: rgba(0, 0, 0, 0.15) 0px 3px 8px, rgba(0, 0, 0, 0.06) 0px 3px 1px;"></div>
+<input class="invisible absolute" type="checkbox"/>
+</label>
+</div>
+</div>
+</div>
+<div class="flex items-center gap-4 bg-white dark:bg-gray-800/50 p-4 min-h-[72px] justify-between rounded-xl border border-gray-200 dark:border-gray-700 shadow-sm">
+<div class="flex items-center gap-4 w-full">
+<div class="text-gray-800 dark:text-gray-200 flex items-center justify-center rounded-lg bg-gray-100 dark:bg-gray-700 shrink-0 size-12">
+<span class="material-symbols-outlined">report</span>
+</div>
+<div class="flex flex-col justify-center flex-grow">
+<p class="text-gray-900 dark:text-white text-base font-medium leading-normal line-clamp-1">Escalate Risk</p>
+<p class="text-gray-500 dark:text-gray-400 text-sm font-normal leading-normal line-clamp-2">Flag the risk: 'Approval delay from vendor may impact timeline.'</p>
+</div>
+<div class="shrink-0">
+<label class="relative flex h-[31px] w-[51px] cursor-pointer items-center rounded-full border-none bg-gray-200 dark:bg-gray-700 p-0.5 has-[:checked]:justify-end has-[:checked]:bg-primary">
+<div class="h-full w-[27px] rounded-full bg-white transition-transform" style="box-shadow: rgba(0, 0, 0, 0.15) 0px 3px 8px, rgba(0, 0, 0, 0.06) 0px 3px 1px;"></div>
+<input checked="" class="invisible absolute" type="checkbox"/>
+</label>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</main>
+<footer class="sticky bottom-0 w-full bg-background-light/80 dark:bg-background-dark/80 backdrop-blur-sm py-4 border-t border-gray-200 dark:border-gray-800">
+<div class="max-w-3xl mx-auto px-4">
+<button class="w-full flex cursor-pointer items-center justify-center overflow-hidden rounded-lg h-12 px-6 bg-primary text-white text-base font-bold leading-normal tracking-[0.015em] hover:bg-primary/90 transition-colors">
+<span class="truncate">Apply Selected Actions</span>
+</button>
+</div>
+</footer>
+</div>
+</div>
+</body></html>

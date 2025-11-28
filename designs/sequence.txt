@@ -1,0 +1,35 @@
+Sequence 1: Input Selection
+File: 1_input sources.png
+Description: A screen allowing the user to choose the source of their input, such as uploading an audio file, recording a meeting, or pasting text.
+
+Sequence 2: Input Details
+File: 2_meeting summary input.png
+Description: The interface where the user provides the specific content to be processed, likely showing a text area for notes or file upload status.
+
+Sequence 3: Processing
+File: 3_ai processing.png
+Description: A visual indication that the AI is currently analyzing the input data to generate insights.
+
+Sequence 4: Action Items
+File: 4_action items.png
+Description: A list of specific tasks and action items extracted from the meeting content, ready for assignment.
+
+Sequence 5: Minutes of Meeting (MOM)
+File: 5_mom.png
+Description: The generated summary of the meeting, highlighting key discussion points and decisions made.
+
+Sequence 6: Integration/Notification
+File: 6_slack reminder.png
+Description: A feature to set up reminders or send notifications to external platforms like Slack to keep the team updated.
+
+Sequence 7: Follow Up
+File: 7_follow up tasks.png
+Description: A management screen for tracking the status of action items and ensuring they are completed.
+
+Sequence 8: Dashboard
+File: 8_dashboard.png
+Description: The main landing page providing an overview of recent meetings, pending tasks, and quick access to core features.
+
+Sequence 9: Automation Studio
+File: 9_automation studio.png
+Description: A configuration area for setting up automated workflows and customizing how the AI handles different types of inputs and outputs.
