@@ -2,6 +2,8 @@ import React, { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { Button, Textarea, Tabs, UploadZone } from '@/components'
 import type { Tab } from '@/components'
+import { meetingService } from '@/services/meetingService'
+import { MeetingType } from '@/types/meeting'
 
 const InputForm: React.FC = () => {
   const navigate = useNavigate()
@@ -9,8 +11,17 @@ const InputForm: React.FC = () => {
   const [activeTab, setActiveTab] = useState<'paste' | 'upload'>('paste')
 
   const handleSubmit = () => {
-    if (inputText.trim()) {
-      navigate('/ai-processing')
+    if (inputText.trim() || activeTab === 'upload') {
+      // Create a new meeting
+      const newMeeting = meetingService.createMeeting({
+        title: `Meeting on ${new Date().toLocaleDateString()}`,
+        date: new Date().toISOString(),
+        type: activeTab === 'paste' ? MeetingType.TEXT : MeetingType.FILE,
+        inputContent: activeTab === 'paste' ? inputText : 'File Uploaded'
+      })
+
+      // Redirect to processing with the new ID
+      navigate(`/ai-processing?meetingId=${newMeeting.id}`)
     }
   }
 

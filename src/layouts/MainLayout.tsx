@@ -13,6 +13,8 @@ import {
   ArrowRightCircle,
   Workflow,
   Menu,
+  Calendar,
+  PlusCircle,
 } from 'lucide-react'
 import { NavItem } from '@/components'
 
@@ -22,9 +24,9 @@ const MainLayout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
 
   const navItems = [
     { path: '/', label: 'Dashboard', icon: LayoutDashboard },
-    { path: '/input-selection', label: 'Input Selection', icon: Upload },
+    { path: '/meetings', label: 'Meetings', icon: Calendar },
+    { path: '/input-selection', label: 'New Meeting', icon: PlusCircle },
     { path: '/input-form', label: 'Input Form', icon: FileText },
-    { path: '/ai-processing', label: 'AI Processing', icon: Cpu },
     { path: '/tasks', label: 'Task Table', icon: ListTodo },
     { path: '/mom', label: 'MoM Generation', icon: FileOutput },
     { path: '/slack', label: 'Slack Reminder', icon: MessageSquare },

@@ -11,6 +11,8 @@ import MoMGeneration from '@/pages/MoMGeneration'
 import SlackReminder from '@/pages/SlackReminder'
 import TaskTable from '@/pages/TaskTable'
 import WorkflowBuilder from '@/pages/WorkflowBuilder'
+import Meetings from '@/pages/Meetings'
+import MeetingDetails from '@/pages/MeetingDetails'
 
 function App() {
   return (
@@ -18,6 +20,8 @@ function App() {
       <MainLayout>
         <Routes>
           <Route path="/" element={<Dashboard />} />
+          <Route path="/meetings" element={<Meetings />} />
+          <Route path="/meetings/:id" element={<MeetingDetails />} />
           <Route path="/input-selection" element={<InputSelection />} />
           <Route path="/input-form" element={<InputForm />} />
           <Route path="/ai-processing" element={<AIProcessing />} />
