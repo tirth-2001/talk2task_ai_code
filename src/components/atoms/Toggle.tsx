@@ -12,7 +12,9 @@ const Toggle: React.FC<ToggleProps> = ({ checked, onChange, leftLabel, rightLabe
   return (
     <div className={`flex items-center gap-2 ${className}`}>
       {leftLabel && <span className="text-sm text-gray-600">{leftLabel}</span>}
-      <label className={`relative flex h-[26px] w-[44px] cursor-pointer items-center rounded-full border-none p-0.5 ${checked ? 'bg-primary' : 'bg-gray-400'}`}>
+      <label
+        className={`relative flex h-[26px] w-[44px] cursor-pointer items-center rounded-full border-none p-0.5 ${checked ? 'bg-primary' : 'bg-gray-400'}`}
+      >
         <div
           className={`size-[18px] rounded-full bg-white transition-transform ${
             checked ? 'translate-x-[20px]' : 'translate-x-[2px]'

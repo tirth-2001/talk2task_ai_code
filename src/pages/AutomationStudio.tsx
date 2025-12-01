@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 
 import { GitBranch, Plus, Save, Settings, Zap, Trash2, Brain, Clock, FileInput } from 'lucide-react'
+
 import { Button, Badge, Card, PageHeader, SectionHeader, IconContainer } from '@/components'
 import { workflowService, type Workflow } from '@/services/workflowService'
 import { countWorkflowNodes } from '@/utils/workflowUtils'
@@ -38,10 +39,8 @@ const AutomationStudio: React.FC = () => {
 
         {/* Workflows List */}
         <div className="flex flex-col gap-4">
-          {workflows.length > 0 && (
-            <SectionHeader title="Your Workflows" className="mb-2" />
-          )}
-          
+          {workflows.length > 0 && <SectionHeader title="Your Workflows" className="mb-2" />}
+
           {workflows.length === 0 ? (
             <div className="flex flex-col items-center justify-center py-8 bg-gray-50">
               <div className="p-4 bg-white rounded-full shadow-sm mb-4">
@@ -55,14 +54,14 @@ const AutomationStudio: React.FC = () => {
           ) : (
             workflows.map((workflow) => {
               const totalNodes = countWorkflowNodes(workflow.nodes)
-              const inputCount = workflow.nodes.filter(n => n.type === 'trigger' || n.type === 'source').length
-              const aiCount = workflow.nodes.filter(n => n.type === 'ai').length
-              const actionCount = workflow.nodes.filter(n => n.type === 'action').length
-              
+              const inputCount = workflow.nodes.filter((n) => n.type === 'trigger' || n.type === 'source').length
+              const aiCount = workflow.nodes.filter((n) => n.type === 'ai').length
+              const actionCount = workflow.nodes.filter((n) => n.type === 'action').length
+
               return (
-                <Card 
-                  key={workflow.id} 
-                  hover 
+                <Card
+                  key={workflow.id}
+                  hover
                   className="cursor-pointer"
                   onClick={() => navigate(`/workflow-builder?id=${workflow.id}`)}
                 >
@@ -76,11 +75,9 @@ const AutomationStudio: React.FC = () => {
                       </div>
                       <div className="flex items-center my-2 mb-3 gap-2">
                         <GitBranch size={14} />
-                      <p className="text-sm text-gray-600 line-clamp-1">
-                        {workflow.nodes.length > 0 
-                          ? `Workflow with ${totalNodes} nodes` 
-                          : 'Empty workflow'}
-                      </p>
+                        <p className="text-sm text-gray-600 line-clamp-1">
+                          {workflow.nodes.length > 0 ? `Workflow with ${totalNodes} nodes` : 'Empty workflow'}
+                        </p>
                       </div>
                       <div className="flex items-center gap-4 text-sm text-gray-500">
                         <div className="flex items-center gap-1.5">
@@ -99,27 +96,33 @@ const AutomationStudio: React.FC = () => {
                         </div>
                         <div className="flex items-center gap-1.5">
                           <Clock size={14} />
-                          <span>Last updated: {new Date(workflow.updatedAt).toLocaleString('en-US', {
-                            day: '2-digit',
-                            month: 'short',
-                            year: 'numeric',
-                            hour: '2-digit',
-                            minute: '2-digit',
-                            hour12: true
-                          })}</span>
+                          <span>
+                            Last updated:{' '}
+                            {new Date(workflow.updatedAt).toLocaleString('en-US', {
+                              day: '2-digit',
+                              month: 'short',
+                              year: 'numeric',
+                              hour: '2-digit',
+                              minute: '2-digit',
+                              hour12: true,
+                            })}
+                          </span>
                         </div>
                       </div>
                     </div>
                     <div className="flex items-center gap-2">
-                      <Button 
-                        variant="ghost" 
-                        size="sm" 
-                        icon={<Trash2 size={18} />} 
+                      <Button
+                        variant="ghost"
+                        size="sm"
+                        icon={<Trash2 size={18} />}
                         onClick={(e) => handleDelete(workflow.id, e)}
                         className="text-gray-400 hover:text-red-500 hover:bg-red-50"
                       />
-                      <Button variant="ghost" size="sm" icon={<Settings size={18} />}
-                      className="text-gray-400 hover:text-primary hover:bg-primary/10"
+                      <Button
+                        variant="ghost"
+                        size="sm"
+                        icon={<Settings size={18} />}
+                        className="text-gray-400 hover:text-primary hover:bg-primary/10"
                       />
                     </div>
                   </div>

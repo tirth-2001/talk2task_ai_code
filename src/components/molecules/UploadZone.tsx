@@ -1,4 +1,5 @@
 import React from 'react'
+
 import clsx from 'clsx'
 
 export interface UploadZoneProps {
@@ -35,7 +36,7 @@ const UploadZone: React.FC<UploadZoneProps> = ({
       onDragOver={(e) => e.preventDefault()}
       className={clsx(
         'flex flex-col items-center justify-center border-2 border-dashed border-gray-300 rounded-lg p-12 hover:border-primary transition-colors cursor-pointer',
-        className
+        className,
       )}
     >
       <svg className="w-12 h-12 text-gray-400 mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -47,14 +48,10 @@ const UploadZone: React.FC<UploadZoneProps> = ({
         />
       </svg>
       <p className="text-sm font-medium text-gray-700 mb-1">Click to upload or drag and drop</p>
-      <p className="text-xs text-gray-500">{accept.replace(/\./g, '').toUpperCase()} up to {maxSize}</p>
-      <input
-        type="file"
-        accept={accept}
-        onChange={handleFileInput}
-        className="hidden"
-        id="file-upload"
-      />
+      <p className="text-xs text-gray-500">
+        {accept.replace(/\./g, '').toUpperCase()} up to {maxSize}
+      </p>
+      <input type="file" accept={accept} onChange={handleFileInput} className="hidden" id="file-upload" />
     </div>
   )
 }

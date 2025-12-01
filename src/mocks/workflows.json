@@ -1,354 +1,354 @@
 [
-    {
-        "id": "workflow-001-meeting-automation",
-        "name": "Meeting Notes → Task Automation",
-        "nodes": [
+  {
+    "id": "workflow-001-meeting-automation",
+    "name": "Meeting Notes → Task Automation",
+    "nodes": [
+      {
+        "id": "source-meeting-summary",
+        "type": "trigger",
+        "label": "Meeting Summary",
+        "description": "Triggered when a meeting summary is available",
+        "instanceId": "source-meeting-summary-a1b2c3d4"
+      },
+      {
+        "id": "ai-tasks",
+        "type": "ai",
+        "label": "Extract Action Items",
+        "description": "Identify tasks & assignees",
+        "instanceId": "ai-tasks-e5f6g7h8",
+        "config": {
+          "extractAssignees": true,
+          "extractDueDates": true,
+          "minConfidence": "high"
+        }
+      },
+      {
+        "id": "action-jira",
+        "type": "action",
+        "label": "Create Jira Issue",
+        "description": "Create task in Jira",
+        "instanceId": "action-jira-i9j0k1l2",
+        "config": {
+          "project": "PROD",
+          "issueType": "Task",
+          "assignAutomatically": true
+        }
+      },
+      {
+        "id": "action-slack",
+        "type": "action",
+        "label": "Send to Slack",
+        "description": "Post to Slack channel",
+        "instanceId": "action-slack-m3n4o5p6",
+        "config": {
+          "channel": "#product-updates",
+          "message": "New tasks created from meeting",
+          "mentionAssignees": true
+        }
+      }
+    ],
+    "isEnabled": true,
+    "createdAt": "2025-01-10T08:30:00.000Z",
+    "updatedAt": "2025-01-20T14:22:00.000Z"
+  },
+  {
+    "id": "workflow-002-risk-escalation",
+    "name": "Risk Detection & Escalation",
+    "nodes": [
+      {
+        "id": "source-notes",
+        "type": "trigger",
+        "label": "Notes / Transcripts",
+        "description": "Triggered when new notes are added",
+        "instanceId": "source-notes-q7r8s9t0"
+      },
+      {
+        "id": "ai-risks",
+        "type": "ai",
+        "label": "Extract Risks & Decisions",
+        "description": "Find key risks and decisions",
+        "instanceId": "ai-risks-u1v2w3x4",
+        "config": {
+          "riskThreshold": "medium",
+          "includeDecisions": true
+        }
+      },
+      {
+        "id": "logic-branch",
+        "type": "branch",
+        "label": "Condition (If/Else)",
+        "description": "Branch workflow based on conditions",
+        "instanceId": "logic-branch-y5z6a7b8",
+        "config": {
+          "condition": "risk.severity === 'High'",
+          "operator": "equals"
+        },
+        "branches": {
+          "true": [
             {
-                "id": "source-meeting-summary",
-                "type": "trigger",
-                "label": "Meeting Summary",
-                "description": "Triggered when a meeting summary is available",
-                "instanceId": "source-meeting-summary-a1b2c3d4"
+              "id": "action-email",
+              "type": "action",
+              "label": "Send Email",
+              "description": "Send summary via email",
+              "instanceId": "action-email-c9d0e1f2",
+              "config": {
+                "to": "leadership@company.com",
+                "subject": "🚨 High-Severity Risk Detected",
+                "template": "risk-alert"
+              }
             },
             {
-                "id": "ai-tasks",
-                "type": "ai",
-                "label": "Extract Action Items",
-                "description": "Identify tasks & assignees",
-                "instanceId": "ai-tasks-e5f6g7h8",
-                "config": {
-                    "extractAssignees": true,
-                    "extractDueDates": true,
-                    "minConfidence": "high"
-                }
-            },
-            {
-                "id": "action-jira",
-                "type": "action",
-                "label": "Create Jira Issue",
-                "description": "Create task in Jira",
-                "instanceId": "action-jira-i9j0k1l2",
-                "config": {
-                    "project": "PROD",
-                    "issueType": "Task",
-                    "assignAutomatically": true
-                }
-            },
-            {
-                "id": "action-slack",
-                "type": "action",
-                "label": "Send to Slack",
-                "description": "Post to Slack channel",
-                "instanceId": "action-slack-m3n4o5p6",
-                "config": {
-                    "channel": "#product-updates",
-                    "message": "New tasks created from meeting",
-                    "mentionAssignees": true
-                }
+              "id": "action-slack-urgent",
+              "type": "action",
+              "label": "Send to Slack",
+              "description": "Post to Slack channel",
+              "instanceId": "action-slack-g3h4i5j6",
+              "config": {
+                "channel": "#incidents",
+                "message": "Urgent: High-severity risk identified",
+                "priority": "high"
+              }
             }
-        ],
-        "isEnabled": true,
-        "createdAt": "2025-01-10T08:30:00.000Z",
-        "updatedAt": "2025-01-20T14:22:00.000Z"
-    },
-    {
-        "id": "workflow-002-risk-escalation",
-        "name": "Risk Detection & Escalation",
-        "nodes": [
+          ],
+          "false": [
             {
-                "id": "source-notes",
-                "type": "trigger",
-                "label": "Notes / Transcripts",
-                "description": "Triggered when new notes are added",
-                "instanceId": "source-notes-q7r8s9t0"
-            },
-            {
-                "id": "ai-risks",
-                "type": "ai",
-                "label": "Extract Risks & Decisions",
-                "description": "Find key risks and decisions",
-                "instanceId": "ai-risks-u1v2w3x4",
-                "config": {
-                    "riskThreshold": "medium",
-                    "includeDecisions": true
-                }
-            },
-            {
-                "id": "logic-branch",
-                "type": "branch",
-                "label": "Condition (If/Else)",
-                "description": "Branch workflow based on conditions",
-                "instanceId": "logic-branch-y5z6a7b8",
-                "config": {
-                    "condition": "risk.severity === 'High'",
-                    "operator": "equals"
-                },
-                "branches": {
-                    "true": [
-                        {
-                            "id": "action-email",
-                            "type": "action",
-                            "label": "Send Email",
-                            "description": "Send summary via email",
-                            "instanceId": "action-email-c9d0e1f2",
-                            "config": {
-                                "to": "leadership@company.com",
-                                "subject": "🚨 High-Severity Risk Detected",
-                                "template": "risk-alert"
-                            }
-                        },
-                        {
-                            "id": "action-slack-urgent",
-                            "type": "action",
-                            "label": "Send to Slack",
-                            "description": "Post to Slack channel",
-                            "instanceId": "action-slack-g3h4i5j6",
-                            "config": {
-                                "channel": "#incidents",
-                                "message": "Urgent: High-severity risk identified",
-                                "priority": "high"
-                            }
-                        }
-                    ],
-                    "false": [
-                        {
-                            "id": "action-notion",
-                            "type": "action",
-                            "label": "Save to Notion",
-                            "description": "Add to Notion database",
-                            "instanceId": "action-notion-k7l8m9n0",
-                            "config": {
-                                "database": "Risk Register",
-                                "autoTag": true
-                            }
-                        }
-                    ]
-                }
+              "id": "action-notion",
+              "type": "action",
+              "label": "Save to Notion",
+              "description": "Add to Notion database",
+              "instanceId": "action-notion-k7l8m9n0",
+              "config": {
+                "database": "Risk Register",
+                "autoTag": true
+              }
             }
-        ],
-        "isEnabled": true,
-        "createdAt": "2025-01-12T10:15:00.000Z",
-        "updatedAt": "2025-01-25T16:40:00.000Z"
-    },
-    {
-        "id": "workflow-003-customer-feedback",
-        "name": "Customer Feedback Processing",
-        "nodes": [
+          ]
+        }
+      }
+    ],
+    "isEnabled": true,
+    "createdAt": "2025-01-12T10:15:00.000Z",
+    "updatedAt": "2025-01-25T16:40:00.000Z"
+  },
+  {
+    "id": "workflow-003-customer-feedback",
+    "name": "Customer Feedback Processing",
+    "nodes": [
+      {
+        "id": "source-email",
+        "type": "trigger",
+        "label": "Email",
+        "description": "Triggered by incoming emails",
+        "instanceId": "source-email-o1p2q3r4"
+      },
+      {
+        "id": "ai-sentiment",
+        "type": "ai",
+        "label": "Sentiment Analysis",
+        "description": "Analyze tone and sentiment",
+        "instanceId": "ai-sentiment-s5t6u7v8",
+        "config": {
+          "detectEmotion": true,
+          "urgencyDetection": true
+        }
+      },
+      {
+        "id": "logic-branch-sentiment",
+        "type": "branch",
+        "label": "Condition (If/Else)",
+        "description": "Branch workflow based on conditions",
+        "instanceId": "logic-branch-w9x0y1z2",
+        "config": {
+          "condition": "sentiment === 'negative'",
+          "operator": "equals"
+        },
+        "branches": {
+          "true": [
             {
-                "id": "source-email",
-                "type": "trigger",
-                "label": "Email",
-                "description": "Triggered by incoming emails",
-                "instanceId": "source-email-o1p2q3r4"
+              "id": "ai-summary-urgent",
+              "type": "ai",
+              "label": "Extract Summary",
+              "description": "Generate concise summary",
+              "instanceId": "ai-summary-a3b4c5d6",
+              "config": {
+                "length": "Short",
+                "focus": "issues"
+              }
             },
             {
-                "id": "ai-sentiment",
-                "type": "ai",
-                "label": "Sentiment Analysis",
-                "description": "Analyze tone and sentiment",
-                "instanceId": "ai-sentiment-s5t6u7v8",
-                "config": {
-                    "detectEmotion": true,
-                    "urgencyDetection": true
-                }
-            },
-            {
-                "id": "logic-branch-sentiment",
-                "type": "branch",
-                "label": "Condition (If/Else)",
-                "description": "Branch workflow based on conditions",
-                "instanceId": "logic-branch-w9x0y1z2",
-                "config": {
-                    "condition": "sentiment === 'negative'",
-                    "operator": "equals"
-                },
-                "branches": {
-                    "true": [
-                        {
-                            "id": "ai-summary-urgent",
-                            "type": "ai",
-                            "label": "Extract Summary",
-                            "description": "Generate concise summary",
-                            "instanceId": "ai-summary-a3b4c5d6",
-                            "config": {
-                                "length": "Short",
-                                "focus": "issues"
-                            }
-                        },
-                        {
-                            "id": "action-jira-support",
-                            "type": "action",
-                            "label": "Create Jira Issue",
-                            "description": "Create task in Jira",
-                            "instanceId": "action-jira-e7f8g9h0",
-                            "config": {
-                                "project": "SUPPORT",
-                                "issueType": "Bug",
-                                "priority": "High",
-                                "labels": ["customer-escalation"]
-                            }
-                        }
-                    ],
-                    "false": [
-                        {
-                            "id": "action-slack-feedback",
-                            "type": "action",
-                            "label": "Send to Slack",
-                            "description": "Post to Slack channel",
-                            "instanceId": "action-slack-i1j2k3l4",
-                            "config": {
-                                "channel": "#customer-feedback",
-                                "message": "New positive feedback received"
-                            }
-                        }
-                    ]
-                }
+              "id": "action-jira-support",
+              "type": "action",
+              "label": "Create Jira Issue",
+              "description": "Create task in Jira",
+              "instanceId": "action-jira-e7f8g9h0",
+              "config": {
+                "project": "SUPPORT",
+                "issueType": "Bug",
+                "priority": "High",
+                "labels": ["customer-escalation"]
+              }
             }
-        ],
-        "isEnabled": true,
-        "createdAt": "2025-01-15T14:00:00.000Z",
-        "updatedAt": "2025-01-26T09:30:00.000Z"
-    },
-    {
-        "id": "workflow-004-sprint-summary",
-        "name": "Sprint Retrospective Summary",
-        "nodes": [
+          ],
+          "false": [
             {
-                "id": "source-chat",
-                "type": "trigger",
-                "label": "Chat Messages",
-                "description": "Triggered by specific chat messages",
-                "instanceId": "source-chat-m5n6o7p8"
-            },
-            {
-                "id": "ai-summary-retro",
-                "type": "ai",
-                "label": "Extract Summary",
-                "description": "Generate concise summary",
-                "instanceId": "ai-summary-q9r0s1t2",
-                "config": {
-                    "length": "Medium",
-                    "focus": "items",
-                    "includeMetrics": true
-                }
-            },
-            {
-                "id": "ai-tasks-retro",
-                "type": "ai",
-                "label": "Extract Action Items",
-                "description": "Identify tasks & assignees",
-                "instanceId": "ai-tasks-u3v4w5x6",
-                "config": {
-                    "extractAssignees": true,
-                    "category": "process-improvement"
-                }
-            },
-            {
-                "id": "action-notion-retro",
-                "type": "action",
-                "label": "Save to Notion",
-                "description": "Add to Notion database",
-                "instanceId": "action-notion-y7z8a9b0",
-                "config": {
-                    "database": "Sprint Retrospectives",
-                    "template": "retro-template"
-                }
-            },
-            {
-                "id": "action-email-retro",
-                "type": "action",
-                "label": "Send Email",
-                "description": "Send summary via email",
-                "instanceId": "action-email-c1d2e3f4",
-                "config": {
-                    "to": "team@company.com",
-                    "subject": "Sprint Retrospective Summary",
-                    "includeAttachments": true
-                }
+              "id": "action-slack-feedback",
+              "type": "action",
+              "label": "Send to Slack",
+              "description": "Post to Slack channel",
+              "instanceId": "action-slack-i1j2k3l4",
+              "config": {
+                "channel": "#customer-feedback",
+                "message": "New positive feedback received"
+              }
             }
-        ],
-        "isEnabled": false,
-        "createdAt": "2025-01-18T11:20:00.000Z",
-        "updatedAt": "2025-01-18T11:20:00.000Z"
-    },
-    {
-        "id": "workflow-005-compliance-check",
-        "name": "Compliance & Security Review",
-        "nodes": [
+          ]
+        }
+      }
+    ],
+    "isEnabled": true,
+    "createdAt": "2025-01-15T14:00:00.000Z",
+    "updatedAt": "2025-01-26T09:30:00.000Z"
+  },
+  {
+    "id": "workflow-004-sprint-summary",
+    "name": "Sprint Retrospective Summary",
+    "nodes": [
+      {
+        "id": "source-chat",
+        "type": "trigger",
+        "label": "Chat Messages",
+        "description": "Triggered by specific chat messages",
+        "instanceId": "source-chat-m5n6o7p8"
+      },
+      {
+        "id": "ai-summary-retro",
+        "type": "ai",
+        "label": "Extract Summary",
+        "description": "Generate concise summary",
+        "instanceId": "ai-summary-q9r0s1t2",
+        "config": {
+          "length": "Medium",
+          "focus": "items",
+          "includeMetrics": true
+        }
+      },
+      {
+        "id": "ai-tasks-retro",
+        "type": "ai",
+        "label": "Extract Action Items",
+        "description": "Identify tasks & assignees",
+        "instanceId": "ai-tasks-u3v4w5x6",
+        "config": {
+          "extractAssignees": true,
+          "category": "process-improvement"
+        }
+      },
+      {
+        "id": "action-notion-retro",
+        "type": "action",
+        "label": "Save to Notion",
+        "description": "Add to Notion database",
+        "instanceId": "action-notion-y7z8a9b0",
+        "config": {
+          "database": "Sprint Retrospectives",
+          "template": "retro-template"
+        }
+      },
+      {
+        "id": "action-email-retro",
+        "type": "action",
+        "label": "Send Email",
+        "description": "Send summary via email",
+        "instanceId": "action-email-c1d2e3f4",
+        "config": {
+          "to": "team@company.com",
+          "subject": "Sprint Retrospective Summary",
+          "includeAttachments": true
+        }
+      }
+    ],
+    "isEnabled": false,
+    "createdAt": "2025-01-18T11:20:00.000Z",
+    "updatedAt": "2025-01-18T11:20:00.000Z"
+  },
+  {
+    "id": "workflow-005-compliance-check",
+    "name": "Compliance & Security Review",
+    "nodes": [
+      {
+        "id": "source-calendar",
+        "type": "trigger",
+        "label": "Calendar Event",
+        "description": "Triggered by calendar events",
+        "instanceId": "source-calendar-g5h6i7j8"
+      },
+      {
+        "id": "ai-custom-compliance",
+        "type": "ai",
+        "label": "Custom AI Prompt",
+        "description": "Run custom prompt",
+        "instanceId": "ai-custom-k9l0m1n2",
+        "config": {
+          "prompt": "Identify any compliance, security, or privacy concerns mentioned in the meeting",
+          "outputFormat": "structured"
+        }
+      },
+      {
+        "id": "logic-branch-compliance",
+        "type": "branch",
+        "label": "Condition (If/Else)",
+        "description": "Branch workflow based on conditions",
+        "instanceId": "logic-branch-o3p4q5r6",
+        "config": {
+          "condition": "concerns.length > 0",
+          "operator": "greaterThan"
+        },
+        "branches": {
+          "true": [
             {
-                "id": "source-calendar",
-                "type": "trigger",
-                "label": "Calendar Event",
-                "description": "Triggered by calendar events",
-                "instanceId": "source-calendar-g5h6i7j8"
+              "id": "action-jira-compliance",
+              "type": "action",
+              "label": "Create Jira Issue",
+              "description": "Create task in Jira",
+              "instanceId": "action-jira-s7t8u9v0",
+              "config": {
+                "project": "COMPLIANCE",
+                "issueType": "Task",
+                "priority": "High",
+                "watchers": ["compliance-team"]
+              }
             },
             {
-                "id": "ai-custom-compliance",
-                "type": "ai",
-                "label": "Custom AI Prompt",
-                "description": "Run custom prompt",
-                "instanceId": "ai-custom-k9l0m1n2",
-                "config": {
-                    "prompt": "Identify any compliance, security, or privacy concerns mentioned in the meeting",
-                    "outputFormat": "structured"
-                }
-            },
-            {
-                "id": "logic-branch-compliance",
-                "type": "branch",
-                "label": "Condition (If/Else)",
-                "description": "Branch workflow based on conditions",
-                "instanceId": "logic-branch-o3p4q5r6",
-                "config": {
-                    "condition": "concerns.length > 0",
-                    "operator": "greaterThan"
-                },
-                "branches": {
-                    "true": [
-                        {
-                            "id": "action-jira-compliance",
-                            "type": "action",
-                            "label": "Create Jira Issue",
-                            "description": "Create task in Jira",
-                            "instanceId": "action-jira-s7t8u9v0",
-                            "config": {
-                                "project": "COMPLIANCE",
-                                "issueType": "Task",
-                                "priority": "High",
-                                "watchers": ["compliance-team"]
-                            }
-                        },
-                        {
-                            "id": "action-email-compliance",
-                            "type": "action",
-                            "label": "Send Email",
-                            "description": "Send summary via email",
-                            "instanceId": "action-email-w1x2y3z4",
-                            "config": {
-                                "to": "compliance@company.com",
-                                "subject": "Compliance Review Required",
-                                "cc": ["legal@company.com"]
-                            }
-                        }
-                    ],
-                    "false": [
-                        {
-                            "id": "action-webhook-log",
-                            "type": "action",
-                            "label": "Webhook",
-                            "description": "Send data to webhook",
-                            "instanceId": "action-webhook-a5b6c7d8",
-                            "config": {
-                                "url": "https://api.company.com/compliance/log",
-                                "method": "POST"
-                            }
-                        }
-                    ]
-                }
+              "id": "action-email-compliance",
+              "type": "action",
+              "label": "Send Email",
+              "description": "Send summary via email",
+              "instanceId": "action-email-w1x2y3z4",
+              "config": {
+                "to": "compliance@company.com",
+                "subject": "Compliance Review Required",
+                "cc": ["legal@company.com"]
+              }
             }
-        ],
-        "isEnabled": true,
-        "createdAt": "2025-01-20T09:45:00.000Z",
-        "updatedAt": "2025-01-24T13:10:00.000Z"
-    }
+          ],
+          "false": [
+            {
+              "id": "action-webhook-log",
+              "type": "action",
+              "label": "Webhook",
+              "description": "Send data to webhook",
+              "instanceId": "action-webhook-a5b6c7d8",
+              "config": {
+                "url": "https://api.company.com/compliance/log",
+                "method": "POST"
+              }
+            }
+          ]
+        }
+      }
+    ],
+    "isEnabled": true,
+    "createdAt": "2025-01-20T09:45:00.000Z",
+    "updatedAt": "2025-01-24T13:10:00.000Z"
+  }
 ]

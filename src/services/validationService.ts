@@ -1,4 +1,4 @@
-import type { WorkflowNodeData } from "./workflowService"
+import type { WorkflowNodeData } from './workflowService'
 
 export interface ValidationError {
   nodeId: string
@@ -22,9 +22,9 @@ export const validationService = {
       // 2. Check for empty branches
       if (node.type === 'branch' && node.branches) {
         if (node.branches.true.length === 0 && node.branches.false.length === 0) {
-           errors[node.instanceId] = 'At least one branch path must have steps'
+          errors[node.instanceId] = 'At least one branch path must have steps'
         }
-        
+
         // Recursively validate branches
         node.branches.true.forEach(validateNode)
         node.branches.false.forEach(validateNode)
@@ -33,5 +33,5 @@ export const validationService = {
 
     nodes.forEach(validateNode)
     return errors
-  }
+  },
 }

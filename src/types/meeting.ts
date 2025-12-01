@@ -1,18 +1,18 @@
 export const MeetingStatus = {
   PROCESSING: 'processing',
   COMPLETED: 'completed',
-  FAILED: 'failed'
-} as const;
+  FAILED: 'failed',
+} as const
 
-export type MeetingStatus = (typeof MeetingStatus)[keyof typeof MeetingStatus];
+export type MeetingStatus = (typeof MeetingStatus)[keyof typeof MeetingStatus]
 
 export const MeetingType = {
   AUDIO: 'audio',
   TEXT: 'text',
-  FILE: 'file'
-} as const;
+  FILE: 'file',
+} as const
 
-export type MeetingType = (typeof MeetingType)[keyof typeof MeetingType];
+export type MeetingType = (typeof MeetingType)[keyof typeof MeetingType]
 
 export interface Task {
   id: string
@@ -46,14 +46,14 @@ export interface Meeting {
   type: MeetingType
   status: MeetingStatus
   inputContent?: string // The raw text or file name
-  
+
   // Outputs
   summary?: string
   tasks: Task[]
   risks: Risk[]
   decisions: Decision[]
   mom?: string // HTML/Markdown content
-  
+
   createdAt: string
   updatedAt: string
 }

@@ -1,11 +1,13 @@
 import React, { useEffect, useState } from 'react'
 import { useNavigate, useSearchParams } from 'react-router-dom'
-import { Calendar, Clock, Download, Share2, Users, ArrowLeft } from 'lucide-react'
+
 import clsx from 'clsx'
-import { meetingService } from '@/services/meetingService'
-import { type Meeting } from '@/types/meeting'
+import { Calendar, Clock, Download, Share2, Users, ArrowLeft } from 'lucide-react'
+
 import { Button } from '@/components'
 import { useToast } from '@/context/ToastContext'
+import { meetingService } from '@/services/meetingService'
+import { type Meeting } from '@/types/meeting'
 
 const MoMGeneration: React.FC = () => {
   const navigate = useNavigate()
@@ -55,7 +57,7 @@ const MoMGeneration: React.FC = () => {
       <div className="flex flex-col gap-6">
         {/* Header */}
         <div className="flex flex-col gap-4">
-          <button 
+          <button
             onClick={() => navigate(`/meetings/${meetingId}`)}
             className="flex items-center gap-2 text-gray-500 hover:text-gray-900 transition-colors w-fit"
           >
@@ -69,12 +71,14 @@ const MoMGeneration: React.FC = () => {
               <p className="text-base text-gray-500">Auto-generated summary of your meeting</p>
             </div>
             <div className="flex items-center gap-2">
-              <button 
+              <button
                 onClick={() => handleFakeAction('share', 'Meeting minutes shared successfully!')}
                 disabled={!!loadingAction}
                 className="flex items-center justify-center px-4 h-10 bg-transparent text-gray-700 text-sm font-medium rounded-lg gap-2 border border-gray-300 hover:bg-gray-100 transition-colors disabled:opacity-70 relative"
               >
-                <div className={clsx("flex items-center gap-2", loadingAction === 'share' ? 'opacity-0' : 'opacity-100')}>
+                <div
+                  className={clsx('flex items-center gap-2', loadingAction === 'share' ? 'opacity-0' : 'opacity-100')}
+                >
                   <Share2 size={16} />
                   <span>Share</span>
                 </div>
@@ -84,12 +88,14 @@ const MoMGeneration: React.FC = () => {
                   </div>
                 )}
               </button>
-              <button 
+              <button
                 onClick={() => handleFakeAction('export', 'PDF downloaded successfully!')}
                 disabled={!!loadingAction}
                 className="flex items-center justify-center px-4 h-10 bg-primary text-white text-sm font-medium rounded-lg gap-2 hover:bg-primary/90 transition-colors disabled:opacity-70 relative"
               >
-                <div className={clsx("flex items-center gap-2", loadingAction === 'export' ? 'opacity-0' : 'opacity-100')}>
+                <div
+                  className={clsx('flex items-center gap-2', loadingAction === 'export' ? 'opacity-0' : 'opacity-100')}
+                >
                   <Download size={16} />
                   <span>Export PDF</span>
                 </div>
@@ -167,9 +173,7 @@ const MoMGeneration: React.FC = () => {
           {/* Summary Section */}
           <div className="mb-6">
             <h3 className="text-lg font-bold text-gray-900 mb-3">Summary</h3>
-            <p className="text-sm text-gray-700 leading-relaxed">
-              {meeting.summary || "No summary available."}
-            </p>
+            <p className="text-sm text-gray-700 leading-relaxed">{meeting.summary || 'No summary available.'}</p>
           </div>
 
           {/* Decisions Section */}

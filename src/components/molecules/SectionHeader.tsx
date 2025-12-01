@@ -1,4 +1,5 @@
 import React from 'react'
+
 import clsx from 'clsx'
 
 export interface SectionHeaderProps {
@@ -8,12 +9,7 @@ export interface SectionHeaderProps {
   className?: string
 }
 
-const SectionHeader: React.FC<SectionHeaderProps> = ({
-  title,
-  subtitle,
-  action,
-  className,
-}) => {
+const SectionHeader: React.FC<SectionHeaderProps> = ({ title, subtitle, action, className }) => {
   return (
     <div className={clsx('flex items-start justify-between gap-4', className)}>
       <div className="flex flex-col gap-1">

@@ -2,6 +2,7 @@ import React from 'react'
 import { useNavigate } from 'react-router-dom'
 
 import { FileText, MessageSquare, Upload } from 'lucide-react'
+
 import { Button, FeatureCard } from '@/components'
 
 const InputSelection: React.FC = () => {
@@ -54,12 +55,7 @@ const InputSelection: React.FC = () => {
         </div>
 
         <div className="w-full max-w-sm pt-4">
-          <Button
-            variant="primary"
-            size="lg"
-            fullWidth
-            onClick={() => navigate('/input-form')}
-          >
+          <Button variant="primary" size="lg" fullWidth onClick={() => navigate('/input-form')}>
             Continue
           </Button>
         </div>

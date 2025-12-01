@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { useNavigate, useSearchParams } from 'react-router-dom'
+
 import {
   DndContext,
   DragOverlay,
@@ -28,10 +29,11 @@ import {
   ArrowLeft,
   Edit2,
 } from 'lucide-react'
+
 import { Button, Toggle, NodeConfigPanel, WorkflowList } from '@/components'
-import { type Workflow, workflowService } from '@/services/workflowService'
-import { validationService } from '@/services/validationService'
 import { useToast } from '@/context/ToastContext'
+import { validationService } from '@/services/validationService'
+import { type Workflow, workflowService } from '@/services/workflowService'
 import { countWorkflowNodes } from '@/utils/workflowUtils'
 
 // Types
@@ -104,16 +106,16 @@ const WorkflowBuilder: React.FC = () => {
         // Note: This needs to be recursive for branches, but for now flat reconstruction is the first step
         // We'll need a recursive rehydrator for full support
         const rehydrateNodes = (nodes: any[]): WorkflowItemData[] => {
-          return nodes.map(node => {
-            const originalItem = [...inputSources, ...aiMagic, ...actions, ...logic].find(i => i.id === node.id)
+          return nodes.map((node) => {
+            const originalItem = [...inputSources, ...aiMagic, ...actions, ...logic].find((i) => i.id === node.id)
             const rehydrated: WorkflowItemData = {
               ...node,
-              icon: originalItem ? originalItem.icon : <Zap size={20} />
+              icon: originalItem ? originalItem.icon : <Zap size={20} />,
             }
             if (node.branches) {
               rehydrated.branches = {
                 true: rehydrateNodes(node.branches.true),
-                false: rehydrateNodes(node.branches.false)
+                false: rehydrateNodes(node.branches.false),
               }
             }
             return rehydrated
@@ -130,43 +132,139 @@ const WorkflowBuilder: React.FC = () => {
         distance: 8,
       },
     }),
-    useSensor(KeyboardSensor)
+    useSensor(KeyboardSensor),
   )
 
   // Building block items
   const inputSources: SidebarItemData[] = [
-    { id: 'source-meeting-summary', type: 'trigger', label: 'Meeting Summary', icon: <FileText size={20} />, description: 'Triggered when a meeting summary is available' },
-    { id: 'source-notes', type: 'trigger', label: 'Notes / Transcripts', icon: <MessageSquare size={20} />, description: 'Triggered when new notes are added' },
-    { id: 'source-chat', type: 'trigger', label: 'Chat Messages', icon: <MessageSquare size={20} />, description: 'Triggered by specific chat messages' },
-    { id: 'source-email', type: 'trigger', label: 'Email', icon: <Mail size={20} />, description: 'Triggered by incoming emails' },
-    { id: 'source-calendar', type: 'trigger', label: 'Calendar Event', icon: <CalendarDays size={20} />, description: 'Triggered by calendar events' },
+    {
+      id: 'source-meeting-summary',
+      type: 'trigger',
+      label: 'Meeting Summary',
+      icon: <FileText size={20} />,
+      description: 'Triggered when a meeting summary is available',
+    },
+    {
+      id: 'source-notes',
+      type: 'trigger',
+      label: 'Notes / Transcripts',
+      icon: <MessageSquare size={20} />,
+      description: 'Triggered when new notes are added',
+    },
+    {
+      id: 'source-chat',
+      type: 'trigger',
+      label: 'Chat Messages',
+      icon: <MessageSquare size={20} />,
+      description: 'Triggered by specific chat messages',
+    },
+    {
+      id: 'source-email',
+      type: 'trigger',
+      label: 'Email',
+      icon: <Mail size={20} />,
+      description: 'Triggered by incoming emails',
+    },
+    {
+      id: 'source-calendar',
+      type: 'trigger',
+      label: 'Calendar Event',
+      icon: <CalendarDays size={20} />,
+      description: 'Triggered by calendar events',
+    },
   ]
 
   const actions: SidebarItemData[] = [
-    { id: 'action-email', type: 'action', label: 'Send Email', icon: <Mail size={20} />, description: 'Send summary via email' },
-    { id: 'action-slack', type: 'action', label: 'Send to Slack', icon: <Slack size={20} />, description: 'Post to Slack channel' },
-    { id: 'action-jira', type: 'action', label: 'Create Jira Issue', icon: <CheckSquare size={20} />, description: 'Create task in Jira' },
-    { id: 'action-notion', type: 'action', label: 'Save to Notion', icon: <Database size={20} />, description: 'Add to Notion database' },
-    { id: 'action-webhook', type: 'action', label: 'Webhook', icon: <Globe size={20} />, description: 'Send data to webhook' },
+    {
+      id: 'action-email',
+      type: 'action',
+      label: 'Send Email',
+      icon: <Mail size={20} />,
+      description: 'Send summary via email',
+    },
+    {
+      id: 'action-slack',
+      type: 'action',
+      label: 'Send to Slack',
+      icon: <Slack size={20} />,
+      description: 'Post to Slack channel',
+    },
+    {
+      id: 'action-jira',
+      type: 'action',
+      label: 'Create Jira Issue',
+      icon: <CheckSquare size={20} />,
+      description: 'Create task in Jira',
+    },
+    {
+      id: 'action-notion',
+      type: 'action',
+      label: 'Save to Notion',
+      icon: <Database size={20} />,
+      description: 'Add to Notion database',
+    },
+    {
+      id: 'action-webhook',
+      type: 'action',
+      label: 'Webhook',
+      icon: <Globe size={20} />,
+      description: 'Send data to webhook',
+    },
   ]
 
   const aiMagic: SidebarItemData[] = [
-    { id: 'ai-summary', type: 'ai', label: 'Extract Summary', icon: <FileText size={20} />, description: 'Generate concise summary' },
-    { id: 'ai-tasks', type: 'ai', label: 'Extract Action Items', icon: <CheckSquare size={20} />, description: 'Identify tasks & assignees' },
-    { id: 'ai-risks', type: 'ai', label: 'Extract Risks & Decisions', icon: <AlertTriangle size={20} />, description: 'Find key risks and decisions' },
-    { id: 'ai-sentiment', type: 'ai', label: 'Sentiment Analysis', icon: <Smile size={20} />, description: 'Analyze tone and sentiment' },
-    { id: 'ai-custom', type: 'ai', label: 'Custom AI Prompt', icon: <Brain size={20} />, description: 'Run custom prompt' },
+    {
+      id: 'ai-summary',
+      type: 'ai',
+      label: 'Extract Summary',
+      icon: <FileText size={20} />,
+      description: 'Generate concise summary',
+    },
+    {
+      id: 'ai-tasks',
+      type: 'ai',
+      label: 'Extract Action Items',
+      icon: <CheckSquare size={20} />,
+      description: 'Identify tasks & assignees',
+    },
+    {
+      id: 'ai-risks',
+      type: 'ai',
+      label: 'Extract Risks & Decisions',
+      icon: <AlertTriangle size={20} />,
+      description: 'Find key risks and decisions',
+    },
+    {
+      id: 'ai-sentiment',
+      type: 'ai',
+      label: 'Sentiment Analysis',
+      icon: <Smile size={20} />,
+      description: 'Analyze tone and sentiment',
+    },
+    {
+      id: 'ai-custom',
+      type: 'ai',
+      label: 'Custom AI Prompt',
+      icon: <Brain size={20} />,
+      description: 'Run custom prompt',
+    },
   ]
 
   const logic: SidebarItemData[] = [
-    { id: 'logic-branch', type: 'branch', label: 'Condition (If/Else)', icon: <GitFork size={20} />, description: 'Branch workflow based on conditions' },
+    {
+      id: 'logic-branch',
+      type: 'branch',
+      label: 'Condition (If/Else)',
+      icon: <GitFork size={20} />,
+      description: 'Branch workflow based on conditions',
+    },
   ]
 
   const handleDragStart = (event: DragStartEvent) => {
     const { active } = event
-    
+
     // Find the item in inputSources, actions, or aiMagic
-    const item = [...inputSources, ...actions, ...aiMagic, ...logic].find(i => i.id === active.id)
+    const item = [...inputSources, ...actions, ...aiMagic, ...logic].find((i) => i.id === active.id)
     if (item) {
       setActiveItem(item)
     }
@@ -179,15 +277,15 @@ const WorkflowBuilder: React.FC = () => {
 
     const newErrors = validationService.validateWorkflow(currentNodes as any)
     const nextErrors: Record<string, string> = {}
-    
+
     // Only keep errors that still exist in the new validation result
     // This ensures we clear fixed errors but don't annoy users with new errors while they are typing/dragging
-    Object.keys(validationErrors).forEach(nodeId => {
+    Object.keys(validationErrors).forEach((nodeId) => {
       if (newErrors[nodeId]) {
         nextErrors[nodeId] = newErrors[nodeId]
       }
     })
-    
+
     // Only update if the error count changed or messages changed
     if (JSON.stringify(nextErrors) !== JSON.stringify(validationErrors)) {
       setValidationErrors(nextErrors)
@@ -198,23 +296,24 @@ const WorkflowBuilder: React.FC = () => {
     const { active, over } = event
 
     if (over) {
-      const item = [...inputSources, ...actions, ...aiMagic, ...logic].find(i => i.id === active.id)
-      
+      const item = [...inputSources, ...actions, ...aiMagic, ...logic].find((i) => i.id === active.id)
+
       if (item) {
         const newNode: WorkflowItemData = {
           ...item,
           instanceId: `${item.id}-${crypto.randomUUID()}`, // Unique ID
-          branches: item.type === 'branch' ? { true: [], false: [] } : undefined
+          branches: item.type === 'branch' ? { true: [], false: [] } : undefined,
         }
 
         // Recursive function to add node to the correct list
         const addNodeToList = (currentNodes: WorkflowItemData[], targetListId: string): WorkflowItemData[] => {
           // If this is the root list
-          if (targetListId === 'canvas') { // Changed from 'root' to 'canvas' to match DroppableCanvas ID
+          if (targetListId === 'canvas') {
+            // Changed from 'root' to 'canvas' to match DroppableCanvas ID
             return [...currentNodes, newNode]
           }
 
-          return currentNodes.map(node => {
+          return currentNodes.map((node) => {
             if (node.branches) {
               // Check if target is one of this node's branches
               if (targetListId === `${node.instanceId}-true`) {
@@ -222,8 +321,8 @@ const WorkflowBuilder: React.FC = () => {
                   ...node,
                   branches: {
                     ...node.branches,
-                    true: [...node.branches.true, newNode]
-                  }
+                    true: [...node.branches.true, newNode],
+                  },
                 }
               }
               if (targetListId === `${node.instanceId}-false`) {
@@ -231,18 +330,18 @@ const WorkflowBuilder: React.FC = () => {
                   ...node,
                   branches: {
                     ...node.branches,
-                    false: [...node.branches.false, newNode]
-                  }
+                    false: [...node.branches.false, newNode],
+                  },
                 }
               }
-              
+
               // Recurse deeper
               return {
                 ...node,
                 branches: {
                   true: addNodeToList(node.branches.true, targetListId),
-                  false: addNodeToList(node.branches.false, targetListId)
-                }
+                  false: addNodeToList(node.branches.false, targetListId),
+                },
               }
             }
             return node
@@ -251,13 +350,13 @@ const WorkflowBuilder: React.FC = () => {
 
         const targetId = over.id as string
         let nextNodes: WorkflowItemData[] = []
-        
+
         if (targetId === 'canvas') {
           nextNodes = [...nodes, newNode]
         } else {
           nextNodes = addNodeToList(nodes, targetId)
         }
-        
+
         setNodes(nextNodes)
         validateAndCleanErrors(nextNodes)
       }
@@ -268,29 +367,31 @@ const WorkflowBuilder: React.FC = () => {
 
   // Recursive delete
   const deleteNodeRecursive = (currentNodes: WorkflowItemData[], targetId: string): WorkflowItemData[] => {
-    return currentNodes.filter(node => node.instanceId !== targetId).map(node => {
-      if (node.branches) {
-        return {
-          ...node,
-          branches: {
-            true: deleteNodeRecursive(node.branches.true, targetId),
-            false: deleteNodeRecursive(node.branches.false, targetId)
+    return currentNodes
+      .filter((node) => node.instanceId !== targetId)
+      .map((node) => {
+        if (node.branches) {
+          return {
+            ...node,
+            branches: {
+              true: deleteNodeRecursive(node.branches.true, targetId),
+              false: deleteNodeRecursive(node.branches.false, targetId),
+            },
           }
         }
-      }
-      return node
-    })
+        return node
+      })
   }
 
   const handleDeleteNode = (instanceId: string, e: React.MouseEvent) => {
     e.stopPropagation()
     const nextNodes = deleteNodeRecursive(nodes, instanceId)
     setNodes(nextNodes)
-    
+
     if (selectedNodeId === instanceId) {
       setSelectedNodeId(null)
     }
-    
+
     // We still want to remove the specific error for the deleted node immediately
     // But we also want to check if this deletion fixed/caused other errors (handled by validateAndCleanErrors)
     // However, validateAndCleanErrors only keeps existing errors.
@@ -310,7 +411,7 @@ const WorkflowBuilder: React.FC = () => {
 
   // Recursive update
   const updateNodeRecursive = (currentNodes: WorkflowItemData[], targetId: string, data: any): WorkflowItemData[] => {
-    return currentNodes.map(node => {
+    return currentNodes.map((node) => {
       if (node.instanceId === targetId) {
         return { ...node, ...data }
       }
@@ -319,8 +420,8 @@ const WorkflowBuilder: React.FC = () => {
           ...node,
           branches: {
             true: updateNodeRecursive(node.branches.true, targetId, data),
-            false: updateNodeRecursive(node.branches.false, targetId, data)
-          }
+            false: updateNodeRecursive(node.branches.false, targetId, data),
+          },
         }
       }
       return node
@@ -343,7 +444,7 @@ const WorkflowBuilder: React.FC = () => {
     }
 
     const id = workflowId || crypto.randomUUID()
-    
+
     // Recursive function to strip icons
     const stripIcons = (nodes: WorkflowItemData[]): any[] => {
       return nodes.map(({ icon, branches, ...rest }) => {
@@ -351,7 +452,7 @@ const WorkflowBuilder: React.FC = () => {
         if (branches) {
           node.branches = {
             true: stripIcons(branches.true),
-            false: stripIcons(branches.false)
+            false: stripIcons(branches.false),
           }
         }
         return node
@@ -370,7 +471,7 @@ const WorkflowBuilder: React.FC = () => {
     }
 
     workflowService.saveWorkflow(workflow)
-    
+
     if (!workflowId) {
       setSearchParams({ id })
     }
@@ -410,7 +511,7 @@ const WorkflowBuilder: React.FC = () => {
             </button>
             <h2 className="text-gray-900 text-2xl font-bold">Building Blocks</h2>
           </div>
-          
+
           {/* Scrollable Content */}
           <div className="flex-1 overflow-y-auto p-6 pt-4 flex flex-col gap-8">
             <div className="flex flex-col gap-6 pb-20">
@@ -426,9 +527,7 @@ const WorkflowBuilder: React.FC = () => {
 
               {/* Logic Section */}
               <section className="flex flex-col gap-4">
-                <h3 className="text-gray-400 text-xs font-bold uppercase tracking-wider px-2">
-                  Logic
-                </h3>
+                <h3 className="text-gray-400 text-xs font-bold uppercase tracking-wider px-2">Logic</h3>
                 <div className="grid grid-cols-2 gap-4">
                   {logic.map((item) => (
                     <DraggableSidebarItem key={item.id} item={item} />
@@ -438,9 +537,7 @@ const WorkflowBuilder: React.FC = () => {
 
               {/* AI Magic Section */}
               <section className="flex flex-col gap-4">
-                <h3 className="text-gray-400 text-xs font-bold uppercase tracking-wider px-2">
-                  AI Magic
-                </h3>
+                <h3 className="text-gray-400 text-xs font-bold uppercase tracking-wider px-2">AI Magic</h3>
                 <div className="grid grid-cols-2 gap-4">
                   {aiMagic.map((item) => (
                     <DraggableSidebarItem key={item.id} item={item} />
@@ -483,9 +580,9 @@ const WorkflowBuilder: React.FC = () => {
                 ) : (
                   <>
                     <h1 className="text-gray-900 text-2xl font-bold">{workflowName}</h1>
-                    <Edit2 
-                      size={16} 
-                      className="text-gray-400 opacity-0 group-hover:opacity-100 transition-opacity cursor-pointer" 
+                    <Edit2
+                      size={16}
+                      className="text-gray-400 opacity-0 group-hover:opacity-100 transition-opacity cursor-pointer"
                       onClick={() => setIsEditingName(true)}
                     />
                   </>
@@ -517,11 +614,11 @@ const WorkflowBuilder: React.FC = () => {
               onDeleteClick={handleDeleteNode}
             />
           </div>
-          
+
           {/* Configuration Panel */}
-          <NodeConfigPanel 
-            selectedNode={selectedNode} 
-            onClose={() => setSelectedNodeId(null)} 
+          <NodeConfigPanel
+            selectedNode={selectedNode}
+            onClose={() => setSelectedNodeId(null)}
             onUpdate={handleUpdateNode}
           />
         </div>

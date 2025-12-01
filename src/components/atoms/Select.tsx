@@ -1,4 +1,5 @@
 import React from 'react'
+
 import { ChevronDown } from 'lucide-react'
 
 interface SelectOption {
@@ -32,11 +33,7 @@ const Select: React.FC<SelectProps> = ({
     <div className={`${widthStyles} flex flex-col gap-1.5`}>
       {label && <label className="text-sm font-medium text-gray-700">{label}</label>}
       <div className="relative">
-        <select
-          className={`${baseStyles} ${errorStyles} ${className}`}
-          disabled={disabled}
-          {...props}
-        >
+        <select className={`${baseStyles} ${errorStyles} ${className}`} disabled={disabled} {...props}>
           {options.map((option, index) => {
             const isString = typeof option === 'string'
             const value = isString ? option : option.value

@@ -1,8 +1,9 @@
 import React, { useState } from 'react'
 
-import { Bell, Check, Send, Slack, Clock } from 'lucide-react'
-import { useToast } from '@/context/ToastContext'
 import clsx from 'clsx'
+import { Bell, Check, Send, Slack, Clock } from 'lucide-react'
+
+import { useToast } from '@/context/ToastContext'
 
 const SlackReminder: React.FC = () => {
   const [selectedTasks, setSelectedTasks] = useState<number[]>([1, 2])
@@ -123,12 +124,14 @@ const SlackReminder: React.FC = () => {
 
           {/* Actions */}
           <div className="flex items-center gap-3">
-            <button 
+            <button
               onClick={() => handleFakeAction('schedule', 'Reminder scheduled successfully!')}
               disabled={!!loadingAction}
               className="flex-1 flex items-center justify-center px-4 h-12 bg-transparent text-gray-700 text-sm font-medium rounded-lg gap-2 border border-gray-300 hover:bg-gray-100 transition-colors disabled:opacity-70 relative"
             >
-              <div className={clsx("flex items-center gap-2", loadingAction === 'schedule' ? 'opacity-0' : 'opacity-100')}>
+              <div
+                className={clsx('flex items-center gap-2', loadingAction === 'schedule' ? 'opacity-0' : 'opacity-100')}
+              >
                 <Bell size={16} />
                 <span>Schedule for Later</span>
               </div>
@@ -138,12 +141,12 @@ const SlackReminder: React.FC = () => {
                 </div>
               )}
             </button>
-            <button 
+            <button
               onClick={() => handleFakeAction('send', 'Reminder sent to Slack!')}
               disabled={!!loadingAction}
               className="flex-1 flex items-center justify-center px-4 h-12 bg-primary text-white text-sm font-medium rounded-lg gap-2 hover:bg-primary/90 transition-colors disabled:opacity-70 relative"
             >
-              <div className={clsx("flex items-center gap-2", loadingAction === 'send' ? 'opacity-0' : 'opacity-100')}>
+              <div className={clsx('flex items-center gap-2', loadingAction === 'send' ? 'opacity-0' : 'opacity-100')}>
                 <Send size={16} />
                 <span>Send Now</span>
               </div>

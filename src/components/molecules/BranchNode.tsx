@@ -1,5 +1,7 @@
 import React from 'react'
+
 import { GitFork, Check, X } from 'lucide-react'
+
 import WorkflowNode from '../atoms/WorkflowNode'
 
 interface BranchNodeProps {
@@ -41,10 +43,10 @@ export const BranchNode: React.FC<BranchNodeProps> = ({
         {/* Connecting Lines */}
         {/* Vertical line from parent */}
         <div className="absolute top-0 left-1/2 w-[2px] h-6 bg-gray-300 -translate-y-4 -translate-x-1/2 z-0"></div>
-        
+
         {/* Horizontal connecting line */}
         <div className="absolute top-2 left-1/4 right-1/4 h-[2px] bg-gray-300"></div>
-        
+
         {/* Vertical lines to children */}
         <div className="absolute top-2 left-1/4 w-[2px] h-4 bg-gray-300 -translate-x-1/2"></div>
         <div className="absolute top-2 right-1/4 w-[2px] h-4 bg-gray-300 translate-x-1/2"></div>

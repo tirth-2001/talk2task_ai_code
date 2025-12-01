@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
+
 import { Calendar, CheckCircle, AlertTriangle, Trash2, Plus, Search, Filter } from 'lucide-react'
+
+import { Button, PageHeader } from '@/components'
+import { useToast } from '@/context/ToastContext'
 import { meetingService } from '@/services/meetingService'
 import { type Meeting, MeetingStatus } from '@/types/meeting'
-import { Button, PageHeader } from '@/components'
-
-import { useToast } from '@/context/ToastContext'
 
 const Meetings: React.FC = () => {
   const navigate = useNavigate()
@@ -20,7 +21,7 @@ const Meetings: React.FC = () => {
     setMeetings(data)
   }, [])
 
-  const filteredMeetings = meetings.filter(m => {
+  const filteredMeetings = meetings.filter((m) => {
     const matchesSearch = m.title.toLowerCase().includes(searchQuery.toLowerCase())
     const matchesFilter = statusFilter === 'all' || m.status === statusFilter
     return matchesSearch && matchesFilter
@@ -46,9 +47,9 @@ const Meetings: React.FC = () => {
         title="Meetings"
         description="Manage and review your processed meetings."
         action={
-          <Button 
-            variant="primary" 
-            size="md" 
+          <Button
+            variant="primary"
+            size="md"
             onClick={() => navigate('/input-selection')}
             className="flex items-center gap-2"
             icon={<Plus size={18} />}
@@ -62,7 +63,7 @@ const Meetings: React.FC = () => {
       <div className="flex items-center gap-4 bg-white p-4 rounded-xl border border-gray-100 shadow-sm">
         <div className="relative flex-grow max-w-md">
           <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400" size={20} />
-          <input 
+          <input
             type="text"
             placeholder="Search meetings..."
             className="w-full pl-10 pr-4 py-2 rounded-lg border border-gray-200 focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary"
@@ -70,11 +71,11 @@ const Meetings: React.FC = () => {
             onChange={(e) => setSearchQuery(e.target.value)}
           />
         </div>
-        
+
         <div className="relative">
           <div className="flex items-center gap-2 px-4 py-2 text-gray-600 bg-gray-50 rounded-lg border border-gray-200">
             <Filter size={18} />
-            <select 
+            <select
               value={statusFilter}
               onChange={(e) => setStatusFilter(e.target.value)}
               className="bg-transparent border-none focus:outline-none text-sm font-medium text-gray-700 cursor-pointer"
@@ -104,8 +105,8 @@ const Meetings: React.FC = () => {
         ) : (
           <div className="divide-y divide-gray-100">
             {filteredMeetings.map((meeting) => (
-              <div 
-                key={meeting.id} 
+              <div
+                key={meeting.id}
                 onClick={() => handleMeetingClick(meeting.id)}
                 className="p-6 hover:bg-gray-50 transition-colors flex items-center justify-between cursor-pointer group"
               >
@@ -116,18 +117,18 @@ const Meetings: React.FC = () => {
                   <div>
                     <h4 className="font-semibold text-gray-900 text-lg">{meeting.title}</h4>
                     <p className="text-sm text-gray-500">
-                      {new Date(meeting.date).toLocaleDateString(undefined, { 
-                        weekday: 'short', 
-                        year: 'numeric', 
-                        month: 'short', 
+                      {new Date(meeting.date).toLocaleDateString(undefined, {
+                        weekday: 'short',
+                        year: 'numeric',
+                        month: 'short',
                         day: 'numeric',
                         hour: '2-digit',
-                        minute: '2-digit'
+                        minute: '2-digit',
                       })}
                     </p>
                   </div>
                 </div>
-                
+
                 <div className="flex items-center gap-8">
                   {/* Stats */}
                   <div className="flex items-center gap-6">
@@ -136,18 +137,23 @@ const Meetings: React.FC = () => {
                       <span className="text-sm font-medium text-gray-700">{meeting.tasks.length} Tasks</span>
                     </div>
                     <div className="flex items-center gap-2" title="Risks Identified">
-                      <AlertTriangle size={18} className={meeting.risks.length > 0 ? 'text-red-500' : 'text-gray-300'} />
+                      <AlertTriangle
+                        size={18}
+                        className={meeting.risks.length > 0 ? 'text-red-500' : 'text-gray-300'}
+                      />
                       <span className="text-sm font-medium text-gray-700">{meeting.risks.length} Risks</span>
                     </div>
                   </div>
 
                   {/* Status Badge */}
-                  <span className={`
+                  <span
+                    className={`
                     px-3 py-1 rounded-full text-xs font-medium capitalize
                     ${meeting.status === 'completed' ? 'bg-green-100 text-green-700' : ''}
                     ${meeting.status === 'processing' ? 'bg-blue-100 text-blue-700' : ''}
                     ${meeting.status === 'failed' ? 'bg-red-100 text-red-700' : ''}
-                  `}>
+                  `}
+                  >
                     {meeting.status}
                   </span>
 
@@ -162,7 +168,7 @@ const Meetings: React.FC = () => {
                     >
                       View Details
                     </button>
-                    <button 
+                    <button
                       onClick={(e) => handleDelete(e, meeting.id)}
                       className="p-2 hover:bg-red-50 hover:text-red-600 rounded-lg text-gray-400 transition-colors"
                       title="Delete Meeting"

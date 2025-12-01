@@ -1,5 +1,7 @@
 import React from 'react'
+
 import clsx from 'clsx'
+
 import IconContainer from '../atoms/IconContainer'
 
 export interface FeatureCardProps {
@@ -10,18 +12,12 @@ export interface FeatureCardProps {
   className?: string
 }
 
-const FeatureCard: React.FC<FeatureCardProps> = ({
-  icon,
-  title,
-  description,
-  onClick,
-  className,
-}) => {
+const FeatureCard: React.FC<FeatureCardProps> = ({ icon, title, description, onClick, className }) => {
   return (
     <div
       className={clsx(
         'flex flex-col items-center justify-start gap-4 p-6 bg-white rounded-xl shadow-sm border border-gray-200 text-center cursor-pointer hover:border-primary hover:shadow-lg transition-all',
-        className
+        className,
       )}
       onClick={onClick}
     >

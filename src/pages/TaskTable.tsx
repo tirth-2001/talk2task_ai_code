@@ -3,19 +3,20 @@ import { useNavigate, useSearchParams } from 'react-router-dom'
 
 import clsx from 'clsx'
 import { AlertTriangle, CheckCircle, Clock, Flag, ArrowLeft } from 'lucide-react'
-import { meetingService } from '@/services/meetingService'
-import { type Task } from '@/types/meeting'
+
 import { Button } from '@/components'
 import { useToast } from '@/context/ToastContext'
+import { meetingService } from '@/services/meetingService'
+import { type Task } from '@/types/meeting'
 
 const TaskTable: React.FC = () => {
   const navigate = useNavigate()
   const [searchParams] = useSearchParams()
   const meetingId = searchParams.get('meetingId')
-  
+
   const [tasks, setTasks] = useState<Task[]>([])
   const [meetingTitle, setMeetingTitle] = useState<string>('')
-  
+
   const { showToast } = useToast()
   const [loadingAction, setLoadingAction] = useState<string | null>(null)
 
@@ -93,14 +94,14 @@ const TaskTable: React.FC = () => {
       <div className="flex flex-col gap-6">
         {/* Header */}
         <div className="flex flex-col gap-4">
-          <button 
+          <button
             onClick={() => navigate(`/meetings/${meetingId}`)}
             className="flex items-center gap-2 text-gray-500 hover:text-gray-900 transition-colors w-fit"
           >
             <ArrowLeft size={20} />
             Back to Meeting Details
           </button>
-          
+
           <div className="flex flex-wrap justify-between items-center gap-4">
             <div className="flex flex-col gap-1">
               <h1 className="text-3xl font-black tracking-tight text-gray-900">Action Items</h1>
@@ -108,7 +109,7 @@ const TaskTable: React.FC = () => {
                 Tasks from <span className="font-semibold text-gray-900">{meetingTitle}</span>
               </p>
             </div>
-            
+
             <div className="flex items-center gap-3">
               <button
                 onClick={() => handleFakeAction('slack', 'Slack reminders sent successfully!')}
@@ -122,7 +123,7 @@ const TaskTable: React.FC = () => {
                   </div>
                 )}
               </button>
-              <button 
+              <button
                 onClick={() => handleFakeAction('jira', 'Tasks exported to Jira successfully!')}
                 disabled={!!loadingAction}
                 className="flex items-center justify-center px-4 h-10 bg-primary text-white text-sm font-medium rounded-lg gap-2 hover:bg-primary/90 transition-colors disabled:opacity-70 relative"

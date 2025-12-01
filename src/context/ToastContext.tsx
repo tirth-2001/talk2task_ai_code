@@ -1,6 +1,7 @@
 import React, { createContext, useContext, useState, useCallback } from 'react'
-import { CheckCircle, AlertCircle, Info, X } from 'lucide-react'
+
 import clsx from 'clsx'
+import { CheckCircle, AlertCircle, Info, X } from 'lucide-react'
 
 export type ToastType = 'success' | 'error' | 'info' | 'warning'
 
@@ -52,17 +53,17 @@ export const ToastProvider: React.FC<{ children: React.ReactNode }> = ({ childre
               toast.type === 'success' && 'bg-green-800 text-white border-green-700',
               toast.type === 'error' && 'bg-red-800 text-white border-red-700',
               toast.type === 'info' && 'bg-blue-50 border-blue-200 text-blue-800',
-              toast.type === 'warning' && 'bg-yellow-50 border-yellow-200 text-yellow-800'
+              toast.type === 'warning' && 'bg-yellow-50 border-yellow-200 text-yellow-800',
             )}
           >
             {toast.type === 'success' && <CheckCircle size={18} className="text-green-300" />}
             {toast.type === 'error' && <AlertCircle size={18} className="text-red-300" />}
             {toast.type === 'info' && <Info size={18} className="text-blue-600" />}
             {toast.type === 'warning' && <AlertCircle size={18} className="text-yellow-600" />}
-            
+
             <span className="text-sm font-medium">{toast.message}</span>
-            
-            <button 
+
+            <button
               onClick={() => removeToast(toast.id)}
               className="ml-2 p-1 hover:bg-black/5 rounded-full transition-colors"
             >

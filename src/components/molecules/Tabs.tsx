@@ -1,5 +1,7 @@
 import React from 'react'
+
 import clsx from 'clsx'
+
 import TabButton from '../atoms/TabButton'
 
 export interface Tab {
@@ -19,11 +21,7 @@ const Tabs: React.FC<TabsProps> = ({ tabs, activeTab, onTabChange, className }) 
     <div className={clsx('pb-3', className)}>
       <div className="flex border-b border-gray-200 gap-8">
         {tabs.map((tab) => (
-          <TabButton
-            key={tab.id}
-            active={activeTab === tab.id}
-            onClick={() => onTabChange(tab.id)}
-          >
+          <TabButton key={tab.id} active={activeTab === tab.id} onClick={() => onTabChange(tab.id)}>
             {tab.label}
           </TabButton>
         ))}

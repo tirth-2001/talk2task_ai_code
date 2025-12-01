@@ -1,8 +1,10 @@
 import React from 'react'
+
 import { useDroppable } from '@dnd-kit/core'
 import { ArrowDown } from 'lucide-react'
-import { BranchNode } from '../molecules/BranchNode'
+
 import { WorkflowNode } from '../atoms'
+import { BranchNode } from '../molecules/BranchNode'
 
 // We need to define this here or import it. Ideally import from a shared types file.
 // For now, assuming the shape matches what we expect.

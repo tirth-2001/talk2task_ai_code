@@ -14,7 +14,7 @@ export const initializationService = {
     try {
       // Check if already initialized
       const isInitialized = localStorage.getItem(INIT_KEY)
-      
+
       if (isInitialized) {
         console.log('App already initialized with mock data')
         return
@@ -55,5 +55,5 @@ export const initializationService = {
    */
   isInitialized: (): boolean => {
     return !!localStorage.getItem(INIT_KEY)
-  }
+  },
 }

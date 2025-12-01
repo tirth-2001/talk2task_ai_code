@@ -1,5 +1,7 @@
 import React from 'react'
+
 import clsx from 'clsx'
+
 import IconContainer from '../atoms/IconContainer'
 
 export interface PageHeaderProps {
@@ -10,13 +12,7 @@ export interface PageHeaderProps {
   className?: string
 }
 
-const PageHeader: React.FC<PageHeaderProps> = ({
-  icon,
-  title,
-  description,
-  action,
-  className,
-}) => {
+const PageHeader: React.FC<PageHeaderProps> = ({ icon, title, description, action, className }) => {
   return (
     <div className={clsx('flex items-start justify-between gap-4', className)}>
       <div className="flex flex-col gap-2">

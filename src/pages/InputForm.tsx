@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from 'react'
 import { useNavigate, useSearchParams } from 'react-router-dom'
+
 import { Button, Textarea, Tabs, UploadZone } from '@/components'
 import type { Tab } from '@/components'
+import { useToast } from '@/context/ToastContext'
 import { meetingService } from '@/services/meetingService'
 import { MeetingType } from '@/types/meeting'
-
-import { useToast } from '@/context/ToastContext'
 
 const InputForm: React.FC = () => {
   const navigate = useNavigate()
@@ -28,7 +28,7 @@ const InputForm: React.FC = () => {
         title: `Meeting on ${new Date().toLocaleDateString()}`,
         date: new Date().toISOString(),
         type: activeTab === 'paste' ? MeetingType.TEXT : MeetingType.FILE,
-        inputContent: activeTab === 'paste' ? inputText : 'File Uploaded'
+        inputContent: activeTab === 'paste' ? inputText : 'File Uploaded',
       })
 
       showToast('Meeting created successfully', 'success')
@@ -51,11 +51,7 @@ const InputForm: React.FC = () => {
           <h2 className="text-2xl font-bold text-gray-900 pb-3 pt-5">Paste or Upload Meeting Summary</h2>
 
           {/* Tabs */}
-          <Tabs
-            tabs={tabs}
-            activeTab={activeTab}
-            onTabChange={(tabId) => setActiveTab(tabId as 'paste' | 'upload')}
-          />
+          <Tabs tabs={tabs} activeTab={activeTab} onTabChange={(tabId) => setActiveTab(tabId as 'paste' | 'upload')} />
 
           {/* Text Field */}
           {activeTab === 'paste' ? (

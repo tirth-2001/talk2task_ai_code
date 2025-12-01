@@ -1,12 +1,11 @@
 import React, { useState, useRef, useEffect } from 'react'
-import { MoreHorizontal, MoreVertical, Settings, Trash2 } from 'lucide-react'
+
+import { MoreVertical, Settings, Trash2 } from 'lucide-react'
 
 interface WorkflowNodeProps {
   icon: React.ReactNode
   title: string
   description: string
-  className?: string
-  onClick?: () => void
   onConfigClick?: (e: React.MouseEvent) => void
   onDeleteClick?: (e: React.MouseEvent) => void
   isSelected?: boolean
@@ -17,8 +16,6 @@ const WorkflowNode: React.FC<WorkflowNodeProps> = ({
   icon,
   title,
   description,
-  className = '',
-  onClick,
   onConfigClick,
   onDeleteClick,
   isSelected,
@@ -64,7 +61,7 @@ const WorkflowNode: React.FC<WorkflowNodeProps> = ({
         <h4 className="text-gray-900 font-semibold text-sm truncate">{title}</h4>
         <p className="text-gray-500 text-xs truncate">{description}</p>
       </div>
-      
+
       {/* Actions Menu */}
       <div className="relative" ref={menuRef}>
         <button

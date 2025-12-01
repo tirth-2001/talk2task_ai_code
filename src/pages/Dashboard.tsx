@@ -1,11 +1,26 @@
 import React, { useEffect, useState } from 'react'
+import { useNavigate } from 'react-router-dom'
+
 import clsx from 'clsx'
 import { CheckCircle, AlertTriangle, Clock, Calendar, BarChart2 } from 'lucide-react'
-import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, PieChart, Pie, Cell, Legend, LabelList } from 'recharts'
-import { useNavigate } from 'react-router-dom'
+import {
+  BarChart,
+  Bar,
+  XAxis,
+  YAxis,
+  CartesianGrid,
+  Tooltip,
+  ResponsiveContainer,
+  PieChart,
+  Pie,
+  Cell,
+  Legend,
+  LabelList,
+} from 'recharts'
+
+import { PageHeader } from '@/components'
 import { meetingService } from '@/services/meetingService'
 import { type DashboardStats } from '@/types/meeting'
-import { PageHeader } from '@/components'
 
 const Dashboard: React.FC = () => {
   const navigate = useNavigate()
@@ -19,21 +34,21 @@ const Dashboard: React.FC = () => {
   if (!stats) return null
 
   const statCards = [
-    { 
-      label: 'Total Tasks', 
-      value: stats.totalTasks.toString(), 
-      change: 'All Time', 
-      icon: CheckCircle, 
-      color: 'text-blue-600', 
-      bg: 'bg-blue-50' 
+    {
+      label: 'Total Tasks',
+      value: stats.totalTasks.toString(),
+      change: 'All Time',
+      icon: CheckCircle,
+      color: 'text-blue-600',
+      bg: 'bg-blue-50',
     },
-    { 
-      label: 'Risks Detected', 
-      value: stats.totalRisks.toString(), 
-      change: 'All Time', 
-      icon: AlertTriangle, 
-      color: 'text-red-600', 
-      bg: 'bg-red-50' 
+    {
+      label: 'Risks Detected',
+      value: stats.totalRisks.toString(),
+      change: 'All Time',
+      icon: AlertTriangle,
+      color: 'text-red-600',
+      bg: 'bg-red-50',
     },
     {
       label: 'Meetings Processed',
@@ -61,7 +76,7 @@ const Dashboard: React.FC = () => {
         title="Dashboard"
         description="Overview of your meetings and tasks."
         action={
-          <button 
+          <button
             onClick={() => navigate('/input-selection')}
             className="px-4 py-2 bg-primary text-white rounded-lg hover:bg-primary/90 transition-colors"
           >
@@ -83,9 +98,7 @@ const Dashboard: React.FC = () => {
                 <div className={clsx('p-3 rounded-lg', stat.bg, stat.color)}>
                   <Icon size={24} />
                 </div>
-                <span className="text-sm font-medium text-gray-500">
-                  {stat.change}
-                </span>
+                <span className="text-sm font-medium text-gray-500">{stat.change}</span>
               </div>
               <h3 className="text-3xl font-bold text-gray-900 mb-1">{stat.value}</h3>
               <p className="text-sm text-gray-500">{stat.label}</p>
@@ -100,69 +113,73 @@ const Dashboard: React.FC = () => {
           <div className="lg:col-span-2 bg-white p-6 rounded-xl border border-gray-100 shadow-sm">
             <h3 className="text-lg font-bold text-gray-900 mb-6">Task Status Distribution</h3>
             <div className="h-80">
-            {stats.taskStatusData.length > 0 ? (
-              <ResponsiveContainer width="100%" height="100%">
-                <BarChart data={stats.taskStatusData}>
-                  <CartesianGrid strokeDasharray="3 3" vertical={false} />
-                  <XAxis dataKey="name" axisLine={false} tickLine={false} />
-                  <YAxis axisLine={false} tickLine={false} />
-                  <Tooltip
-                    cursor={{ fill: '#F3F4F6' }}
-                    contentStyle={{ borderRadius: '8px', border: 'none', boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.1)' }}
-                  />
-                  <Bar dataKey="value" fill="#5D0EC0" radius={[4, 4, 0, 0]} barSize={40}>
-                    <LabelList dataKey="value" position="top" />
-                  </Bar>
-                </BarChart>
-              </ResponsiveContainer>
-            ) : (
-              <div className="h-full flex flex-col items-center justify-center text-gray-400">
-                <BarChart2 size={48} className="mb-2 opacity-20" />
-                <p className="text-sm">No tasks data available</p>
-              </div>
-            )}
-          </div>
+              {stats.taskStatusData.length > 0 ? (
+                <ResponsiveContainer width="100%" height="100%">
+                  <BarChart data={stats.taskStatusData}>
+                    <CartesianGrid strokeDasharray="3 3" vertical={false} />
+                    <XAxis dataKey="name" axisLine={false} tickLine={false} />
+                    <YAxis axisLine={false} tickLine={false} />
+                    <Tooltip
+                      cursor={{ fill: '#F3F4F6' }}
+                      contentStyle={{
+                        borderRadius: '8px',
+                        border: 'none',
+                        boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.1)',
+                      }}
+                    />
+                    <Bar dataKey="value" fill="#5D0EC0" radius={[4, 4, 0, 0]} barSize={40}>
+                      <LabelList dataKey="value" position="top" />
+                    </Bar>
+                  </BarChart>
+                </ResponsiveContainer>
+              ) : (
+                <div className="h-full flex flex-col items-center justify-center text-gray-400">
+                  <BarChart2 size={48} className="mb-2 opacity-20" />
+                  <p className="text-sm">No tasks data available</p>
+                </div>
+              )}
+            </div>
           </div>
 
           <div className="bg-white p-6 rounded-xl border border-gray-100 shadow-sm">
             <h3 className="text-lg font-bold text-gray-900 mb-6">Risk Analysis</h3>
             <div className="h-80 flex items-center justify-center">
-            {stats.riskData.length > 0 && stats.riskData.some(d => d.value > 0) ? (
-              <ResponsiveContainer width="100%" height="100%">
-                <PieChart>
-                  <Pie
-                    data={stats.riskData}
-                    cx="50%"
-                    cy="50%"
-                    innerRadius={60}
-                    outerRadius={80}
-                    paddingAngle={5}
-                    dataKey="value"
-                  >
-                    {stats.riskData.map((_entry, index) => (
-                      <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
-                    ))}
-                  </Pie>
-                  <Tooltip />
-                  <Legend
-                    verticalAlign="bottom"
-                    height={36}
-                    iconType="circle"
-                    formatter={(value, entry: any) => (
-                      <span className="text-gray-600 font-medium ml-1">
-                        {value} ({entry.payload.value})
-                      </span>
-                    )}
-                  />
-                </PieChart>
-              </ResponsiveContainer>
-            ) : (
-              <div className="h-full flex flex-col items-center justify-center text-gray-400">
-                <AlertTriangle size={48} className="mb-2 opacity-20" />
-                <p className="text-sm">No risks detected</p>
-              </div>
-            )}
-          </div>
+              {stats.riskData.length > 0 && stats.riskData.some((d) => d.value > 0) ? (
+                <ResponsiveContainer width="100%" height="100%">
+                  <PieChart>
+                    <Pie
+                      data={stats.riskData}
+                      cx="50%"
+                      cy="50%"
+                      innerRadius={60}
+                      outerRadius={80}
+                      paddingAngle={5}
+                      dataKey="value"
+                    >
+                      {stats.riskData.map((_entry, index) => (
+                        <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
+                      ))}
+                    </Pie>
+                    <Tooltip />
+                    <Legend
+                      verticalAlign="bottom"
+                      height={36}
+                      iconType="circle"
+                      formatter={(value, entry: any) => (
+                        <span className="text-gray-600 font-medium ml-1">
+                          {value} ({entry.payload.value})
+                        </span>
+                      )}
+                    />
+                  </PieChart>
+                </ResponsiveContainer>
+              ) : (
+                <div className="h-full flex flex-col items-center justify-center text-gray-400">
+                  <AlertTriangle size={48} className="mb-2 opacity-20" />
+                  <p className="text-sm">No risks detected</p>
+                </div>
+              )}
+            </div>
           </div>
         </div>
       ) : (
@@ -172,7 +189,7 @@ const Dashboard: React.FC = () => {
           </div>
           <h3 className="text-lg font-medium text-gray-900 mb-1">No data available</h3>
           <p className="text-gray-500 mb-6">Process your first meeting to see analytics.</p>
-          <button 
+          <button
             onClick={() => navigate('/input-selection')}
             className="px-4 py-2 bg-primary text-white rounded-lg hover:bg-primary/90 transition-colors"
           >

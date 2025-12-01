@@ -1,5 +1,7 @@
 import React, { useState } from 'react'
+
 import { X, Settings, Sliders, Code } from 'lucide-react'
+
 import { Button, Input, Textarea, TabButton, Select } from '@/components'
 
 interface NodeConfigPanelProps {
@@ -47,10 +49,10 @@ const NODE_CONFIG_SCHEMAS: Record<string, FieldSchema[]> = {
     { key: 'assignee', label: 'Default Assignee', type: 'text', placeholder: 'e.g., Project Manager' },
   ],
   // Fallback for generic types
-  'action': [
+  action: [
     { key: 'actionType', label: 'Action Type', type: 'select', options: ['Immediate', 'Scheduled', 'Recurring'] },
   ],
-  'aiMagic': [
+  aiMagic: [
     { key: 'model', label: 'AI Model', type: 'select', options: ['GPT-4', 'Claude 3.5 Sonnet', 'Gemini Pro'] },
     { key: 'prompt', label: 'Custom Prompt', type: 'textarea', placeholder: 'Enter your custom prompt...' },
   ],
@@ -72,10 +74,7 @@ const NodeConfigPanel: React.FC<NodeConfigPanelProps> = ({ selectedNode, onClose
   return (
     <div className="fixed inset-0 z-50 flex justify-end">
       {/* Backdrop */}
-      <div 
-        className="absolute inset-0 bg-gray-900/20 backdrop-blur-sm transition-opacity" 
-        onClick={onClose}
-      />
+      <div className="absolute inset-0 bg-gray-900/20 backdrop-blur-sm transition-opacity" onClick={onClose} />
 
       {/* Panel */}
       <div className="relative w-1/2 h-full bg-white shadow-2xl border-l border-gray-200 transform transition-transform duration-300 ease-in-out flex flex-col">
@@ -192,7 +191,12 @@ const NodeConfigPanel: React.FC<NodeConfigPanelProps> = ({ selectedNode, onClose
               <div className="flex flex-col gap-2">
                 <label className="text-sm font-medium text-gray-700">Node ID (Unique)</label>
                 <div className="flex items-center gap-2">
-                  <Input value={selectedNode.instanceId} fullWidth disabled className="bg-gray-50 text-gray-500 font-mono text-xs" />
+                  <Input
+                    value={selectedNode.instanceId}
+                    fullWidth
+                    disabled
+                    className="bg-gray-50 text-gray-500 font-mono text-xs"
+                  />
                 </div>
                 <p className="text-xs text-gray-400">Auto-generated unique identifier for this node instance.</p>
               </div>
@@ -202,10 +206,7 @@ const NodeConfigPanel: React.FC<NodeConfigPanelProps> = ({ selectedNode, onClose
               </div>
               <div className="flex flex-col gap-2">
                 <label className="text-sm font-medium text-gray-700">Retry Policy</label>
-                <Select
-                  options={['None', 'Retry 3 times', 'Exponential Backoff']}
-                  fullWidth
-                />
+                <Select options={['None', 'Retry 3 times', 'Exponential Backoff']} fullWidth />
               </div>
             </div>
           )}

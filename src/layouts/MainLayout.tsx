@@ -4,9 +4,7 @@ import { useLocation } from 'react-router-dom'
 import clsx from 'clsx'
 import {
   LayoutDashboard,
-  Upload,
   FileText,
-  Cpu,
   ListTodo,
   FileOutput,
   MessageSquare,
@@ -16,6 +14,7 @@ import {
   Calendar,
   PlusCircle,
 } from 'lucide-react'
+
 import { NavItem } from '@/components'
 
 const MainLayout: React.FC<{ children: React.ReactNode }> = ({ children }) => {

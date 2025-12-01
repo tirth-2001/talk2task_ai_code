@@ -1,4 +1,4 @@
-import { type Meeting, MeetingStatus, MeetingType, type Task, type Risk, type Decision } from '@/types/meeting'
+import { type Meeting, MeetingStatus, MeetingType, type Task } from '@/types/meeting'
 
 const STORAGE_KEY = 'talk2task_meetings'
 
@@ -20,7 +20,7 @@ export const meetingService = {
 
   createMeeting: (meeting: Partial<Meeting>): Meeting => {
     const meetings = meetingService.getAllMeetings()
-    
+
     const newMeeting: Meeting = {
       id: crypto.randomUUID(),
       title: meeting.title || 'Untitled Meeting',
@@ -32,7 +32,7 @@ export const meetingService = {
       decisions: [],
       createdAt: new Date().toISOString(),
       updatedAt: new Date().toISOString(),
-      ...meeting
+      ...meeting,
     }
 
     meetings.unshift(newMeeting) // Add to top
@@ -43,13 +43,13 @@ export const meetingService = {
   updateMeeting: (id: string, updates: Partial<Meeting>): Meeting | undefined => {
     const meetings = meetingService.getAllMeetings()
     const index = meetings.findIndex((m) => m.id === id)
-    
+
     if (index === -1) return undefined
 
     const updatedMeeting = {
       ...meetings[index],
       ...updates,
-      updatedAt: new Date().toISOString()
+      updatedAt: new Date().toISOString(),
     }
 
     meetings[index] = updatedMeeting
@@ -69,17 +69,17 @@ export const meetingService = {
     if (!meeting) return undefined
 
     return meetingService.updateMeeting(meetingId, {
-      tasks: [...meeting.tasks, ...tasks]
+      tasks: [...meeting.tasks, ...tasks],
     })
   },
 
   getDashboardStats: () => {
     const meetings = meetingService.getAllMeetings()
-    
+
     // 1. Totals
     const totalMeetings = meetings.length
-    const allTasks = meetings.flatMap(m => m.tasks)
-    const allRisks = meetings.flatMap(m => m.risks)
+    const allTasks = meetings.flatMap((m) => m.tasks)
+    const allRisks = meetings.flatMap((m) => m.risks)
     const totalTasks = allTasks.length
     const totalRisks = allRisks.length
 
@@ -87,34 +87,40 @@ export const meetingService = {
     const now = new Date()
     const nextWeek = new Date()
     nextWeek.setDate(now.getDate() + 7)
-    
-    const upcomingDeadlines = allTasks.filter(t => {
+
+    const upcomingDeadlines = allTasks.filter((t) => {
       const dueDate = new Date(t.dueDate)
       return dueDate >= now && dueDate <= nextWeek && t.status !== 'Done'
     }).length
 
     // 3. Task Status Distribution
-    const taskStatusCounts = allTasks.reduce((acc, task) => {
-      acc[task.status] = (acc[task.status] || 0) + 1
-      return acc
-    }, {} as Record<string, number>)
+    const taskStatusCounts = allTasks.reduce(
+      (acc, task) => {
+        acc[task.status] = (acc[task.status] || 0) + 1
+        return acc
+      },
+      {} as Record<string, number>,
+    )
 
     const taskStatusData = [
       { name: 'To Do', value: taskStatusCounts['To Do'] || 0 },
       { name: 'In Progress', value: taskStatusCounts['In Progress'] || 0 },
-      { name: 'Done', value: taskStatusCounts['Done'] || 0 }
+      { name: 'Done', value: taskStatusCounts['Done'] || 0 },
     ]
 
     // 4. Risk Severity Distribution
-    const riskSeverityCounts = allRisks.reduce((acc, risk) => {
-      acc[risk.severity] = (acc[risk.severity] || 0) + 1
-      return acc
-    }, {} as Record<string, number>)
+    const riskSeverityCounts = allRisks.reduce(
+      (acc, risk) => {
+        acc[risk.severity] = (acc[risk.severity] || 0) + 1
+        return acc
+      },
+      {} as Record<string, number>,
+    )
 
     const riskData = [
       { name: 'Low', value: riskSeverityCounts['Low'] || 0 },
       { name: 'Medium', value: riskSeverityCounts['Medium'] || 0 },
-      { name: 'High', value: riskSeverityCounts['High'] || 0 }
+      { name: 'High', value: riskSeverityCounts['High'] || 0 },
     ]
 
     // 5. Recent Meetings (Top 3)
@@ -130,7 +136,7 @@ export const meetingService = {
       upcomingDeadlines,
       taskStatusData,
       riskData,
-      recentMeetings
+      recentMeetings,
     }
-  }
+  },
 }

@@ -1,8 +1,10 @@
 import React, { useEffect, useState } from 'react'
 import { useNavigate, useSearchParams } from 'react-router-dom'
+
 import { Brain, CheckCircle, FileText, Users } from 'lucide-react'
+
 import { meetingService } from '@/services/meetingService'
-import {  MeetingStatus, type Task, type Risk, type Decision } from '@/types/meeting'
+import { MeetingStatus, type Task, type Risk, type Decision } from '@/types/meeting'
 
 const AIProcessing: React.FC = () => {
   const navigate = useNavigate()
@@ -19,27 +21,33 @@ const AIProcessing: React.FC = () => {
     const processSteps = async () => {
       // Step 1: Analyzing content
       setCurrentStep(0)
-      await new Promise(resolve => setTimeout(resolve, 1500))
+      await new Promise((resolve) => setTimeout(resolve, 1500))
 
       // Step 2: Identifying owners
       setCurrentStep(1)
-      await new Promise(resolve => setTimeout(resolve, 1500))
+      await new Promise((resolve) => setTimeout(resolve, 1500))
 
       // Step 3: Extracting tasks
       setCurrentStep(2)
-      await new Promise(resolve => setTimeout(resolve, 1500))
+      await new Promise((resolve) => setTimeout(resolve, 1500))
 
       // Step 4: Generating insights
       setCurrentStep(3)
-      await new Promise(resolve => setTimeout(resolve, 1500))
+      await new Promise((resolve) => setTimeout(resolve, 1500))
 
       // Generate Randomized Mock Data
       const generateRandomTasks = (): Task[] => {
         const count = Math.floor(Math.random() * 5) + 3 // 3 to 7 tasks
         const titles = [
-          'Draft Q4 marketing report', 'Schedule follow-up with design', 'Finalize budget allocation',
-          'Review security compliance', 'Update user documentation', 'Prepare client presentation',
-          'Optimize database queries', 'Fix navigation bug', 'Conduct user interviews'
+          'Draft Q4 marketing report',
+          'Schedule follow-up with design',
+          'Finalize budget allocation',
+          'Review security compliance',
+          'Update user documentation',
+          'Prepare client presentation',
+          'Optimize database queries',
+          'Fix navigation bug',
+          'Conduct user interviews',
         ]
         const assignees = ['John Doe', 'Sarah Smith', 'Mark Johnson', 'Emily Chen', 'Alex Wong']
         const priorities: ('High' | 'Medium' | 'Low')[] = ['High', 'Medium', 'Low']
@@ -51,16 +59,18 @@ const AIProcessing: React.FC = () => {
           assignee: assignees[Math.floor(Math.random() * assignees.length)],
           dueDate: new Date(Date.now() + Math.random() * 10 * 24 * 60 * 60 * 1000).toISOString().split('T')[0],
           priority: priorities[Math.floor(Math.random() * priorities.length)],
-          status: statuses[Math.floor(Math.random() * statuses.length)]
+          status: statuses[Math.floor(Math.random() * statuses.length)],
         }))
       }
 
       const generateRandomRisks = (): Risk[] => {
         const count = Math.floor(Math.random() * 2) + 1 // 1 to 2 risks
         const descriptions = [
-          'Budget overrun risk due to scope creep', 'Timeline delay due to resource shortage',
-          'Technical debt accumulation', 'Third-party API dependency issues',
-          'Potential security vulnerability in auth flow'
+          'Budget overrun risk due to scope creep',
+          'Timeline delay due to resource shortage',
+          'Technical debt accumulation',
+          'Third-party API dependency issues',
+          'Potential security vulnerability in auth flow',
         ]
         const severities: ('High' | 'Medium' | 'Low')[] = ['High', 'Medium', 'Low']
 
@@ -69,22 +79,24 @@ const AIProcessing: React.FC = () => {
           description: descriptions[Math.floor(Math.random() * descriptions.length)],
           severity: severities[Math.floor(Math.random() * severities.length)],
           probability: 'Medium',
-          mitigation: 'Monitor closely and adjust plan'
+          mitigation: 'Monitor closely and adjust plan',
         }))
       }
 
       const generateRandomDecisions = (): Decision[] => {
         const count = Math.floor(Math.random() * 3) + 1 // 1 to 3 decisions
         const descriptions = [
-          'Approved budget increase for Q4', 'Prioritize mobile app development',
-          'Switch to new cloud provider', 'Hire two new frontend engineers',
-          'Postpone feature X to next quarter'
+          'Approved budget increase for Q4',
+          'Prioritize mobile app development',
+          'Switch to new cloud provider',
+          'Hire two new frontend engineers',
+          'Postpone feature X to next quarter',
         ]
 
         return Array.from({ length: count }).map(() => ({
           id: crypto.randomUUID(),
           description: descriptions[Math.floor(Math.random() * descriptions.length)],
-          date: new Date().toISOString()
+          date: new Date().toISOString(),
         }))
       }
 
@@ -105,7 +117,7 @@ const AIProcessing: React.FC = () => {
         risks: mockRisks,
         decisions: mockDecisions,
         summary: mockSummary,
-        mom: 'Generated MoM content...'
+        mom: 'Generated MoM content...',
       })
 
       // Redirect to Meeting Details
@@ -148,7 +160,7 @@ const AIProcessing: React.FC = () => {
             let status = 'pending'
             if (index < currentStep) status = 'complete'
             if (index === currentStep) status = 'active'
-            
+
             return (
               <div key={index} className="flex items-center gap-4 p-4 bg-white rounded-lg border border-gray-200">
                 <div
@@ -164,11 +176,7 @@ const AIProcessing: React.FC = () => {
                 </div>
                 <span
                   className={`text-sm font-medium ${
-                    status === 'complete'
-                      ? 'text-green-600'
-                      : status === 'active'
-                        ? 'text-primary'
-                        : 'text-gray-400'
+                    status === 'complete' ? 'text-green-600' : status === 'active' ? 'text-primary' : 'text-gray-400'
                   }`}
                 >
                   {step.label}
@@ -191,9 +199,9 @@ const AIProcessing: React.FC = () => {
         {/* Progress Bar */}
         <div className="w-full max-w-md">
           <div className="h-2 bg-gray-200 rounded-full overflow-hidden">
-            <div 
-              className="h-full bg-primary rounded-full transition-all duration-500 ease-out" 
-              style={{ width: `${((currentStep + 1) / steps.length) * 100}%` }} 
+            <div
+              className="h-full bg-primary rounded-full transition-all duration-500 ease-out"
+              style={{ width: `${((currentStep + 1) / steps.length) * 100}%` }}
             />
           </div>
         </div>

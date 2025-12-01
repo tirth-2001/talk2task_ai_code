@@ -1,12 +1,23 @@
 import React, { useEffect, useState } from 'react'
 import { useParams, useNavigate } from 'react-router-dom'
-import { 
-  ArrowLeft, Calendar, Clock, FileText, CheckCircle, 
-  AlertTriangle, MessageSquare, Share2, Download, ChevronRight, Edit2 
+
+import {
+  ArrowLeft,
+  Calendar,
+  Clock,
+  FileText,
+  CheckCircle,
+  AlertTriangle,
+  MessageSquare,
+  Share2,
+  Download,
+  ChevronRight,
+  Edit2,
 } from 'lucide-react'
+
+import { Button } from '@/components'
 import { meetingService } from '@/services/meetingService'
 import { type Meeting } from '@/types/meeting'
-import { Button } from '@/components'
 
 const MeetingDetails: React.FC = () => {
   const { id } = useParams<{ id: string }>()
@@ -31,7 +42,7 @@ const MeetingDetails: React.FC = () => {
   const handleSaveTitle = () => {
     if (id && editedTitle.trim()) {
       meetingService.updateMeeting(id, { title: editedTitle })
-      setMeeting(prev => prev ? { ...prev, title: editedTitle } : prev)
+      setMeeting((prev) => (prev ? { ...prev, title: editedTitle } : prev))
       setIsEditingTitle(false)
     }
   }
@@ -39,29 +50,29 @@ const MeetingDetails: React.FC = () => {
   if (!meeting) return null
 
   const stats = [
-    { 
-      label: 'Action Items', 
-      value: meeting.tasks.length, 
-      icon: CheckCircle, 
-      color: 'text-blue-600', 
+    {
+      label: 'Action Items',
+      value: meeting.tasks.length,
+      icon: CheckCircle,
+      color: 'text-blue-600',
       bg: 'bg-blue-50',
-      link: `/tasks?meetingId=${meeting.id}`
+      link: `/tasks?meetingId=${meeting.id}`,
     },
-    { 
-      label: 'Risks Identified', 
-      value: meeting.risks.length, 
-      icon: AlertTriangle, 
-      color: 'text-red-600', 
+    {
+      label: 'Risks Identified',
+      value: meeting.risks.length,
+      icon: AlertTriangle,
+      color: 'text-red-600',
       bg: 'bg-red-50',
-      link: `/follow-up?meetingId=${meeting.id}` 
+      link: `/follow-up?meetingId=${meeting.id}`,
     },
-    { 
-      label: 'Minutes of Meeting', 
-      value: 'Ready', 
-      icon: FileText, 
-      color: 'text-purple-600', 
+    {
+      label: 'Minutes of Meeting',
+      value: 'Ready',
+      icon: FileText,
+      color: 'text-purple-600',
       bg: 'bg-purple-50',
-      link: `/mom?meetingId=${meeting.id}`
+      link: `/mom?meetingId=${meeting.id}`,
     },
   ]
 
@@ -69,7 +80,7 @@ const MeetingDetails: React.FC = () => {
     <div className="p-8 space-y-8 max-w-7xl mx-auto">
       {/* Header */}
       <div className="flex flex-col gap-6">
-        <button 
+        <button
           onClick={() => navigate('/meetings')}
           className="flex items-center gap-2 text-gray-500 hover:text-gray-900 transition-colors w-fit"
         >
@@ -99,9 +110,9 @@ const MeetingDetails: React.FC = () => {
               ) : (
                 <>
                   <h1 className="text-3xl font-bold text-gray-900">{meeting.title}</h1>
-                  <Edit2 
-                    size={18} 
-                    className="text-gray-400 opacity-0 group-hover:opacity-100 transition-opacity cursor-pointer" 
+                  <Edit2
+                    size={18}
+                    className="text-gray-400 opacity-0 group-hover:opacity-100 transition-opacity cursor-pointer"
                     onClick={() => setIsEditingTitle(true)}
                   />
                 </>
@@ -121,22 +132,12 @@ const MeetingDetails: React.FC = () => {
               </div>
             </div>
           </div>
-          
+
           <div className="flex gap-3">
-            <Button 
-              variant="secondary" 
-              size="md" 
-              className="flex items-center gap-2"
-              icon={<Share2 size={18} />}
-            >
+            <Button variant="secondary" size="md" className="flex items-center gap-2" icon={<Share2 size={18} />}>
               Share
             </Button>
-            <Button 
-              variant="secondary" 
-              size="md" 
-              className="flex items-center gap-2"
-              icon={<Download size={18} />}
-            >
+            <Button variant="secondary" size="md" className="flex items-center gap-2" icon={<Download size={18} />}>
               Export
             </Button>
           </div>
@@ -148,7 +149,7 @@ const MeetingDetails: React.FC = () => {
         {stats.map((stat, index) => {
           const Icon = stat.icon
           return (
-            <div 
+            <div
               key={index}
               onClick={() => navigate(stat.link)}
               className="bg-white p-6 rounded-xl border border-gray-100 shadow-sm hover:shadow-md hover:border-primary/30 transition-all cursor-pointer group"
@@ -174,7 +175,7 @@ const MeetingDetails: React.FC = () => {
         </div>
         <div className="prose max-w-none text-gray-600">
           <p>
-            {meeting.summary || "No summary available for this meeting yet. Please check the AI Processing status."}
+            {meeting.summary || 'No summary available for this meeting yet. Please check the AI Processing status.'}
           </p>
         </div>
       </div>

@@ -1,5 +1,6 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
+
 import clsx from 'clsx'
 import type { LucideIcon } from 'lucide-react'
 
@@ -25,10 +26,8 @@ const NavItem: React.FC<NavItemProps> = ({
       to={path}
       className={clsx(
         'flex items-center gap-3 px-3 py-2.5 rounded-lg transition-colors',
-        isActive
-          ? 'bg-primary/10 text-primary font-medium'
-          : 'text-gray-600 hover:bg-gray-50 hover:text-gray-900',
-        className
+        isActive ? 'bg-primary/10 text-primary font-medium' : 'text-gray-600 hover:bg-gray-50 hover:text-gray-900',
+        className,
       )}
     >
       <Icon size={20} />
