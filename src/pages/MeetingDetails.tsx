@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { useParams, useNavigate } from 'react-router-dom'
 import { 
   ArrowLeft, Calendar, Clock, FileText, CheckCircle, 
-  AlertTriangle, MessageSquare, Share2, Download, ChevronRight 
+  AlertTriangle, MessageSquare, Share2, Download, ChevronRight, Edit2 
 } from 'lucide-react'
 import { meetingService } from '@/services/meetingService'
 import { type Meeting } from '@/types/meeting'
@@ -12,18 +12,29 @@ const MeetingDetails: React.FC = () => {
   const { id } = useParams<{ id: string }>()
   const navigate = useNavigate()
   const [meeting, setMeeting] = useState<Meeting | undefined>(undefined)
+  const [isEditingTitle, setIsEditingTitle] = useState(false)
+  const [editedTitle, setEditedTitle] = useState('')
 
   useEffect(() => {
     if (id) {
       const data = meetingService.getMeetingById(id)
       if (data) {
         setMeeting(data)
+        setEditedTitle(data.title)
       } else {
         // Handle not found
         navigate('/meetings')
       }
     }
   }, [id, navigate])
+
+  const handleSaveTitle = () => {
+    if (id && editedTitle.trim()) {
+      meetingService.updateMeeting(id, { title: editedTitle })
+      setMeeting(prev => prev ? { ...prev, title: editedTitle } : prev)
+      setIsEditingTitle(false)
+    }
+  }
 
   if (!meeting) return null
 
@@ -67,8 +78,35 @@ const MeetingDetails: React.FC = () => {
         </button>
 
         <div className="flex items-start justify-between">
-          <div>
-            <h1 className="text-3xl font-bold text-gray-900 mb-2">{meeting.title}</h1>
+          <div className="flex-1">
+            <div className="flex items-center gap-2 group mb-2">
+              {isEditingTitle ? (
+                <input
+                  autoFocus
+                  className="text-3xl font-bold text-gray-900 bg-transparent p-1 -m-1 rounded-md border border-primary focus:ring-2 focus:ring-primary focus:outline-none min-w-[300px]"
+                  type="text"
+                  value={editedTitle}
+                  onChange={(e) => setEditedTitle(e.target.value)}
+                  onBlur={handleSaveTitle}
+                  onKeyDown={(e) => {
+                    if (e.key === 'Enter') handleSaveTitle()
+                    if (e.key === 'Escape') {
+                      setEditedTitle(meeting.title)
+                      setIsEditingTitle(false)
+                    }
+                  }}
+                />
+              ) : (
+                <>
+                  <h1 className="text-3xl font-bold text-gray-900">{meeting.title}</h1>
+                  <Edit2 
+                    size={18} 
+                    className="text-gray-400 opacity-0 group-hover:opacity-100 transition-opacity cursor-pointer" 
+                    onClick={() => setIsEditingTitle(true)}
+                  />
+                </>
+              )}
+            </div>
             <div className="flex items-center gap-4 text-gray-500">
               <div className="flex items-center gap-2">
                 <Calendar size={18} />

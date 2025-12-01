@@ -13,6 +13,10 @@ import TaskTable from '@/pages/TaskTable'
 import WorkflowBuilder from '@/pages/WorkflowBuilder'
 import Meetings from '@/pages/Meetings'
 import MeetingDetails from '@/pages/MeetingDetails'
+import { initializationService } from '@/services/initializationService'
+
+// Initialize app with mock data on first load
+initializationService.initialize()
 
 function App() {
   return (

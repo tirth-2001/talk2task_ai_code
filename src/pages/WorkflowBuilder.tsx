@@ -32,6 +32,7 @@ import { Button, Toggle, NodeConfigPanel, WorkflowList } from '@/components'
 import { type Workflow, workflowService } from '@/services/workflowService'
 import { validationService } from '@/services/validationService'
 import { useToast } from '@/context/ToastContext'
+import { countWorkflowNodes } from '@/utils/workflowUtils'
 
 // Types
 interface SidebarItemData {
@@ -90,6 +91,7 @@ const WorkflowBuilder: React.FC = () => {
   const [activeItem, setActiveItem] = useState<SidebarItemData | null>(null)
   const [selectedNodeId, setSelectedNodeId] = useState<string | null>(null)
   const [validationErrors, setValidationErrors] = useState<Record<string, string>>({})
+  const [isEditingName, setIsEditingName] = useState(false)
 
   // Load workflow on mount
   useEffect(() => {
@@ -465,16 +467,32 @@ const WorkflowBuilder: React.FC = () => {
           <header className="flex justify-between items-center p-8 pb-6 border-b border-gray-200 bg-white z-10 flex-shrink-0">
             <div className="flex flex-col gap-1">
               <div className="flex items-center gap-2 group">
-                <input
-                  className="text-gray-900 text-2xl font-bold bg-transparent p-1 -m-1 rounded-md focus:ring-2 focus:ring-primary focus:outline-none"
-                  type="text"
-                  value={workflowName}
-                  onChange={(e) => setWorkflowName(e.target.value)}
-                />
-                <Edit2 size={16} className="text-gray-400 opacity-0 group-hover:opacity-100 transition-opacity cursor-pointer" />
+                {isEditingName ? (
+                  <input
+                    autoFocus
+                    className="text-gray-900 text-2xl font-bold bg-transparent p-1 -m-1 rounded-md border border-primary focus:ring-2 focus:ring-primary focus:outline-none min-w-[200px]"
+                    type="text"
+                    value={workflowName}
+                    onChange={(e) => setWorkflowName(e.target.value)}
+                    onBlur={() => setIsEditingName(false)}
+                    onKeyDown={(e) => {
+                      if (e.key === 'Enter') setIsEditingName(false)
+                      if (e.key === 'Escape') setIsEditingName(false)
+                    }}
+                  />
+                ) : (
+                  <>
+                    <h1 className="text-gray-900 text-2xl font-bold">{workflowName}</h1>
+                    <Edit2 
+                      size={16} 
+                      className="text-gray-400 opacity-0 group-hover:opacity-100 transition-opacity cursor-pointer" 
+                      onClick={() => setIsEditingName(true)}
+                    />
+                  </>
+                )}
               </div>
               <p className="text-gray-500 text-sm">
-                {workflowId ? 'Saved' : 'Unsaved Draft'} • {nodes.length} nodes
+                {workflowId ? 'Saved' : 'Unsaved Draft'} • {countWorkflowNodes(nodes)} nodes
               </p>
             </div>
             <div className="flex items-center gap-3 shrink-0">

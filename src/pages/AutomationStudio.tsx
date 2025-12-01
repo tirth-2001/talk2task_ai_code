@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 
-import { GitBranch, Plus, Save, Settings, Zap, Trash2, Brain, Clock } from 'lucide-react'
+import { GitBranch, Plus, Save, Settings, Zap, Trash2, Brain, Clock, FileInput } from 'lucide-react'
 import { Button, Badge, Card, PageHeader, SectionHeader, IconContainer } from '@/components'
 import { workflowService, type Workflow } from '@/services/workflowService'
+import { countWorkflowNodes } from '@/utils/workflowUtils'
 
 const AutomationStudio: React.FC = () => {
   const navigate = useNavigate()
@@ -53,9 +54,10 @@ const AutomationStudio: React.FC = () => {
             </div>
           ) : (
             workflows.map((workflow) => {
-              const triggerCount = workflow.nodes.filter(n => n.type === 'trigger' || n.type === 'source').length
-              const actionCount = workflow.nodes.filter(n => n.type === 'action').length
+              const totalNodes = countWorkflowNodes(workflow.nodes)
+              const inputCount = workflow.nodes.filter(n => n.type === 'trigger' || n.type === 'source').length
               const aiCount = workflow.nodes.filter(n => n.type === 'ai').length
+              const actionCount = workflow.nodes.filter(n => n.type === 'action').length
               
               return (
                 <Card 
@@ -72,15 +74,18 @@ const AutomationStudio: React.FC = () => {
                           {workflow.isEnabled ? 'Enabled' : 'Disabled'}
                         </Badge>
                       </div>
-                      <p className="text-sm text-gray-600 mb-4 line-clamp-1">
+                      <div className="flex items-center my-2 mb-3 gap-2">
+                        <GitBranch size={14} />
+                      <p className="text-sm text-gray-600 line-clamp-1">
                         {workflow.nodes.length > 0 
-                          ? `Workflow with ${workflow.nodes.length} steps` 
+                          ? `Workflow with ${totalNodes} nodes` 
                           : 'Empty workflow'}
                       </p>
+                      </div>
                       <div className="flex items-center gap-4 text-sm text-gray-500">
                         <div className="flex items-center gap-1.5">
-                          <GitBranch size={14} />
-                          <span>{triggerCount} triggers</span>
+                          <FileInput size={14} />
+                          <span>{inputCount} inputs</span>
                         </div>
                         {aiCount > 0 && (
                           <div className="flex items-center gap-1.5">

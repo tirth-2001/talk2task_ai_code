@@ -1,0 +1,425 @@
+[
+    {
+        "id": "meeting-001-product-roadmap",
+        "title": "Q1 2025 Product Roadmap Planning",
+        "date": "2025-01-15T14:00:00.000Z",
+        "duration": "90 minutes",
+        "type": "text",
+        "status": "completed",
+        "inputContent": "Product roadmap discussion for Q1 2025 focusing on mobile app launch and API improvements",
+        "summary": "The product team aligned on Q1 2025 priorities, with consensus to prioritize the mobile app launch in February and defer the analytics dashboard to Q2. Key discussion points included resource allocation, timeline risks, and competitive positioning. The team identified potential delays in backend API work as a critical risk requiring immediate mitigation.",
+        "tasks": [
+            {
+                "id": "task-001",
+                "title": "Complete mobile app beta testing",
+                "assignee": "Sarah Chen",
+                "dueDate": "2025-01-28",
+                "priority": "High",
+                "status": "In Progress"
+            },
+            {
+                "id": "task-002",
+                "title": "Finalize API v2 documentation",
+                "assignee": "Marcus Rodriguez",
+                "dueDate": "2025-02-05",
+                "priority": "High",
+                "status": "To Do"
+            },
+            {
+                "id": "task-003",
+                "title": "Design analytics dashboard mockups",
+                "assignee": "Emily Watson",
+                "dueDate": "2025-03-15",
+                "priority": "Medium",
+                "status": "To Do"
+            },
+            {
+                "id": "task-004",
+                "title": "Conduct user research for mobile onboarding",
+                "assignee": "David Kim",
+                "dueDate": "2025-01-22",
+                "priority": "High",
+                "status": "Done"
+            }
+        ],
+        "risks": [
+            {
+                "id": "risk-001",
+                "description": "Backend API delays could push mobile launch to March",
+                "severity": "High",
+                "probability": "Medium",
+                "mitigation": "Add two contractors to backend team; daily standups with engineering leads"
+            },
+            {
+                "id": "risk-002",
+                "description": "App Store review process may take 2-3 weeks",
+                "severity": "Medium",
+                "probability": "High",
+                "mitigation": "Submit beta build early; prepare expedited review justification"
+            }
+        ],
+        "decisions": [
+            {
+                "id": "decision-001",
+                "description": "Defer analytics dashboard to Q2 2025",
+                "owner": "Jennifer Park (CPO)",
+                "date": "2025-01-15T15:30:00.000Z"
+            },
+            {
+                "id": "decision-002",
+                "description": "Allocate $50K budget for mobile app marketing campaign",
+                "owner": "Michael Torres (CMO)",
+                "date": "2025-01-15T15:45:00.000Z"
+            }
+        ],
+        "mom": "# Q1 2025 Product Roadmap Planning\n\n**Date:** January 15, 2025\n**Duration:** 90 minutes\n**Attendees:** Jennifer Park, Michael Torres, Sarah Chen, Marcus Rodriguez, Emily Watson, David Kim\n\n## Key Decisions\n- Analytics dashboard postponed to Q2 2025\n- Mobile app launch remains February target\n- $50K marketing budget approved\n\n## Action Items\n- Sarah: Complete beta testing by Jan 28\n- Marcus: API documentation by Feb 5\n- David: Share user research findings by Jan 22\n\n## Risks Identified\n- Backend API timeline concerns\n- App Store review uncertainty",
+        "createdAt": "2025-01-15T14:00:00.000Z",
+        "updatedAt": "2025-01-15T16:00:00.000Z"
+    },
+    {
+        "id": "meeting-002-security-audit",
+        "title": "Security Audit Review - Critical Findings",
+        "date": "2025-01-18T10:00:00.000Z",
+        "duration": "60 minutes",
+        "type": "file",
+        "status": "completed",
+        "inputContent": "Security audit report uploaded - 23 findings identified",
+        "summary": "Security team reviewed third-party audit results revealing 3 critical vulnerabilities requiring immediate attention. The team prioritized authentication flow fixes and database encryption upgrades. All critical issues must be resolved before the mobile app launch.",
+        "tasks": [
+            {
+                "id": "task-005",
+                "title": "Patch SQL injection vulnerability in user search",
+                "assignee": "Alex Thompson",
+                "dueDate": "2025-01-20",
+                "priority": "High",
+                "status": "Done"
+            },
+            {
+                "id": "task-006",
+                "title": "Implement rate limiting on authentication endpoints",
+                "assignee": "Alex Thompson",
+                "dueDate": "2025-01-25",
+                "priority": "High",
+                "status": "In Progress"
+            },
+            {
+                "id": "task-007",
+                "title": "Upgrade database encryption to AES-256",
+                "assignee": "Priya Sharma",
+                "dueDate": "2025-02-01",
+                "priority": "High",
+                "status": "To Do"
+            },
+            {
+                "id": "task-008",
+                "title": "Schedule penetration testing for February",
+                "assignee": "James Wilson",
+                "dueDate": "2025-01-30",
+                "priority": "Medium",
+                "status": "To Do"
+            },
+            {
+                "id": "task-009",
+                "title": "Update security documentation and runbooks",
+                "assignee": "Priya Sharma",
+                "dueDate": "2025-02-10",
+                "priority": "Low",
+                "status": "To Do"
+            }
+        ],
+        "risks": [
+            {
+                "id": "risk-003",
+                "description": "Unpatched vulnerabilities could lead to data breach",
+                "severity": "High",
+                "probability": "Medium",
+                "mitigation": "24/7 monitoring enabled; WAF rules updated; incident response team on standby"
+            },
+            {
+                "id": "risk-004",
+                "description": "Database encryption upgrade may cause downtime",
+                "severity": "Medium",
+                "probability": "Low",
+                "mitigation": "Schedule maintenance window; prepare rollback plan; test in staging first"
+            }
+        ],
+        "decisions": [
+            {
+                "id": "decision-003",
+                "description": "All critical vulnerabilities must be fixed before mobile launch",
+                "owner": "James Wilson (CTO)",
+                "date": "2025-01-18T10:45:00.000Z"
+            },
+            {
+                "id": "decision-004",
+                "description": "Engage external security firm for monthly audits",
+                "owner": "James Wilson (CTO)",
+                "date": "2025-01-18T11:00:00.000Z"
+            }
+        ],
+        "mom": "# Security Audit Review\n\n**Date:** January 18, 2025\n**Severity:** Critical\n**Attendees:** James Wilson, Alex Thompson, Priya Sharma\n\n## Critical Findings\n1. SQL injection in user search (CVSS 9.1)\n2. Missing rate limiting on auth endpoints\n3. Database encryption below industry standard\n\n## Immediate Actions\n- Alex: Patch SQL vulnerability by Jan 20\n- Priya: Database encryption upgrade by Feb 1\n- James: Schedule pen testing\n\n## Policy Changes\n- Monthly external security audits\n- No launches until critical issues resolved",
+        "createdAt": "2025-01-18T10:00:00.000Z",
+        "updatedAt": "2025-01-18T11:30:00.000Z"
+    },
+    {
+        "id": "meeting-003-customer-feedback",
+        "title": "Customer Advisory Board - Feature Requests",
+        "date": "2025-01-22T15:00:00.000Z",
+        "duration": "120 minutes",
+        "type": "text",
+        "status": "completed",
+        "inputContent": "Customer advisory board meeting transcript - 8 enterprise customers present",
+        "summary": "Enterprise customers provided valuable feedback on workflow automation needs. Top requests included Salesforce integration, advanced reporting, and SSO support. Customers expressed strong interest in the upcoming mobile app but requested offline mode functionality. The team committed to quarterly feature updates and improved communication.",
+        "tasks": [
+            {
+                "id": "task-010",
+                "title": "Research Salesforce integration requirements",
+                "assignee": "Lisa Anderson",
+                "dueDate": "2025-02-05",
+                "priority": "High",
+                "status": "To Do"
+            },
+            {
+                "id": "task-011",
+                "title": "Design advanced reporting dashboard wireframes",
+                "assignee": "Emily Watson",
+                "dueDate": "2025-02-12",
+                "priority": "Medium",
+                "status": "To Do"
+            },
+            {
+                "id": "task-012",
+                "title": "Evaluate SSO providers (Okta, Auth0, Azure AD)",
+                "assignee": "Marcus Rodriguez",
+                "dueDate": "2025-02-08",
+                "priority": "High",
+                "status": "To Do"
+            },
+            {
+                "id": "task-013",
+                "title": "Prototype offline mode for mobile app",
+                "assignee": "Sarah Chen",
+                "dueDate": "2025-02-20",
+                "priority": "Medium",
+                "status": "To Do"
+            },
+            {
+                "id": "task-014",
+                "title": "Create customer feature request tracking board",
+                "assignee": "David Kim",
+                "dueDate": "2025-01-26",
+                "priority": "Low",
+                "status": "In Progress"
+            }
+        ],
+        "risks": [
+            {
+                "id": "risk-005",
+                "description": "Salesforce integration complexity may exceed Q1 timeline",
+                "severity": "Medium",
+                "probability": "High",
+                "mitigation": "Scope to read-only integration first; consider partnership with Salesforce consulting firm"
+            }
+        ],
+        "decisions": [
+            {
+                "id": "decision-005",
+                "description": "Commit to quarterly feature releases for enterprise customers",
+                "owner": "Jennifer Park (CPO)",
+                "date": "2025-01-22T16:30:00.000Z"
+            },
+            {
+                "id": "decision-006",
+                "description": "Prioritize SSO implementation for Q2 2025",
+                "owner": "Jennifer Park (CPO)",
+                "date": "2025-01-22T16:45:00.000Z"
+            },
+            {
+                "id": "decision-007",
+                "description": "Launch customer feature voting portal by end of January",
+                "owner": "David Kim (Product Manager)",
+                "date": "2025-01-22T17:00:00.000Z"
+            }
+        ],
+        "mom": "# Customer Advisory Board Meeting\n\n**Date:** January 22, 2025\n**Attendees:** 8 enterprise customers + product team\n\n## Top Feature Requests\n1. Salesforce integration (6/8 customers)\n2. SSO support (7/8 customers)\n3. Advanced reporting (5/8 customers)\n4. Mobile offline mode (4/8 customers)\n\n## Commitments Made\n- Quarterly feature releases\n- SSO in Q2 2025\n- Public feature voting portal\n- Improved release notes\n\n## Customer Sentiment\n- Overall satisfaction: 8.2/10\n- Mobile app excitement: High\n- Support responsiveness: Excellent",
+        "createdAt": "2025-01-22T15:00:00.000Z",
+        "updatedAt": "2025-01-22T17:30:00.000Z"
+    },
+    {
+        "id": "meeting-004-sprint-planning",
+        "title": "Sprint 24 Planning - Engineering",
+        "date": "2025-01-24T09:00:00.000Z",
+        "duration": "90 minutes",
+        "type": "text",
+        "status": "completed",
+        "inputContent": "Sprint planning notes from engineering team - 2-week sprint",
+        "summary": "Engineering team planned Sprint 24 with focus on mobile app polish and API performance improvements. Team velocity is 42 story points. Key concerns raised about technical debt in notification service and need for refactoring before adding new features.",
+        "tasks": [
+            {
+                "id": "task-015",
+                "title": "Optimize API response times for mobile endpoints",
+                "assignee": "Marcus Rodriguez",
+                "dueDate": "2025-02-04",
+                "priority": "High",
+                "status": "In Progress"
+            },
+            {
+                "id": "task-016",
+                "title": "Fix mobile app crash on iOS 16",
+                "assignee": "Sarah Chen",
+                "dueDate": "2025-01-29",
+                "priority": "High",
+                "status": "In Progress"
+            },
+            {
+                "id": "task-017",
+                "title": "Refactor notification service architecture",
+                "assignee": "Alex Thompson",
+                "dueDate": "2025-02-07",
+                "priority": "Medium",
+                "status": "To Do"
+            },
+            {
+                "id": "task-018",
+                "title": "Add integration tests for payment flow",
+                "assignee": "Priya Sharma",
+                "dueDate": "2025-02-06",
+                "priority": "Medium",
+                "status": "To Do"
+            },
+            {
+                "id": "task-019",
+                "title": "Update CI/CD pipeline for faster builds",
+                "assignee": "Alex Thompson",
+                "dueDate": "2025-02-05",
+                "priority": "Low",
+                "status": "To Do"
+            },
+            {
+                "id": "task-020",
+                "title": "Document API rate limiting behavior",
+                "assignee": "Marcus Rodriguez",
+                "dueDate": "2025-02-03",
+                "priority": "Low",
+                "status": "Done"
+            }
+        ],
+        "risks": [
+            {
+                "id": "risk-006",
+                "description": "Technical debt in notification service blocking new features",
+                "severity": "Medium",
+                "probability": "High",
+                "mitigation": "Allocate 20% of sprint capacity to refactoring; create technical debt backlog"
+            }
+        ],
+        "decisions": [
+            {
+                "id": "decision-008",
+                "description": "Dedicate 20% of each sprint to technical debt reduction",
+                "owner": "James Wilson (CTO)",
+                "date": "2025-01-24T10:15:00.000Z"
+            },
+            {
+                "id": "decision-009",
+                "description": "Implement mandatory code review for all mobile changes",
+                "owner": "Sarah Chen (Mobile Lead)",
+                "date": "2025-01-24T10:30:00.000Z"
+            }
+        ],
+        "mom": "# Sprint 24 Planning\n\n**Sprint Duration:** Jan 24 - Feb 7, 2025\n**Team Velocity:** 42 story points\n**Sprint Goal:** Mobile app stability + API performance\n\n## Sprint Backlog\n- Mobile crash fixes (8 pts)\n- API optimization (13 pts)\n- Notification refactor (13 pts)\n- Testing improvements (8 pts)\n\n## Engineering Practices\n- 20% time for technical debt\n- Mandatory code reviews\n- Daily standups at 9:30 AM\n\n## Blockers\n- None identified",
+        "createdAt": "2025-01-24T09:00:00.000Z",
+        "updatedAt": "2025-01-24T11:00:00.000Z"
+    },
+    {
+        "id": "meeting-005-marketing-campaign",
+        "title": "Mobile App Launch Marketing Strategy",
+        "date": "2025-01-26T13:00:00.000Z",
+        "duration": "75 minutes",
+        "type": "file",
+        "status": "completed",
+        "inputContent": "Marketing strategy deck uploaded - mobile app launch campaign",
+        "summary": "Marketing team presented comprehensive launch strategy for mobile app including influencer partnerships, paid social campaigns, and PR outreach. Budget approved at $75K with focus on product-led growth tactics. Launch date set for February 15th with soft launch to beta users on February 1st.",
+        "tasks": [
+            {
+                "id": "task-021",
+                "title": "Finalize influencer partnership contracts",
+                "assignee": "Rachel Green",
+                "dueDate": "2025-02-01",
+                "priority": "High",
+                "status": "In Progress"
+            },
+            {
+                "id": "task-022",
+                "title": "Create social media content calendar",
+                "assignee": "Tom Martinez",
+                "dueDate": "2025-01-31",
+                "priority": "High",
+                "status": "In Progress"
+            },
+            {
+                "id": "task-023",
+                "title": "Design app store screenshots and preview video",
+                "assignee": "Emily Watson",
+                "dueDate": "2025-02-05",
+                "priority": "High",
+                "status": "To Do"
+            },
+            {
+                "id": "task-024",
+                "title": "Draft press release for TechCrunch pitch",
+                "assignee": "Rachel Green",
+                "dueDate": "2025-02-08",
+                "priority": "Medium",
+                "status": "To Do"
+            },
+            {
+                "id": "task-025",
+                "title": "Set up attribution tracking for app installs",
+                "assignee": "Tom Martinez",
+                "dueDate": "2025-02-10",
+                "priority": "Medium",
+                "status": "To Do"
+            }
+        ],
+        "risks": [
+            {
+                "id": "risk-007",
+                "description": "Influencer content may not align with brand voice",
+                "severity": "Low",
+                "probability": "Medium",
+                "mitigation": "Provide detailed content guidelines; require approval before posting"
+            },
+            {
+                "id": "risk-008",
+                "description": "App launch delay would waste marketing spend",
+                "severity": "High",
+                "probability": "Low",
+                "mitigation": "Weekly sync with engineering; contingency budget for date shifts"
+            }
+        ],
+        "decisions": [
+            {
+                "id": "decision-010",
+                "description": "Increase marketing budget from $50K to $75K",
+                "owner": "Michael Torres (CMO)",
+                "date": "2025-01-26T14:00:00.000Z"
+            },
+            {
+                "id": "decision-011",
+                "description": "Soft launch to beta users on February 1st",
+                "owner": "Jennifer Park (CPO)",
+                "date": "2025-01-26T14:15:00.000Z"
+            },
+            {
+                "id": "decision-012",
+                "description": "Public launch date: February 15, 2025",
+                "owner": "Michael Torres (CMO)",
+                "date": "2025-01-26T14:20:00.000Z"
+            }
+        ],
+        "mom": "# Mobile App Launch Marketing Strategy\n\n**Launch Date:** February 15, 2025\n**Soft Launch:** February 1, 2025 (beta users)\n**Budget:** $75,000\n\n## Campaign Channels\n- Influencer partnerships (3 tech YouTubers)\n- Paid social (LinkedIn, Twitter, Instagram)\n- PR outreach (TechCrunch, Product Hunt)\n- Email marketing (existing user base)\n\n## Success Metrics\n- 10K app installs in first week\n- 4.5+ App Store rating\n- 50+ media mentions\n- 25% conversion from free to paid\n\n## Timeline\n- Feb 1: Beta launch\n- Feb 8: Press embargo lifts\n- Feb 15: Public launch\n- Feb 22: Results review",
+        "createdAt": "2025-01-26T13:00:00.000Z",
+        "updatedAt": "2025-01-26T14:45:00.000Z"
+    }
+]
