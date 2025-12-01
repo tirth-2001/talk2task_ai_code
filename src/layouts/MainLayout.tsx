@@ -10,9 +10,10 @@ import {
   MessageSquare,
   ArrowRightCircle,
   Workflow,
-  Menu,
   Calendar,
   PlusCircle,
+  ChevronsLeft,
+  ChevronsRight,
 } from 'lucide-react'
 
 import { NavItem } from '@/components'
@@ -42,13 +43,25 @@ const MainLayout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
           isSidebarOpen ? 'w-64' : 'w-20',
         )}
       >
-        <div className="p-4 flex items-center justify-between border-b border-gray-100">
-          {isSidebarOpen && <span className="font-bold text-xl text-primary">Talk2Task AI</span>}
+        <div className={clsx(
+          "p-4 flex items-center border-b border-gray-100",
+          isSidebarOpen ? "justify-between" : "justify-center"
+        )}>
+          {isSidebarOpen && (
+            <div className="flex items-center">
+              <img 
+                src="/assets/logo.jpg" 
+                alt="Talk2Task AI" 
+                className="h-10 w-10 object-contain rounded-lg"
+              />
+              <span className="font-bold text-xl text-primary">Talk2Task AI</span>
+            </div>
+          )}
           <button
             onClick={() => setIsSidebarOpen(!isSidebarOpen)}
             className="p-2 rounded-lg hover:bg-gray-100 text-gray-500"
           >
-            <Menu size={20} />
+            {!isSidebarOpen ? <ChevronsRight size={20} /> : <ChevronsLeft size={20} />}
           </button>
         </div>
 
@@ -69,7 +82,7 @@ const MainLayout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
         </nav>
 
         <div className="p-4 border-t border-gray-100">
-          <div className="flex items-center gap-3">
+          <div className={clsx("flex items-center gap-3", !isSidebarOpen && "justify-center")}>
             <div className="w-8 h-8 rounded-full bg-primary/20 flex items-center justify-center text-primary font-bold text-sm">
               TP
             </div>

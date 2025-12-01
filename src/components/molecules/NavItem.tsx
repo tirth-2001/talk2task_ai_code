@@ -27,6 +27,7 @@ const NavItem: React.FC<NavItemProps> = ({
       className={clsx(
         'flex items-center gap-3 px-3 py-2.5 rounded-lg transition-colors',
         isActive ? 'bg-primary/10 text-primary font-medium' : 'text-gray-600 hover:bg-gray-50 hover:text-gray-900',
+        isCollapsed && 'justify-center',
         className,
       )}
     >
