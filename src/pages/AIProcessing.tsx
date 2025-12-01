@@ -56,7 +56,7 @@ const AIProcessing: React.FC = () => {
       }
 
       const generateRandomRisks = (): Risk[] => {
-        const count = Math.floor(Math.random() * 3) // 0 to 2 risks
+        const count = Math.floor(Math.random() * 2) + 1 // 1 to 2 risks
         const descriptions = [
           'Budget overrun risk due to scope creep', 'Timeline delay due to resource shortage',
           'Technical debt accumulation', 'Third-party API dependency issues',

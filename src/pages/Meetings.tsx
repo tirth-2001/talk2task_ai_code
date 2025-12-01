@@ -3,10 +3,13 @@ import { useNavigate } from 'react-router-dom'
 import { Calendar, CheckCircle, AlertTriangle, Trash2, Plus, Search, Filter } from 'lucide-react'
 import { meetingService } from '@/services/meetingService'
 import { type Meeting, MeetingStatus } from '@/types/meeting'
-import { Button } from '@/components'
+import { Button, PageHeader } from '@/components'
+
+import { useToast } from '@/context/ToastContext'
 
 const Meetings: React.FC = () => {
   const navigate = useNavigate()
+  const { showToast } = useToast()
   const [meetings, setMeetings] = useState<Meeting[]>([])
   const [searchQuery, setSearchQuery] = useState('')
   const [statusFilter, setStatusFilter] = useState<string>('all')
@@ -32,27 +35,28 @@ const Meetings: React.FC = () => {
     if (window.confirm('Are you sure you want to delete this meeting?')) {
       meetingService.deleteMeeting(id)
       setMeetings(meetingService.getAllMeetings())
+      showToast('Meeting deleted successfully', 'success')
     }
   }
 
   return (
     <div className="p-8 space-y-8 max-w-7xl mx-auto">
       {/* Header */}
-      <div className="flex items-center justify-between">
-        <div>
-          <h1 className="text-2xl font-bold text-gray-900">Meetings</h1>
-          <p className="text-gray-500">Manage and review your processed meetings.</p>
-        </div>
-        <Button 
-          variant="primary" 
-          size="md" 
-          onClick={() => navigate('/input-selection')}
-          className="flex items-center gap-2"
-          icon={<Plus size={18} />}
-        >
-          New Meeting
-        </Button>
-      </div>
+      <PageHeader
+        title="Meetings"
+        description="Manage and review your processed meetings."
+        action={
+          <Button 
+            variant="primary" 
+            size="md" 
+            onClick={() => navigate('/input-selection')}
+            className="flex items-center gap-2"
+            icon={<Plus size={18} />}
+          >
+            New Meeting
+          </Button>
+        }
+      />
 
       {/* Filters & Search */}
       <div className="flex items-center gap-4 bg-white p-4 rounded-xl border border-gray-100 shadow-sm">
@@ -148,13 +152,24 @@ const Meetings: React.FC = () => {
                   </span>
 
                   {/* Actions */}
-                  <button 
-                    onClick={(e) => handleDelete(e, meeting.id)}
-                    className="p-2 hover:bg-red-50 hover:text-red-600 rounded-lg text-gray-400 transition-colors"
-                    title="Delete Meeting"
-                  >
-                    <Trash2 size={20} />
-                  </button>
+                  <div className="flex items-center gap-2">
+                    <button
+                      onClick={(e) => {
+                        e.stopPropagation()
+                        handleMeetingClick(meeting.id)
+                      }}
+                      className="px-3 py-1.5 text-sm font-medium text-primary bg-primary/5 hover:bg-primary/10 rounded-lg transition-colors"
+                    >
+                      View Details
+                    </button>
+                    <button 
+                      onClick={(e) => handleDelete(e, meeting.id)}
+                      className="p-2 hover:bg-red-50 hover:text-red-600 rounded-lg text-gray-400 transition-colors"
+                      title="Delete Meeting"
+                    >
+                      <Trash2 size={20} />
+                    </button>
+                  </div>
                 </div>
               </div>
             ))}

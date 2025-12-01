@@ -1,9 +1,21 @@
 import React, { useState } from 'react'
 
-import { Bell, Check, Send, Slack } from 'lucide-react'
+import { Bell, Check, Send, Slack, Clock } from 'lucide-react'
+import { useToast } from '@/context/ToastContext'
+import clsx from 'clsx'
 
 const SlackReminder: React.FC = () => {
   const [selectedTasks, setSelectedTasks] = useState<number[]>([1, 2])
+  const { showToast } = useToast()
+  const [loadingAction, setLoadingAction] = useState<string | null>(null)
+
+  const handleFakeAction = (actionName: string, message: string) => {
+    setLoadingAction(actionName)
+    setTimeout(() => {
+      setLoadingAction(null)
+      showToast(message, 'success')
+    }, 1500)
+  }
 
   const tasks = [
     { id: 1, title: 'Draft Q4 marketing report', owner: 'John Doe', dueDate: 'Oct 26, 2023' },
@@ -16,7 +28,7 @@ const SlackReminder: React.FC = () => {
   }
 
   return (
-    <div className="p-8 max-w-4xl mx-auto">
+    <div className="p-8 max-w-7xl mx-auto">
       <div className="flex flex-col gap-6">
         {/* Header */}
         <div className="flex flex-col gap-2">
@@ -84,7 +96,7 @@ const SlackReminder: React.FC = () => {
                     type="checkbox"
                     checked={selectedTasks.includes(task.id)}
                     onChange={() => toggleTask(task.id)}
-                    className="w-4 h-4 text-primary border-gray-300 rounded focus:ring-primary"
+                    className="w-4 h-4 text-primary border-gray-300 rounded focus:ring-primary accent-primary"
                   />
                   <div className="flex-1">
                     <p className="text-sm font-medium text-gray-900">{task.title}</p>
@@ -111,13 +123,35 @@ const SlackReminder: React.FC = () => {
 
           {/* Actions */}
           <div className="flex items-center gap-3">
-            <button className="flex-1 flex items-center justify-center px-4 h-12 bg-transparent text-gray-700 text-sm font-medium rounded-lg gap-2 border border-gray-300 hover:bg-gray-100 transition-colors">
-              <Bell size={16} />
-              <span>Schedule for Later</span>
+            <button 
+              onClick={() => handleFakeAction('schedule', 'Reminder scheduled successfully!')}
+              disabled={!!loadingAction}
+              className="flex-1 flex items-center justify-center px-4 h-12 bg-transparent text-gray-700 text-sm font-medium rounded-lg gap-2 border border-gray-300 hover:bg-gray-100 transition-colors disabled:opacity-70 relative"
+            >
+              <div className={clsx("flex items-center gap-2", loadingAction === 'schedule' ? 'opacity-0' : 'opacity-100')}>
+                <Bell size={16} />
+                <span>Schedule for Later</span>
+              </div>
+              {loadingAction === 'schedule' && (
+                <div className="absolute inset-0 flex items-center justify-center">
+                  <Clock size={16} className="animate-spin" />
+                </div>
+              )}
             </button>
-            <button className="flex-1 flex items-center justify-center px-4 h-12 bg-primary text-white text-sm font-medium rounded-lg gap-2 hover:bg-primary/90 transition-colors">
-              <Send size={16} />
-              <span>Send Now</span>
+            <button 
+              onClick={() => handleFakeAction('send', 'Reminder sent to Slack!')}
+              disabled={!!loadingAction}
+              className="flex-1 flex items-center justify-center px-4 h-12 bg-primary text-white text-sm font-medium rounded-lg gap-2 hover:bg-primary/90 transition-colors disabled:opacity-70 relative"
+            >
+              <div className={clsx("flex items-center gap-2", loadingAction === 'send' ? 'opacity-0' : 'opacity-100')}>
+                <Send size={16} />
+                <span>Send Now</span>
+              </div>
+              {loadingAction === 'send' && (
+                <div className="absolute inset-0 flex items-center justify-center">
+                  <Clock size={16} className="animate-spin" />
+                </div>
+              )}
             </button>
           </div>
         </div>

@@ -1,8 +1,50 @@
-import React from 'react'
-
-import { ArrowRight, Brain, Calendar, Mail, MessageSquare, Plus } from 'lucide-react'
+import React, { useEffect, useState } from 'react'
+import { useNavigate, useSearchParams } from 'react-router-dom'
+import { Brain, ArrowRight, ArrowLeft, Calendar, Mail, MessageSquare, Plus } from 'lucide-react'
+import { meetingService } from '@/services/meetingService'
+import { useToast } from '@/context/ToastContext'
+import clsx from 'clsx'
 
 const FollowUpSuggestions: React.FC = () => {
+  const navigate = useNavigate()
+  const [searchParams] = useSearchParams()
+  const meetingId = searchParams.get('meetingId')
+  const [meetingTitle, setMeetingTitle] = useState<string>('')
+
+  useEffect(() => {
+    if (meetingId) {
+      const meeting = meetingService.getMeetingById(meetingId)
+      if (meeting) {
+        setMeetingTitle(meeting.title)
+      }
+    }
+  }, [meetingId])
+
+  const { showToast } = useToast()
+  const [loadingAction, setLoadingAction] = useState<string | null>(null)
+
+  const handleFakeAction = (actionName: string, message: string) => {
+    setLoadingAction(actionName)
+    setTimeout(() => {
+      setLoadingAction(null)
+      showToast(message, 'success')
+    }, 1500)
+  }
+
+  if (!meetingId) {
+    return (
+      <div className="p-12 text-center">
+        <h2 className="text-xl font-bold text-gray-900 mb-4">No Meeting Selected</h2>
+        <p className="text-gray-500 mb-6">Please select a meeting to view follow-up suggestions.</p>
+        <button 
+          onClick={() => navigate('/meetings')}
+          className="px-4 py-2 bg-primary text-white rounded-lg hover:bg-primary/90 transition-colors"
+        >
+          Go to Meetings
+        </button>
+      </div>
+    )
+  }
   const suggestions = [
     {
       icon: Calendar,
@@ -48,21 +90,41 @@ const FollowUpSuggestions: React.FC = () => {
   }
 
   return (
-    <div className="p-8 max-w-5xl mx-auto">
+    <div className="p-8 max-w-7xl mx-auto">
       <div className="flex flex-col gap-6">
         {/* Header */}
-        <div className="flex items-start justify-between gap-4">
-          <div className="flex flex-col gap-2">
-            <div className="flex items-center gap-2">
-              <Brain className="text-primary" size={28} />
-              <h1 className="text-3xl font-black tracking-tight text-gray-900">AI Suggestions</h1>
-            </div>
-            <p className="text-base text-gray-500">Recommended follow-up actions based on your meeting</p>
-          </div>
-          <button className="flex items-center justify-center px-4 h-10 bg-primary text-white text-sm font-medium rounded-lg gap-2 hover:bg-primary/90 transition-colors">
-            <span>Execute All Automated</span>
-            <ArrowRight size={16} />
+        <div className="flex flex-col gap-4">
+          <button 
+            onClick={() => navigate(`/meetings/${meetingId}`)}
+            className="flex items-center gap-2 text-gray-500 hover:text-gray-900 transition-colors w-fit"
+          >
+            <ArrowLeft size={20} />
+            Back to Meeting Details
           </button>
+
+          <div className="flex items-start justify-between gap-4">
+            <div className="flex flex-col gap-2">
+              <h1 className="text-3xl font-black tracking-tight text-gray-900">Risk Analysis & Follow-up</h1>
+              <p className="text-base text-gray-500">
+                AI-detected risks and suggested follow-up actions from <span className="font-semibold text-gray-900">{meetingTitle}</span>
+              </p>
+            </div>
+            <button 
+              onClick={() => handleFakeAction('execute', 'All automated actions executed successfully!')}
+              disabled={!!loadingAction}
+              className="flex items-center justify-center px-4 h-10 bg-primary text-white text-sm font-medium rounded-lg gap-2 hover:bg-primary/90 transition-colors disabled:opacity-70 relative"
+            >
+              <div className={clsx("flex items-center gap-2", loadingAction === 'execute' ? 'opacity-0' : 'opacity-100')}>
+                <span>Execute All Automated</span>
+                <ArrowRight size={16} />
+              </div>
+              {loadingAction === 'execute' && (
+                <div className="absolute inset-0 flex items-center justify-center">
+                  <div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin" />
+                </div>
+              )}
+            </button>
+          </div>
         </div>
 
         {/* Suggestions Grid */}

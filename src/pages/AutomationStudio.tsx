@@ -10,7 +10,7 @@ const AutomationStudio: React.FC = () => {
   const [workflows, setWorkflows] = useState<Workflow[]>([])
 
   useEffect(() => {
-    setWorkflows(workflowService.getAllWorkflows())
+    setWorkflows(workflowService.getAllWorkflows().reverse())
   }, [])
 
   const handleDelete = (id: string, e: React.MouseEvent) => {
@@ -26,7 +26,6 @@ const AutomationStudio: React.FC = () => {
       <div className="flex flex-col gap-6">
         {/* Header */}
         <PageHeader
-          icon={<Zap size={28} />}
           title="Automation Studio"
           description="Create and manage automated workflows for your meetings"
           action={

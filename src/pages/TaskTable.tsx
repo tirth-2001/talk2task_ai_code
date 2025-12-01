@@ -6,6 +6,7 @@ import { AlertTriangle, CheckCircle, Clock, Flag, ArrowLeft } from 'lucide-react
 import { meetingService } from '@/services/meetingService'
 import { type Task } from '@/types/meeting'
 import { Button } from '@/components'
+import { useToast } from '@/context/ToastContext'
 
 const TaskTable: React.FC = () => {
   const navigate = useNavigate()
@@ -14,6 +15,17 @@ const TaskTable: React.FC = () => {
   
   const [tasks, setTasks] = useState<Task[]>([])
   const [meetingTitle, setMeetingTitle] = useState<string>('')
+  
+  const { showToast } = useToast()
+  const [loadingAction, setLoadingAction] = useState<string | null>(null)
+
+  const handleFakeAction = (actionName: string, message: string) => {
+    setLoadingAction(actionName)
+    setTimeout(() => {
+      setLoadingAction(null)
+      showToast(message, 'success')
+    }, 1500)
+  }
 
   useEffect(() => {
     if (meetingId) {
@@ -96,15 +108,31 @@ const TaskTable: React.FC = () => {
                 Tasks from <span className="font-semibold text-gray-900">{meetingTitle}</span>
               </p>
             </div>
+            
             <div className="flex items-center gap-3">
               <button
-                onClick={() => navigate('/slack')}
-                className="flex items-center justify-center px-4 h-10 bg-transparent text-gray-700 text-sm font-medium rounded-lg gap-2 border border-gray-300 hover:bg-gray-100 transition-colors"
+                onClick={() => handleFakeAction('slack', 'Slack reminders sent successfully!')}
+                disabled={!!loadingAction}
+                className="flex items-center justify-center px-4 h-10 bg-transparent text-gray-700 text-sm font-medium rounded-lg gap-2 border border-gray-300 hover:bg-gray-100 transition-colors disabled:opacity-70 relative"
               >
-                <span>Send Slack Reminders</span>
+                <span className={loadingAction === 'slack' ? 'opacity-0' : 'opacity-100'}>Send Slack Reminders</span>
+                {loadingAction === 'slack' && (
+                  <div className="absolute inset-0 flex items-center justify-center">
+                    <Clock size={16} className="animate-spin" />
+                  </div>
+                )}
               </button>
-              <button className="flex items-center justify-center px-4 h-10 bg-primary text-white text-sm font-medium rounded-lg gap-2 hover:bg-primary/90 transition-colors">
-                <span>Export to Jira</span>
+              <button 
+                onClick={() => handleFakeAction('jira', 'Tasks exported to Jira successfully!')}
+                disabled={!!loadingAction}
+                className="flex items-center justify-center px-4 h-10 bg-primary text-white text-sm font-medium rounded-lg gap-2 hover:bg-primary/90 transition-colors disabled:opacity-70 relative"
+              >
+                <span className={loadingAction === 'jira' ? 'opacity-0' : 'opacity-100'}>Export to Jira</span>
+                {loadingAction === 'jira' && (
+                  <div className="absolute inset-0 flex items-center justify-center">
+                    <Clock size={16} className="animate-spin" />
+                  </div>
+                )}
               </button>
             </div>
           </div>

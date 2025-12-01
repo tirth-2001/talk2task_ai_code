@@ -1,5 +1,6 @@
 import React, { createContext, useContext, useState, useCallback } from 'react'
-import { X, CheckCircle, AlertCircle, Info } from 'lucide-react'
+import { CheckCircle, AlertCircle, Info, X } from 'lucide-react'
+import clsx from 'clsx'
 
 export type ToastType = 'success' | 'error' | 'info' | 'warning'
 
@@ -46,16 +47,16 @@ export const ToastProvider: React.FC<{ children: React.ReactNode }> = ({ childre
         {toasts.map((toast) => (
           <div
             key={toast.id}
-            className={`
-              flex items-center gap-3 px-4 py-3 rounded-lg shadow-lg border transition-all animate-in slide-in-from-right-full duration-300
-              ${toast.type === 'success' ? 'bg-green-50 border-green-200 text-green-800' : ''}
-              ${toast.type === 'error' ? 'bg-red-50 border-red-200 text-red-800' : ''}
-              ${toast.type === 'info' ? 'bg-blue-50 border-blue-200 text-blue-800' : ''}
-              ${toast.type === 'warning' ? 'bg-yellow-50 border-yellow-200 text-yellow-800' : ''}
-            `}
+            className={clsx(
+              'flex items-center gap-3 px-4 py-3 rounded-lg shadow-lg border transition-all animate-in slide-in-from-right-full duration-300',
+              toast.type === 'success' && 'bg-green-800 text-white border-green-700',
+              toast.type === 'error' && 'bg-red-800 text-white border-red-700',
+              toast.type === 'info' && 'bg-blue-50 border-blue-200 text-blue-800',
+              toast.type === 'warning' && 'bg-yellow-50 border-yellow-200 text-yellow-800'
+            )}
           >
-            {toast.type === 'success' && <CheckCircle size={18} className="text-green-600" />}
-            {toast.type === 'error' && <AlertCircle size={18} className="text-red-600" />}
+            {toast.type === 'success' && <CheckCircle size={18} className="text-green-300" />}
+            {toast.type === 'error' && <AlertCircle size={18} className="text-red-300" />}
             {toast.type === 'info' && <Info size={18} className="text-blue-600" />}
             {toast.type === 'warning' && <AlertCircle size={18} className="text-yellow-600" />}
             

@@ -1,14 +1,25 @@
-import React, { useState } from 'react'
-import { useNavigate } from 'react-router-dom'
+import React, { useState, useEffect } from 'react'
+import { useNavigate, useSearchParams } from 'react-router-dom'
 import { Button, Textarea, Tabs, UploadZone } from '@/components'
 import type { Tab } from '@/components'
 import { meetingService } from '@/services/meetingService'
 import { MeetingType } from '@/types/meeting'
 
+import { useToast } from '@/context/ToastContext'
+
 const InputForm: React.FC = () => {
   const navigate = useNavigate()
+  const [searchParams] = useSearchParams()
+  const { showToast } = useToast()
   const [inputText, setInputText] = useState('')
   const [activeTab, setActiveTab] = useState<'paste' | 'upload'>('paste')
+
+  useEffect(() => {
+    const tabParam = searchParams.get('tab')
+    if (tabParam === 'upload' || tabParam === 'paste') {
+      setActiveTab(tabParam)
+    }
+  }, [searchParams])
 
   const handleSubmit = () => {
     if (inputText.trim() || activeTab === 'upload') {
@@ -19,6 +30,8 @@ const InputForm: React.FC = () => {
         type: activeTab === 'paste' ? MeetingType.TEXT : MeetingType.FILE,
         inputContent: activeTab === 'paste' ? inputText : 'File Uploaded'
       })
+
+      showToast('Meeting created successfully', 'success')
 
       // Redirect to processing with the new ID
       navigate(`/ai-processing?meetingId=${newMeeting.id}`)

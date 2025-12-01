@@ -1,15 +1,28 @@
 import React, { useEffect, useState } from 'react'
 import { useNavigate, useSearchParams } from 'react-router-dom'
 import { Calendar, Clock, Download, Share2, Users, ArrowLeft } from 'lucide-react'
+import clsx from 'clsx'
 import { meetingService } from '@/services/meetingService'
 import { type Meeting } from '@/types/meeting'
 import { Button } from '@/components'
+import { useToast } from '@/context/ToastContext'
 
 const MoMGeneration: React.FC = () => {
   const navigate = useNavigate()
   const [searchParams] = useSearchParams()
   const meetingId = searchParams.get('meetingId')
   const [meeting, setMeeting] = useState<Meeting | undefined>(undefined)
+
+  const { showToast } = useToast()
+  const [loadingAction, setLoadingAction] = useState<string | null>(null)
+
+  const handleFakeAction = (actionName: string, message: string) => {
+    setLoadingAction(actionName)
+    setTimeout(() => {
+      setLoadingAction(null)
+      showToast(message, 'success')
+    }, 1500)
+  }
 
   useEffect(() => {
     if (meetingId) {
@@ -38,7 +51,7 @@ const MoMGeneration: React.FC = () => {
   const attendees = ['John Doe', 'Sarah Smith', 'Mark Johnson']
 
   return (
-    <div className="p-8 max-w-4xl mx-auto">
+    <div className="p-8 max-w-7xl mx-auto">
       <div className="flex flex-col gap-6">
         {/* Header */}
         <div className="flex flex-col gap-4">
@@ -56,13 +69,35 @@ const MoMGeneration: React.FC = () => {
               <p className="text-base text-gray-500">Auto-generated summary of your meeting</p>
             </div>
             <div className="flex items-center gap-2">
-              <button className="flex items-center justify-center px-4 h-10 bg-transparent text-gray-700 text-sm font-medium rounded-lg gap-2 border border-gray-300 hover:bg-gray-100 transition-colors">
-                <Share2 size={16} />
-                <span>Share</span>
+              <button 
+                onClick={() => handleFakeAction('share', 'Meeting minutes shared successfully!')}
+                disabled={!!loadingAction}
+                className="flex items-center justify-center px-4 h-10 bg-transparent text-gray-700 text-sm font-medium rounded-lg gap-2 border border-gray-300 hover:bg-gray-100 transition-colors disabled:opacity-70 relative"
+              >
+                <div className={clsx("flex items-center gap-2", loadingAction === 'share' ? 'opacity-0' : 'opacity-100')}>
+                  <Share2 size={16} />
+                  <span>Share</span>
+                </div>
+                {loadingAction === 'share' && (
+                  <div className="absolute inset-0 flex items-center justify-center">
+                    <Clock size={16} className="animate-spin" />
+                  </div>
+                )}
               </button>
-              <button className="flex items-center justify-center px-4 h-10 bg-primary text-white text-sm font-medium rounded-lg gap-2 hover:bg-primary/90 transition-colors">
-                <Download size={16} />
-                <span>Export PDF</span>
+              <button 
+                onClick={() => handleFakeAction('export', 'PDF downloaded successfully!')}
+                disabled={!!loadingAction}
+                className="flex items-center justify-center px-4 h-10 bg-primary text-white text-sm font-medium rounded-lg gap-2 hover:bg-primary/90 transition-colors disabled:opacity-70 relative"
+              >
+                <div className={clsx("flex items-center gap-2", loadingAction === 'export' ? 'opacity-0' : 'opacity-100')}>
+                  <Download size={16} />
+                  <span>Export PDF</span>
+                </div>
+                {loadingAction === 'export' && (
+                  <div className="absolute inset-0 flex items-center justify-center">
+                    <Clock size={16} className="animate-spin" />
+                  </div>
+                )}
               </button>
             </div>
           </div>

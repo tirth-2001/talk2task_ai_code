@@ -4,7 +4,6 @@ import {
   DndContext,
   DragOverlay,
   useDraggable,
-  useDroppable,
   useSensors,
   useSensor,
   PointerSensor,
@@ -27,6 +26,7 @@ import {
   Zap,
   GitFork,
   ArrowLeft,
+  Edit2,
 } from 'lucide-react'
 import { Button, Toggle, NodeConfigPanel, WorkflowList } from '@/components'
 import { type Workflow, workflowService } from '@/services/workflowService'
@@ -414,7 +414,7 @@ const WorkflowBuilder: React.FC = () => {
             <div className="flex flex-col gap-6 pb-20">
               {/* Input Sources Section */}
               <section className="flex flex-col gap-4">
-                <h3 className="text-gray-500 text-sm font-medium uppercase tracking-wider">Input Sources</h3>
+                <h3 className="text-gray-400 text-xs font-bold uppercase tracking-wider px-2">Input Sources</h3>
                 <div className="grid grid-cols-2 gap-4">
                   {inputSources.map((source) => (
                     <DraggableSidebarItem key={source.id} item={source} />
@@ -424,8 +424,7 @@ const WorkflowBuilder: React.FC = () => {
 
               {/* Logic Section */}
               <section className="flex flex-col gap-4">
-                <h3 className="text-gray-500 text-sm font-medium uppercase tracking-wider flex items-center gap-2">
-                  <GitFork size={16} />
+                <h3 className="text-gray-400 text-xs font-bold uppercase tracking-wider px-2">
                   Logic
                 </h3>
                 <div className="grid grid-cols-2 gap-4">
@@ -437,8 +436,7 @@ const WorkflowBuilder: React.FC = () => {
 
               {/* AI Magic Section */}
               <section className="flex flex-col gap-4">
-                <h3 className="text-primary text-sm font-bold uppercase tracking-wider flex items-center gap-2">
-                  <Brain size={16} />
+                <h3 className="text-gray-400 text-xs font-bold uppercase tracking-wider px-2">
                   AI Magic
                 </h3>
                 <div className="grid grid-cols-2 gap-4">
@@ -450,7 +448,7 @@ const WorkflowBuilder: React.FC = () => {
 
               {/* Actions Section */}
               <section className="flex flex-col gap-4">
-                <h3 className="text-gray-500 text-sm font-medium uppercase tracking-wider">Actions</h3>
+                <h3 className="text-gray-400 text-xs font-bold uppercase tracking-wider px-2">Actions</h3>
                 <div className="grid grid-cols-2 gap-4">
                   {actions.map((action) => (
                     <DraggableSidebarItem key={action.id} item={action} />
@@ -466,12 +464,15 @@ const WorkflowBuilder: React.FC = () => {
           {/* Fixed Header */}
           <header className="flex justify-between items-center p-8 pb-6 border-b border-gray-200 bg-white z-10 flex-shrink-0">
             <div className="flex flex-col gap-1">
-              <input
-                className="text-gray-900 text-2xl font-bold bg-transparent p-1 -m-1 rounded-md focus:ring-2 focus:ring-primary focus:outline-none"
-                type="text"
-                value={workflowName}
-                onChange={(e) => setWorkflowName(e.target.value)}
-              />
+              <div className="flex items-center gap-2 group">
+                <input
+                  className="text-gray-900 text-2xl font-bold bg-transparent p-1 -m-1 rounded-md focus:ring-2 focus:ring-primary focus:outline-none"
+                  type="text"
+                  value={workflowName}
+                  onChange={(e) => setWorkflowName(e.target.value)}
+                />
+                <Edit2 size={16} className="text-gray-400 opacity-0 group-hover:opacity-100 transition-opacity cursor-pointer" />
+              </div>
               <p className="text-gray-500 text-sm">
                 {workflowId ? 'Saved' : 'Unsaved Draft'} • {nodes.length} nodes
               </p>

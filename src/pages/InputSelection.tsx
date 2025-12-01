@@ -45,7 +45,10 @@ const InputSelection: React.FC = () => {
               icon={option.icon}
               title={option.title}
               description={option.description}
-              onClick={() => navigate('/input-form')}
+              onClick={() => {
+                const tab = option.title.includes('Upload') ? 'upload' : 'paste'
+                navigate(`/input-form?tab=${tab}`)
+              }}
             />
           ))}
         </div>
