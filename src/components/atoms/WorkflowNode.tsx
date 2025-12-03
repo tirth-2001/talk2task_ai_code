@@ -46,7 +46,7 @@ const WorkflowNode: React.FC<WorkflowNodeProps> = ({
     <div
       className={`
         relative flex items-center gap-3 p-4 rounded-xl border-2 bg-white transition-all w-full group
-        ${isSelected ? 'border-primary ring-2 ring-primary/20 shadow-lg z-10' : 'border-gray-200 hover:border-primary/50 hover:shadow-md'}
+        ${isSelected || showMenu ? 'border-primary ring-2 ring-primary/20 shadow-lg z-50' : 'border-gray-200 hover:border-primary/50 hover:shadow-md'}
         ${error ? 'border-red-500 ring-2 ring-red-500/20' : ''}
       `}
       onClick={onConfigClick}

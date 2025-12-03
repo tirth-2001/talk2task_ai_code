@@ -29,8 +29,8 @@ const MainLayout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
     { path: '/input-form', label: 'Input Form', icon: FileText },
     { path: '/tasks', label: 'Task Table', icon: ListTodo },
     { path: '/mom', label: 'MoM Generation', icon: FileOutput },
-    { path: '/slack', label: 'Slack Reminder', icon: MessageSquare },
     { path: '/follow-up', label: 'Follow Up', icon: ArrowRightCircle },
+    { path: '/slack', label: 'Slack Reminders', icon: MessageSquare },
     { path: '/automation', label: 'Automation Studio', icon: Workflow },
   ]
 
