@@ -59,7 +59,7 @@ export const WorkflowList: React.FC<WorkflowListProps> = ({
 
       {items.map((node, index) => (
         <React.Fragment key={node.instanceId}>
-          <div className="relative group w-full z-10">
+          <div className="relative group w-full">
             {node.type === 'branch' ? (
               <BranchNode
                 data={node}
