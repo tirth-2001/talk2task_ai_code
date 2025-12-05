@@ -13,8 +13,8 @@ Coordinated Actions**
 
   <br />
   
-  <a href="https://talk2task-ai.vercel.app/">
-    <img src="https://img.shields.io/badge/🚀_View_Live_Demo-Click_Here_to_Experience_Talk2Task_AI-2ea44f?style=for-the-badge&logo=vercel&logoColor=white" alt="View Live Demo" height="40" />
+  <a href="https://talk2task-ai.netlify.app">
+    <img src="https://img.shields.io/badge/🚀_View_Live_Demo-Click_Here_to_Experience_Talk2Task_AI-5D0EC0?style=for-the-badge" alt="View Live Demo" height="50" />
   </a>
   
   <br />
